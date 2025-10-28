@@ -1,0 +1,7 @@
+@include('web.layouts.header')
+@include('web.layouts.navbar')
+@include('web.content.head')
+@include('web.content.features')
+@include('web.content.work')
+@include('web.content.tech')
+@include('web.layouts.footer')
