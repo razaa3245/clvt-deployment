@@ -1,171 +1,117 @@
-@include('web.layouts.header')
-@include('web.layouts.navbar')
-
 <!DOCTYPE html>
-<html lang="en-US">
+
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>About Us</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background: #e8f4fb; }
-    .elementor-background-overlay {
-      background: linear-gradient(135deg, #d0e8ff, #a8d0ff);
-      position: absolute; width: 100%; height: 100%; z-index: 0; top: 0; left: 0;}
-    .elementor-container {
-      max-width: 1200px; margin: 0 auto;
-      position: relative; z-index: 1; padding: 80px 20px 0 20px;
-    }
-    .section-title { font-size: 48px; font-weight: 800; color: #1e293b; margin-bottom: 10px; text-align: center; }
-    .section-desc { color: #64748b; font-size: 18px; text-align: center; margin-bottom: 60px; }
-    /* About Card Section */
-    .about-section {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 60px;
-    }
-    .about-card {
-      background: #fff; border-radius: 20px; box-shadow: 0 8px 30px rgba(30,40,55,0.10);
-      padding: 30px 28px; flex: 1 1 300px; min-width: 290px; max-width: 380px;
-    }
-    .about-card h2 { font-size: 24px; color: #1e40af; margin-bottom: 12px;}
-    .about-card p { color: #475569; font-size: 16px; line-height: 1.6;}
-    /* Trusted By Section */
-    .trusted-section { text-align: center; margin: 40px 0; }
-    .trusted-section h2 { color:#1e40af; font-size: 28px; margin-bottom: 18px;}
-    .trusted-logos {
-      display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;
-    }
-    .trusted-logos img {
-      height: 40px; background: #f4f8fb; border-radius: 8px; padding: 6px;
-    }
-    /* Feature/Progress Section */
-    .ar-feature-section {
-      background: #f9fafd; border-radius: 26px; margin: 56px auto;
-      padding: 42px 10% 40px 10%; box-shadow: 0 6px 32px rgba(44,62,80,.09); max-width: 1100px;
-    }
-    .ar-feature-flex {
-      display: flex; flex-wrap: wrap; gap: 44px; align-items: center; justify-content: space-between;
-    }
-    .ar-feature-illustration {
-      flex: 1 1 290px; min-width: 260px; max-width: 380px;
-    }
-    .ar-feature-illustration img {
-      width: 100%; border-radius: 24px;
-    }
-    .ar-feature-content {
-      flex: 2 1 400px; min-width: 320px;
-    }
-    .ar-feature-content h2 {
-      color: #16233d; font-size: 2rem; font-weight: 700; margin-bottom: 14px;
-    }
-    .ar-feature-content p {
-      color: #5a6d8f; font-size: 17px;
-    }
-    .ar-feature-content ul {
-      color: #333852; font-size: 15px; margin: 20px 0 24px 0; padding-left: 1.2em;
-    }
-    .ar-feature-progress-title {
-      color: #1e266d; font-weight: 600; margin-bottom: 2px;
-    }
-    .ar-progress-label { font-size: 14px;}
-    .ar-progress-bar-outer {
-      background: #e9edfd; border-radius: 8px; overflow: hidden; margin: 2px 0;
-    }
-    .ar-progress-bar-inner-blue {
-      height: 8px; background: linear-gradient(90deg, #305fff 60%, #4ac6f9 100%);
-    }
-    .ar-progress-bar-outer-pink { background: #fce4ec; }
-    .ar-progress-bar-inner-pink {
-      height: 8px; background: linear-gradient(90deg, #e50057 60%, #ffa8b2 100%);
-    }
-    @media (max-width: 900px){
-      .about-section, .ar-feature-flex { flex-direction: column; align-items: center; }
-      .about-card, .ar-feature-illustration, .ar-feature-content { max-width: 97vw; }
-    }
-  </style>
+  <title>About Us | VirtualLens</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <!-- Gradient background overlay -->
-  <div class="elementor-background-overlay"></div>
-  <div class="elementor-container">
-    <!-- Page Title -->
-    <h1 class="section-title">About Us</h1>
-    <p class="section-desc">
-      Empowering retailers with advanced AR and virtual try-on technology for a seamless, modern shopping experience.
+
+<body class="bg-gradient-to-tr from-cyan-500 via-blue-700 to-purple-800 text-white font-poppins min-h-screen overflow-x-hidden relative">
+
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+  <main class="relative z-10 max-w-7xl mx-auto px-6 py-20">
+
+<!-- Title -->
+<div class="text-center mb-20">
+  <h1 class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">About Us</h1>
+  <p class="mt-4 text-lg text-gray-200 max-w-2xl mx-auto">
+    Empowering retailers with futuristic AR and AI technologies for next-gen eyewear experiences.
+  </p>
+</div>
+
+<!-- About Cards -->
+<div class="grid md:grid-cols-3 gap-10">
+  <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all duration-500">
+    <h2 class="text-2xl font-bold mb-4 text-cyan-300">Our Vision</h2>
+    <p class="text-gray-200 leading-relaxed">
+      Redefine eyewear shopping by blending real and virtual worlds through immersive AR experiences.
     </p>
-    <!-- Our Vision / Mission / Why Section -->
-    <div class="about-section">
-      <div class="about-card">
-        <h2>Our Vision</h2>
-        <p>
-          Transform eyewear shopping by merging the best of real-world and digital experiences through next-generation AR solutions.
-        </p>
-      </div>
-      <div class="about-card">
-        <h2>Our Mission</h2>
-        <p>
-          Deliver powerful, intuitive, and accessible virtual try-on tools that enable retailers and customers to connect, engage, and discover with confidence.
-        </p>
-      </div>
-      <div class="about-card">
-        <h2>Why Choose Us?</h2>
-        <p>
-          Fast, simple integration, instant AR try-on via QR code, and trusted by leading stores across the region.
-        </p>
+  </div>
+
+  <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all duration-500">
+    <h2 class="text-2xl font-bold mb-4 text-blue-400">Our Mission</h2>
+    <p class="text-gray-200 leading-relaxed">
+      Build a seamless, intelligent platform that connects customers and retailers through AR try-ons.
+    </p>
+  </div>
+
+  <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all duration-500">
+    <h2 class="text-2xl font-bold mb-4 text-purple-400">Why Choose Us?</h2>
+    <p class="text-gray-200 leading-relaxed">
+      Trusted by top optical brands — fast, secure, and elegant AR integration with stunning visuals.
+    </p>
+  </div>
+</div>
+
+<!-- Trusted By -->
+<div class="mt-20 text-center">
+  <h2 class="text-3xl font-bold text-cyan-400 mb-6">Trusted By</h2>
+  <div class="flex flex-wrap justify-center gap-10">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" class="w-24 opacity-80 hover:opacity-100 transition" alt="Nike">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Apple_logo_black.svg" class="w-16 opacity-80 hover:opacity-100 transition" alt="Apple">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" class="w-24 opacity-80 hover:opacity-100 transition" alt="Microsoft">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Google_2015_logo.svg" class="w-28 opacity-80 hover:opacity-100 transition" alt="Google">
+  </div>
+</div>
+
+<!-- AR Feature -->
+<section class="mt-24 grid md:grid-cols-2 gap-16 items-center">
+  <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8 shadow-lg hover:scale-105 transition-all duration-500">
+    <h2 class="text-3xl font-bold mb-4 text-blue-400">Immersive AR Experience</h2>
+    <p class="text-gray-200 mb-6 leading-relaxed">
+      Our proprietary AR technology lets users virtually try lenses in real time — accurate, fast, and app-free. 
+      Customers can instantly preview eyewear and share their look with one tap.
+    </p>
+    <ul class="text-gray-300 space-y-3">
+      <li>⚡ Real-time rendering with precision tracking</li>
+      <li>📱 Mobile-first try-on experience</li>
+      <li>🧠 AI-powered face adaptation</li>
+      <li>🚀 Fast QR scan-to-try integration</li>
+    </ul>
+  </div>
+  <div class="relative">
+    <img src="{{ asset('images/img1.jpeg') }}" height="370" width="770"
+         alt="AR Illustration" 
+         class="rounded-3xl border border-cyan-400/30 shadow-lg hover:scale-105 transition-transform duration-700">
+  </div>
+</section>
+
+<!-- Team Section -->
+<section class="mt-32 text-center">
+  <h2 class="text-4xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Meet the Team</h2>
+  <p class="text-gray-300 mb-12">The creators behind VirtualLens — where vision meets innovation.</p>
+
+  <div class="grid md:grid-cols-3 gap-10 justify-items-center">
+    <div class="relative group w-72 h-96 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg hover:scale-105 transition-all duration-500">
+      <img src="public/images/image.jpg" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition" alt="Team Member">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6">
+        <h3 class="text-xl font-bold text-cyan-300">Syed Hunain Ahmed</h3>
+        <p class="text-gray-300 text-sm">Lead AR Engineer</p>
       </div>
     </div>
-    <!-- Trusted By Section -->
-    <div class="trusted-section">
-      <h2>Trusted By</h2>
-      <div class="trusted-logos">
-        <img src="logo1.svg" alt="Brand 1">
-        <img src="logo2.svg" alt="Brand 2">
-        <img src="logo3.svg" alt="Brand 3">
-        <img src="logo4.svg" alt="Brand 4">
+
+    <div class="relative group w-72 h-96 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg hover:scale-105 transition-all duration-500">
+      <img src="https://images.unsplash.com/photo-1544725176-7c40e5a2c9f9" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition" alt="Team Member">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6">
+        <h3 class="text-xl font-bold text-blue-300">Muhammad Shoaib Akhtar</h3>
+        <p class="text-gray-300 text-sm">Frontend  Designer</p>
+      </div>
+    </div>
+
+    <div class="relative group w-72 h-96 rounded-3xl overflow-hidden bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg hover:scale-105 transition-all duration-500">
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition" alt="Team Member">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6">
+        <h3 class="text-xl font-bold text-purple-300">Muhammad Ahmed Raza</h3>
+        <p class="text-gray-300 text-sm">AI/Computer Vision Specialist</p>
       </div>
     </div>
   </div>
-  <!-- AR Feature and Progress Section -->
-  <section class="ar-feature-section">
-    <div class="ar-feature-flex">
-      <!-- Left Illustration (change src to your asset if desired) -->
-      <div class="ar-feature-illustration">
-        <img src="https://static.vecteezy.com/system/resources/previews/003/099/226/large_2x/augmented-reality-virtual-wear-glasses-using-ar-technology-app-user-experience-cartoon-scene-flat-illustration-vector.jpg" alt="Virtual Try-On Visual">
-      </div>
-      <!-- Right Content -->
-      <div class="ar-feature-content">
-        <h2>Experience Seamless AR Try-On</h2>
-        <p>
-          Leverage state-of-the-art computer vision to let your customers try-on eyewear and lenses instantly from any device—no app install required, no technical hurdles. Just scan, try, and enjoy!
-        </p>
-        <ul>
-          <li>Real-time AR eyewear and contact lens rendering</li>
-          <li>Shop QR codes for fast device access</li>
-          <li>Intuitive experience on all camera-enabled devices</li>
-          <li>No external SDKs—proprietary, lightning-fast computer vision</li>
-        </ul>
-        <div style="margin-top: 22px;">
-          <p class="ar-feature-progress-title">Integration Progress</p>
-          <div style="margin-bottom: 8px;">
-            <span class="ar-progress-label">Webcam-Based Try-On</span>
-            <div class="ar-progress-bar-outer">
-              <div class="ar-progress-bar-inner-blue" style="width: 92%;"></div>
-            </div>
-          </div>
-          <div style="margin-bottom: 8px;">
-            <span class="ar-progress-label">Shop Dashboard Tools</span>
-            <div class="ar-progress-bar-outer">
-              <div class="ar-progress-bar-inner-blue" style="width: 75%;"></div>
-            </div>
-          </div>
-          <div style="margin-bottom: 8px;">
-            <span class="ar-progress-label">Smart Lens/Glasses Fitting</span>
-            <div class="ar-progress-bar-outer ar-progress-bar-outer-pink">
-              <div class="ar-progress-bar-inner-pink" style="width: 60%;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+</section>
+
+
+  </main>
 </body>
 </html>

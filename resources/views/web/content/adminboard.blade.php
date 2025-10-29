@@ -1,27 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VirtualLens Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @keyframes glowBorder {
-      0% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-      50% { box-shadow: 0 0 25px #00ffff, 0 0 45px #007bff; }
-      100% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-    }
-    .neon-hover:hover {
-      animation: glowBorder 2s infinite alternate;
-    }
-  </style>
 </head>
 
 <body class="bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] min-h-screen font-sans text-gray-100 selection:bg-cyan-500/30">
 
   <!-- NAVBAR -->
-
   <header class="backdrop-blur-xl bg-white/5 border-b border-cyan-500/20 px-10 py-5 flex justify-between items-center shadow-lg sticky top-0 z-50">
     <div class="flex items-center gap-3">
       <img src="https://cdn-icons-png.flaticon.com/512/7391/7391510.png" alt="Logo" class="w-10 h-10 drop-shadow-md">
@@ -33,53 +21,49 @@
   </header>
 
   <!-- MAIN CONTENT -->
-
   <main class="p-10">
 
-```
-<!-- DASHBOARD STATS -->
-<section class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-  <div class="bg-gradient-to-br from-cyan-900/40 to-blue-900/20 border border-cyan-500/30 backdrop-blur-2xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.03] hover:shadow-cyan-400/40 transition-all">
-    <div>
-      <p class="text-cyan-300 text-sm font-medium">Total Shops</p>
-      <h2 class="text-4xl font-extrabold mt-1 text-white">523</h2>
-    </div>
-    <div class="text-4xl">🏪</div>
-  </div>
+    <!-- DASHBOARD STATS -->
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      <div class="bg-gradient-to-br from-cyan-900/40 to-blue-900/20 border border-cyan-500/30 backdrop-blur-xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.02] hover:shadow-cyan-500/20 transition-all">
+        <div>
+          <p class="text-cyan-300 text-sm font-medium">Total Shops</p>
+          <h2 class="text-4xl font-extrabold mt-1 text-white">523</h2>
+        </div>
+        <div class="text-4xl">🏪</div>
+      </div>
 
-  <div class="bg-gradient-to-br from-indigo-900/40 to-blue-900/20 border border-indigo-400/30 backdrop-blur-2xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.03] hover:shadow-indigo-400/40 transition-all">
-    <div>
-      <p class="text-indigo-300 text-sm font-medium">Active Users</p>
-      <h2 class="text-4xl font-extrabold mt-1 text-white">12,456</h2>
-    </div>
-    <div class="text-4xl">👥</div>
-  </div>
+      <div class="bg-gradient-to-br from-indigo-900/40 to-blue-900/20 border border-indigo-400/30 backdrop-blur-xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.02] hover:shadow-indigo-400/20 transition-all">
+        <div>
+          <p class="text-indigo-300 text-sm font-medium">Active Users</p>
+          <h2 class="text-4xl font-extrabold mt-1 text-white">12,456</h2>
+        </div>
+        <div class="text-4xl">👥</div>
+      </div>
 
-  <div class="bg-gradient-to-br from-blue-900/40 to-cyan-800/30 border border-blue-500/30 backdrop-blur-2xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.03] hover:shadow-blue-500/40 transition-all">
-    <div>
-      <p class="text-blue-300 text-sm font-medium">Lens Catalog</p>
-      <h2 class="text-4xl font-extrabold mt-1 text-white">156</h2>
-    </div>
-    <div class="text-4xl">📦</div>
-  </div>
+      <div class="bg-gradient-to-br from-blue-900/40 to-cyan-800/30 border border-blue-500/30 backdrop-blur-xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.02] hover:shadow-blue-500/20 transition-all">
+        <div>
+          <p class="text-blue-300 text-sm font-medium">Lens Catalog</p>
+          <h2 class="text-4xl font-extrabold mt-1 text-white">156</h2>
+        </div>
+        <div class="text-4xl">📦</div>
+      </div>
 
-  <div class="bg-gradient-to-br from-purple-900/40 to-cyan-900/20 border border-purple-400/30 backdrop-blur-2xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.03] hover:shadow-purple-400/40 transition-all">
-    <div>
-      <p class="text-purple-300 text-sm font-medium">Monthly Revenue</p>
-      <h2 class="text-4xl font-extrabold mt-1 text-white">$45.2K</h2>
-    </div>
-    <div class="text-4xl">💰</div>
-  </div>
-</section>
+      <div class="bg-gradient-to-br from-purple-900/40 to-cyan-900/20 border border-purple-400/30 backdrop-blur-xl rounded-2xl p-6 flex justify-between items-center shadow-lg hover:scale-[1.02] hover:shadow-purple-400/20 transition-all">
+        <div>
+          <p class="text-purple-300 text-sm font-medium">Monthly Revenue</p>
+          <h2 class="text-4xl font-extrabold mt-1 text-white">$45.2K</h2>
+        </div>
+        <div class="text-4xl">💰</div>
+      </div>
+    </section>
 
-<!-- MANAGEMENT PANELS -->
-<section class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-7xl mx-auto">
+    <!-- MANAGEMENT PANELS -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-7xl mx-auto">
 
-  <!-- SHOP MANAGEMENT -->
-  <div class="relative bg-gradient-to-br from-[#0f172a]/60 via-[#1e293b]/40 to-[#0f172a]/60 border border-cyan-500/20 backdrop-blur-2xl rounded-3xl p-8 shadow-2xl neon-hover transition-all duration-500 hover:scale-[1.02] overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-transparent animate-pulse opacity-0 hover:opacity-100 transition-all"></div>
-
-    <h2 class="text-2xl font-bold mb-2 flex items-center gap-2">🏪 Shop Management</h2>
+      <!-- SHOP MANAGEMENT -->
+      <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-8 shadow-2xl transition duration-300 hover:shadow-cyan-500/10 relative overflow-hidden group">
+        <h2 class="text-2xl font-bold mb-2 flex items-center gap-2">🏪 Shop Management</h2>
         <p class="text-gray-400 mb-6">Manage and monitor registered optical shops</p>
 
         <!-- Search -->
@@ -121,13 +105,11 @@
             </button>
           </div>
         </div>
-  </div>
+      </div>
 
-  <!-- MASTER LENS CATALOG -->
-  <div class="relative bg-gradient-to-br from-[#0f172a]/60 via-[#1e293b]/40 to-[#0f172a]/60 border border-blue-500/20 backdrop-blur-2xl rounded-3xl p-8 shadow-2xl neon-hover transition-all duration-500 hover:scale-[1.02] overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-tr from-blue-400/10 via-transparent to-transparent animate-pulse opacity-0 hover:opacity-100 transition-all"></div>
-
-    <h2 class="text-2xl font-bold mb-2 flex items-center gap-2">👁️ Master Lens Catalog</h2>
+      <!-- MASTER LENS CATALOG -->
+      <div class="rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl p-8 shadow-2xl transition duration-300 hover:shadow-cyan-500/10 relative overflow-hidden group">
+        <h2 class="text-2xl font-bold mb-2 flex items-center gap-2">👁️ Master Lens Catalog</h2>
         <p class="text-gray-400 mb-6">Add and manage lenses available across all shops</p>
 
         <!-- Add New -->
@@ -162,10 +144,9 @@
             <button class="text-blue-400 font-semibold hover:text-cyan-300 transition-colors">Edit</button>
           </div>
         </div>
-  </div>
+      </div>
 
-</section>
-```
+    </section>
 
   </main>
 </body>

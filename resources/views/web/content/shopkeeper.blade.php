@@ -1,82 +1,108 @@
+<!DOCTYPE html>
 
-<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f7fb;">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VirtualLens | Access Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-sans bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-gray-100 min-h-screen">
 
   <!-- HEADER -->
 
-  <header style="padding: 20px 40px; background-color: #ffffff; border-bottom: 1px solid #e6e8ec; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10;">
-    <div style="font-size: 26px; font-weight: bold; color: #007bff; letter-spacing: 0.5px;">VirtualLens</div>
-    <nav style="display: flex; gap: 25px;">
-      <a href="#" style="text-decoration: none; color: #333; font-size: 15px;" onmouseover="this.style.color='#007bff'" onmouseout="this.style.color='#333'">My Optical Shop</a>
-      <a href="#" style="text-decoration: none; color: #dc3545; font-size: 15px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Logout</a>
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-900/60 to-indigo-900/40 backdrop-blur-xl border-b border-indigo-600/40 shadow-md flex justify-between items-center px-10 py-4">
+    <div class="flex items-center gap-3">
+      <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
+      <h1 class="text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">VirtualLens</h1>
+    </div>
+    <nav class="flex gap-8 text-sm font-medium">
+      <a href="#" class="hover:text-cyan-300 transition">My Optical Shop</a>
+      <a href="#" class="text-red-400 hover:text-red-300 transition">Logout</a>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
 
-  <main style="padding: 40px; max-width: 1250px; margin: auto;">
+  <main class="max-w-7xl mx-auto px-8 py-14">
 
-<!-- STATS CARDS -->
-<div style="display: flex; flex-wrap: wrap; gap: 25px; margin-bottom: 40px;">
+<!-- STATS SECTION -->
+<div class="grid md:grid-cols-2 gap-8 mb-10">
   
-  <!-- CARD -->
-  <div style="flex: 1 1 250px; background-color: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: 0.3s;" 
-       onmouseover="this.style.boxShadow='0 6px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)'">
-    <div style="font-size: 15px; color: #6c757d; margin-bottom: 10px;">Total Try Ons</div>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <span style="font-size: 36px; font-weight: bold; color: #333;">1,247</span>
-      <div style="font-size: 22px;">📈</div>
+  <div class="bg-gradient-to-br from-blue-700/30 to-cyan-800/30 rounded-2xl p-8 border border-cyan-500/30 shadow-xl hover:shadow-cyan-500/20 transition-all duration-300 relative overflow-hidden group">
+    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+    <p class="text-sm text-gray-400 mb-2">Total Try-Ons</p>
+    <div class="flex justify-between items-center">
+      <h2 class="text-5xl font-extrabold text-white tracking-tight">1,247</h2>
+      <span class="text-3xl">📈</span>
     </div>
-    <div style="font-size: 13px; color: #28a745; margin-top: 6px;">+12% from last month</div>
+    <p class="text-green-400 text-xs mt-2 font-semibold">+12% from last month</p>
+  </div>
+
+  <div class="bg-gradient-to-br from-indigo-700/30 to-blue-800/30 rounded-2xl p-8 border border-indigo-500/30 shadow-xl hover:shadow-indigo-500/20 transition-all duration-300 relative overflow-hidden group">
+    <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+    <p class="text-sm text-gray-400 mb-2">Subscription</p>
+    <h2 class="text-2xl font-semibold text-white">Pro Plan</h2>
+    <p class="text-cyan-300 text-sm mt-1">124 days remaining</p>
   </div>
 
 </div>
 
- <div style="flex: 1 1 250px; background-color: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border-left: 6px solid #007bff; transition: 0.3s;" 
-       onmouseover="this.style.boxShadow='0 6px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)'">
-    <div style="font-size: 15px; color: #6c757d; margin-bottom: 10px;">Subscription</div>
-    <div style="font-size: 26px; font-weight: bold; color: #333;">Pro Plan</div>
-    <div style="font-size: 13px; color: #007bff; margin-top: 6px;">124 days remaining</div>
-  </div>
+<!-- MAIN CONTENT -->
+<div class="grid lg:grid-cols-2 gap-10">
+  
+  <!-- QR CODE CARD -->
+  <div class="bg-gradient-to-br from-slate-800/60 to-slate-900/40 rounded-3xl p-10 border border-blue-600/30 shadow-xl hover:shadow-blue-500/20 transition-all duration-300">
+    <h3 class="text-xl font-bold flex items-center gap-2 mb-3">📱 Your Shop’s QR Code</h3>
+    <p class="text-gray-400 text-sm mb-6">Display this futuristic QR code for instant lens access.</p>
 
-<!-- LOWER SECTION -->
-<div style="display: flex; flex-wrap: wrap; gap: 25px;">
+    <div class="flex flex-col items-center my-6">
+      <div class="w-52 h-52 border border-dashed border-cyan-400 flex items-center justify-center rounded-2xl bg-gradient-to-br from-blue-950/50 to-cyan-950/20 backdrop-blur-sm shadow-inner hover:scale-105 transition-all">
+        <span class="text-cyan-300 text-sm tracking-wide">QR CODE</span>
+      </div>
+      <p class="text-gray-500 text-xs mt-3">Scan to view lens catalogue</p>
+    </div>
 
-  <!-- QR CARD -->
-  <div style="flex: 2 1 500px; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition:0.3s;"
-       onmouseover="this.style.boxShadow='0 6px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)'">
-    <div style="font-size: 18px; font-weight: bold; color: #333; margin-bottom: 10px;">📱 Your Shop's QR Code</div>
-    <p style="font-size: 14px; color: #6c757d;">Display this QR code in your shop for customers to scan.</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <div style="width: 200px; height: 200px; border: 1px solid #ddd; padding: 10px; margin: auto;">QR CODE</div>
-      <p style="font-size: 13px; color: #6c757d; margin-top: 10px;">Scan to view lens catalogue</p>
+    <div class="flex gap-5 mt-5">
+      <button class="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold py-2.5 rounded-lg shadow-md hover:scale-[1.03] hover:shadow-cyan-500/30 transition-all">
+        ⬇️ Download QR
+      </button>
+      <button class="flex-1 border border-cyan-400 text-cyan-300 font-semibold py-2.5 rounded-lg hover:bg-cyan-950/20 transition-all">
+        Copy Link
+      </button>
     </div>
-    <div style="display: flex; gap: 10px;">
-      <button style="flex:1; padding:12px; border:none; border-radius:6px; background-color:#007bff; color:white; font-weight:bold; cursor:pointer;"
-              onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007bff'">⬇️ Download QR</button>
-      <button style="flex:1; padding:12px; border:1px solid #007bff; border-radius:6px; background-color:#fff; color:#007bff; font-weight:bold; cursor:pointer;"
-              onmouseover="this.style.backgroundColor='#e7f1ff'" onmouseout="this.style.backgroundColor='#fff'">Copy Link</button>
-    </div>
-    <p style="font-size: 13px; color: #6c757d; margin-top: 15px;">Catalogue URL: <span style="color:#007bff;">https://example.com/catalogue</span></p>
+
+    <p class="text-gray-400 text-sm mt-6">Catalogue URL:
+      <a href="#" class="text-cyan-400 hover:underline ml-1">https://virtual-lens.io/catalogue</a>
+    </p>
   </div>
 
   <!-- SIDE PANEL -->
-  <div style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 25px;">
-
+  <div class="flex flex-col gap-6">
+    
     <!-- Quick Actions -->
-    <div style="background-color:#fff; padding:25px; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.05); transition:0.3s;"
-         onmouseover="this.style.boxShadow='0 6px 16px rgba(0,0,0,0.1)'" onmouseout="this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)'">
-      <div style="font-size:17px; font-weight:bold; margin-bottom:10px; color:#333;">⚡ Quick Actions</div>
-      <p style="font-size:14px; color:#6c757d;">Manage your shop and lens catalog easily.</p>
-      <div style="margin-top:10px;">
-        <div style="padding:10px 0; border-bottom:1px solid #eee; color:#007bff; font-size:14px; cursor:pointer;"
-             onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#007bff'">👁️ Preview Try-On Experience</div>
-       
-        <div style="padding:10px 0; color:#007bff; font-size:14px; cursor:pointer;"
-             onmouseover="this.style.color='#0056b3'" onmouseout="this.style.color='#007bff'">⬆️ Upgrade Plan</div>
+    <div class="bg-gradient-to-br from-slate-800/60 to-slate-900/40 rounded-3xl p-8 border border-cyan-500/30 shadow-xl hover:shadow-cyan-500/20 transition-all duration-300">
+      <h3 class="text-xl font-bold mb-3 flex items-center gap-2">⚡ Quick Actions</h3>
+      <p class="text-gray-400 text-sm mb-5">Manage your shop, upgrade plans, or preview the lens try-on in one click.</p>
+
+      <div class="divide-y divide-gray-700/60">
+        <button class="w-full text-left py-3 text-cyan-400 hover:text-cyan-200 transition font-medium text-sm flex items-center gap-2">👁️ Preview Try-On Experience</button>
+        <button class="w-full text-left py-3 text-cyan-400 hover:text-cyan-200 transition font-medium text-sm flex items-center gap-2">⬆️ Upgrade Plan</button>
       </div>
     </div>
 
-    
+    <!-- AI Insights -->
+    <div class="bg-gradient-to-br from-blue-800/40 to-cyan-900/40 rounded-3xl p-8 border border-blue-500/30 shadow-xl hover:shadow-blue-500/20 transition-all duration-300">
+      <h3 class="text-xl font-bold mb-3 flex items-center gap-2">🤖 AI Insights</h3>
+      <p class="text-gray-400 text-sm mb-5">Your users prefer <span class="text-cyan-300 font-semibold">Sky Blue</span> and <span class="text-cyan-300 font-semibold">Hazel</span> lenses. Try promoting those next week!</p>
+      <button class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-2.5 px-6 rounded-lg hover:scale-105 transition-all font-semibold shadow-lg">Generate New Insights</button>
+    </div>
+  </div>
+
+</div>
+
 
   </main>
-
+</body>
+</html>

@@ -21,3 +21,6 @@ Route::get('/shopkeeper.blade.php', function () {
 Route::get('/features.blade.php', function () {
     return view('web/content/feature');
 });
+Route::get('/adminboard.blade.php', function () {
+    return view('web/content/adminboard');
+});

@@ -1,93 +1,82 @@
-<body class="m-0 p-0 font-sans bg-[#f5f9ff] min-h-screen flex items-center justify-center">
+<!DOCTYPE html>
 
-  <div class="bg-white w-[400px] rounded-xl shadow-xl px-8 py-10 text-center">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VirtualLens | Access Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="m-0 p-4 font-sans bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#334155] min-h-screen flex items-center justify-center overflow-y-auto">
+
+  <div class="bg-white/10 backdrop-blur-xl border border-white/20 w-[420px] rounded-2xl shadow-2xl p-8 text-center transition-all duration-300 mt-6 mb-6">
     <!-- Logo -->
-    <div class="mb-5">
-      <img src="https://cdn-icons-png.flaticon.com/512/709/709682.png" alt="VirtualLens Logo" width="60" class="rounded-xl mx-auto">
+    <div class="mb-6">
+      <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" alt="VirtualLens Logo" width="70" class="rounded-xl mx-auto shadow-lg">
     </div>
 
-    <h2 class="text-gray-800 my-2 text-2xl font-semibold">Welcome to VirtualLens</h2>
-    <p class="text-gray-500 mb-6">Manage your optical shop with ease</p>
 
-    <!-- Toggle Buttons -->
-    <div class="flex justify-between mb-6 bg-gray-100 rounded-lg p-1.5">
-      <button id="loginBtn" onclick="showForm('login')"
-        class="w-[48%] bg-white font-semibold text-gray-800 py-2 rounded-md shadow transition"
-      >
-        Login
-      </button>
-      <button id="signupBtn" onclick="showForm('signup')"
-        class="w-[48%] bg-transparent font-semibold text-gray-500 py-2 rounded-md transition"
-      >
-        Sign Up
-      </button>
-    </div>
+<h2 class="text-white text-3xl font-semibold mb-2 tracking-wide">VirtualLens</h2>
+<p class="text-gray-300 mb-6 text-sm">Experience next-gen optical management</p>
 
-    <!-- Login Form -->
-    <form id="loginForm" class="block">
-      <label for="email" class="block text-left text-sm text-gray-600">Email</label>
-      <input type="email" id="email" name="email" placeholder="shop@example.com"
-        class="w-full py-2 px-3 mt-1 mb-4 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200"
-      >
+<!-- Toggle Buttons -->
+<div class="flex justify-between mb-6 bg-white/10 rounded-lg p-1 backdrop-blur-lg border border-white/20">
+  <button id="loginBtn" onclick="showForm('login')"
+    class="w-[48%] bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold py-2 rounded-md shadow-md transition-all duration-300 hover:scale-105">
+    Login
+  </button>
+  <button id="signupBtn" onclick="showForm('signup')"
+    class="w-[48%] text-gray-300 font-semibold py-2 rounded-md transition-all duration-300 hover:bg-white/10 hover:text-white">
+    Sign Up
+  </button>
+</div>
 
-      <label for="password" class="block text-left text-sm text-gray-600">Password</label>
-      <input type="password" id="password" name="password" placeholder="********"
-        class="w-full py-2 px-3 mt-1 mb-5 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200"
-      >
+<!-- Login Form -->
+<form id="loginForm" class="block">
+  <input type="email" id="email" placeholder="Email"
+    class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <input type="password" id="password" placeholder="Password"
+    class="w-full py-3 px-4 mb-6 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <button type="submit"
+    class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold rounded-md cursor-pointer text-base transition duration-300 hover:scale-105 hover:shadow-lg">
+    Sign In
+  </button>
+  <div class="mt-4">
+    <a href="#" class="text-xs text-cyan-400 hover:underline">Forgot password?</a>
+  </div>
+</form>
 
-      <button type="submit"
-        class="w-full py-2 bg-gradient-to-r from-blue-600 to-cyan-400 border-none text-white font-semibold rounded-md cursor-pointer text-base transition">
-        Sign In
-      </button>
+<!-- Sign Up Form -->
+<form id="signupForm" class="hidden">
+  <input type="text" id="name" placeholder="Full Name"
+    class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <input type="text" id="shopname" placeholder="Shop Name"
+    class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <input type="text" id="retailer" placeholder="Retailer Name"
+    class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <textarea id="address" placeholder="Address" rows="2"
+    class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border border-transparent resize-none focus:border-blue-400 outline-none transition duration-300"></textarea>
+  <input type="tel" id="phone" placeholder="Phone Number"
+    class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <input type="email" id="email2" placeholder="Email"
+    class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <input type="password" id="password2" placeholder="Password"
+    class="w-full py-3 px-4 mb-6 text-sm text-gray-900 rounded-md border border-transparent focus:border-blue-400 outline-none transition duration-300">
+  <button type="submit"
+    class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold rounded-md cursor-pointer text-base transition duration-300 hover:scale-105 hover:shadow-lg">
+    Sign Up
+  </button>
 
-      <div class="mt-4">
-        <a href="#" class="text-xs text-blue-600 hover:underline">Forgot password?</a>
-      </div>
-    </form>
+  <div class="mt-4">
+    <a href="#" onclick="showForm('login')" class="text-xs text-cyan-400 hover:underline">Already have an account? Login</a>
+  </div>
+</form>
 
-    <!-- Sign Up Form -->
-    <form id="signupForm" class="hidden">
-      <label for="name" class="block text-left text-sm text-gray-600">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="John Doe"
-        class="w-full py-2 px-3 mt-1 mb-4 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200">
+<div class="mt-6">
+  <a href="#" class="text-xs text-gray-400 hover:text-cyan-400 transition">← Back to home</a>
+</div>
 
-      <label for="shopname" class="block text-left text-sm text-gray-600">Shop Name</label>
-      <input type="text" id="shopname" name="shopname" placeholder="Virtual Lens Optics"
-        class="w-full py-2 px-3 mt-1 mb-4 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200">
 
-      <label for="retailer" class="block text-left text-sm text-gray-600">Retailer Name (Person)</label>
-      <input type="text" id="retailer" name="retailer" placeholder="Ali Khan"
-        class="w-full py-2 px-3 mt-1 mb-4 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200">
-
-      <label for="address" class="block text-left text-sm text-gray-600">Address</label>
-      <textarea id="address" name="address" placeholder="Shop #12, Main Market, Lahore" rows="2"
-        class="w-full py-2 px-3 mt-1 mb-4 border border-gray-300 rounded-md text-sm outline-none resize-none focus:ring-2 focus:ring-blue-200"></textarea>
-
-      <label for="phone" class="block text-left text-sm text-gray-600">Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="+92 300 1234567"
-        class="w-full py-2 px-3 mt-1 mb-4 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200">
-
-      <label for="email2" class="block text-left text-sm text-gray-600">Email</label>
-      <input type="email" id="email2" name="email" placeholder="shop@example.com"
-        class="w-full py-2 px-3 mt-1 mb-4 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200">
-
-      <label for="password2" class="block text-left text-sm text-gray-600">Password</label>
-      <input type="password" id="password2" name="password" placeholder="********"
-        class="w-full py-2 px-3 mt-1 mb-5 border border-gray-300 rounded-md text-sm outline-none focus:ring-2 focus:ring-blue-200">
-
-      <button type="submit"
-        class="w-full py-2 bg-gradient-to-r from-blue-600 to-cyan-400 border-none text-white font-semibold rounded-md cursor-pointer text-base transition">
-        Sign Up
-      </button>
-
-      <div class="mt-4">
-        <a href="#" onclick="showForm('login')" class="text-xs text-blue-600 hover:underline">Already have an account? Login</a>
-      </div>
-    </form>
-
-    <div class="mt-6">
-      <a href="#" class="text-xs text-gray-400 hover:underline">← Back to home</a>
-    </div>
   </div>
 
   <script>
@@ -100,18 +89,20 @@
       if (form === 'signup') {
         loginForm.classList.add('hidden');
         signupForm.classList.remove('hidden');
-        signupBtn.classList.add('bg-white', 'text-gray-800', 'shadow');
-        signupBtn.classList.remove('bg-transparent', 'text-gray-500');
-        loginBtn.classList.add('bg-transparent', 'text-gray-500');
-        loginBtn.classList.remove('bg-white', 'text-gray-800', 'shadow');
+        signupBtn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-cyan-400', 'text-white', 'shadow-md');
+        loginBtn.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-cyan-400', 'text-white', 'shadow-md');
+        loginBtn.classList.add('text-gray-300', 'hover:bg-white/10');
       } else {
-        loginForm.classList.remove('hidden');
         signupForm.classList.add('hidden');
-        loginBtn.classList.add('bg-white', 'text-gray-800', 'shadow');
-        loginBtn.classList.remove('bg-transparent', 'text-gray-500');
-        signupBtn.classList.add('bg-transparent', 'text-gray-500');
-        signupBtn.classList.remove('bg-white', 'text-gray-800', 'shadow');
+        loginForm.classList.remove('hidden');
+        loginBtn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-cyan-400', 'text-white', 'shadow-md');
+        signupBtn.classList.remove('bg-gradient-to-r', 'from-blue-600', 'to-cyan-400', 'text-white', 'shadow-md');
+        signupBtn.classList.add('text-gray-300', 'hover:bg-white/10');
       }
+      // Scroll back to top to prevent cutoff
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
+
 </body>
+</html>

@@ -54,7 +54,7 @@
            onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 12px 25px rgba(0,0,0,0.1)';"
            onmouseout="this.style.transform=''; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.05)';">
         <div class="card-icon" style="margin-bottom:15px;">
-          <a href="index-standalone.html" style="display:inline-block; color:#2563eb;">
+          <a href="adminboard.blade.php" style="display:inline-block; color:#2563eb;">
             <svg class="icon" viewBox="0 0 24 24" width="40" height="40" fill="none" 
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="8" cy="12" r="3"></circle>

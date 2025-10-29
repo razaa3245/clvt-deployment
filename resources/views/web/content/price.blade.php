@@ -1,98 +1,98 @@
 @include('web.layouts.header')
 @include('web.layouts.navbar')
 
-<body style="font-family: 'Segoe UI', sans-serif; background-color: #f8fbff; margin: 0; padding: 40px;">
+<body class="font-sans bg-gradient-to-br from-[#e8f0ff] via-[#f9fbff] to-[#e3f2fd] min-h-screen py-20">
 
-  <h1 style="text-align:center; font-size:28px; color:#333; margin-bottom:10px;">Simple, Transparent Pricing</h1>
-  <p style="text-align:center; font-size:16px; color:#666; margin-bottom:40px;">
-    Choose the plan that fits your optical shop’s needs. No hidden fees, cancel anytime.
-  </p>
+  <div class="text-center mb-16 mt-24">
+    <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight mb-3">Simple, Transparent Pricing</h1>
+    <p class="text-gray-600 text-lg">Choose the plan that fits your optical shop’s needs. No hidden fees, cancel anytime.</p>
+  </div>
 
-  <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:20px;">
+  <div class="flex justify-center flex-wrap gap-10 px-6">
 
 
-<!-- Basic Plan -->
-<div style="width:280px; background:#fff; border:2px solid #dce3f0; border-radius:10px; padding:25px; text-align:center; transition:all 0.3s ease; box-shadow:0 0 0 rgba(0,0,0,0);" 
-  onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.1)'; this.style.border='2px solid #007bff';" 
-  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 0 rgba(0,0,0,0)'; this.style.border='2px solid #dce3f0';">
+<!-- BASIC PLAN -->
+<div class="group relative w-80 bg-white/40 backdrop-blur-xl border border-blue-200 rounded-2xl p-8 shadow-lg hover:shadow-blue-200/60 hover:-translate-y-3 transition-all duration-500">
+  <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/50 to-blue-50/20 opacity-60 group-hover:opacity-80 transition-all duration-500"></div>
+  <div class="relative z-10 text-center">
+    <h2 class="text-2xl font-bold text-gray-800">Basic</h2>
+    <p class="text-4xl font-extrabold text-blue-600 mt-3">$29<span class="text-sm text-gray-500 font-medium"> / month</span></p>
+    <p class="text-gray-500 mt-2 mb-6">Perfect for small optical shops</p>
 
-  <h2 style="font-size:22px; color:#333;">Basic</h2>
-  <p style="font-size:26px; color:#007bff; margin:10px 0;">$29 <span style="font-size:14px; color:#777;">/ month</span></p>
-  <p style="color:#666; margin-bottom:20px;">Perfect for small optical shops</p>
-
-  <button style="background:#007bff; color:#fff; border:none; border-radius:6px; padding:10px 20px; font-weight:600; cursor:pointer; width:100%; transition:background 0.3s;"
-    onmouseover="this.style.background='#005fcc';" 
-    onmouseout="this.style.background='#007bff';">
     <a href="shopkeeper.blade.php">
-    Get Started</button>
+      <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2.5 rounded-lg font-semibold shadow-md hover:shadow-lg hover:from-indigo-600 hover:to-blue-600 transition-all duration-300">
+        Get Started
+      </button>
     </a>
-  <ul style="list-style:none; padding:0; text-align:left; margin-top:20px; color:#555; font-size:14px; line-height:1.8;">
-    <li>✔️ 1 month subscription</li>
-    <li>✔️ Virtual try-on for unlimited customers</li>
-    <li>✔️ Unique QR code</li>
-    <li>✔️ Basic dashboard access</li>
-    <li>✔️ Email support</li>
-    <li>✔️ Up to 50 lens SKUs</li>
-  </ul>
+
+    <ul class="mt-6 text-left text-gray-600 space-y-2 text-sm">
+      <li>✨ 1 month subscription</li>
+      <li>👁️ Virtual try-on for unlimited customers</li>
+      <li>🔗 Unique QR code</li>
+      <li>📊 Basic dashboard access</li>
+      <li>📧 Email support</li>
+      <li>🪞 Up to 50 lens SKUs</li>
+    </ul>
+  </div>
 </div>
 
-<!-- Pro Plan -->
-<div style="width:280px; background:#fff; border:2px solid #00bfff; border-radius:10px; padding:25px; text-align:center; position:relative; transition:all 0.3s ease;"
-  onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.15)'; this.style.border='2px solid #007bff';"
-  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 0 rgba(0,0,0,0)'; this.style.border='2px solid #00bfff';">
-
-  <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:linear-gradient(90deg, #007bff, #00d4ff); color:#fff; padding:4px 16px; border-radius:12px; font-size:12px; font-weight:600;">
+<!-- PRO PLAN -->
+<div class="group relative w-80 bg-gradient-to-br from-blue-50 via-white to-cyan-50 backdrop-blur-xl border border-cyan-300 rounded-2xl p-8 shadow-2xl hover:shadow-cyan-300/60 hover:-translate-y-4 transition-all duration-500">
+  <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 to-cyan-400 text-white text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md">
     Most Popular
   </div>
 
-  <h2 style="font-size:22px; color:#333; margin-top:20px;">Pro</h2>
-  <p style="font-size:26px; color:#007bff; margin:10px 0;">$149 <span style="font-size:14px; color:#777;">/ 6 months</span></p>
-  <p style="color:#666; margin-bottom:20px;">Most popular for growing businesses</p>
+  <div class="relative z-10 text-center">
+    <h2 class="text-2xl font-bold text-gray-800">Pro</h2>
+    <p class="text-4xl font-extrabold text-blue-600 mt-3">$149<span class="text-sm text-gray-500 font-medium"> / 6 months</span></p>
+    <p class="text-gray-500 mt-2 mb-6">Most popular for growing businesses</p>
 
-  <button style="background:linear-gradient(90deg, #007bff, #00d4ff); color:#fff; border:none; border-radius:6px; padding:10px 20px; font-weight:600; cursor:pointer; width:100%; transition:opacity 0.3s;"
-    onmouseover="this.style.opacity='0.8';" 
-    onmouseout="this.style.opacity='1';">Get Started</button>
+    <button class="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white py-2.5 rounded-lg font-semibold shadow-lg hover:shadow-cyan-400/60 transition-all duration-300">
+      Get Started
+    </button>
 
-  <ul style="list-style:none; padding:0; text-align:left; margin-top:20px; color:#555; font-size:14px; line-height:1.8;">
-    <li>✔️ 6 months subscription</li>
-    <li>✔️ Everything in Basic</li>
-    <li>✔️ Advanced analytics</li>
-    <li>✔️ Priority email support</li>
-    <li>✔️ Up to 200 lens SKUs</li>
-    <li>✔️ Custom branding options</li>
-  </ul>
+    <ul class="mt-6 text-left text-gray-600 space-y-2 text-sm">
+      <li>🚀 6 months subscription</li>
+      <li>📈 Everything in Basic</li>
+      <li>🧠 Advanced analytics</li>
+      <li>⚡ Priority email support</li>
+      <li>🎨 Custom branding options</li>
+      <li>💾 Up to 200 lens SKUs</li>
+    </ul>
+  </div>
+
+  <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-100/30 to-cyan-100/20 blur-3xl opacity-40 group-hover:opacity-70 transition-all duration-500"></div>
 </div>
 
-<!-- Pro Plus Plan -->
-<div style="width:280px; background:#fff; border:2px solid #dce3f0; border-radius:10px; padding:25px; text-align:center; transition:all 0.3s ease;"
-  onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.1)'; this.style.border='2px solid #007bff';"
-  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 0 rgba(0,0,0,0)'; this.style.border='2px solid #dce3f0';">
+<!-- PRO PLUS PLAN -->
+<div class="group relative w-80 bg-white/40 backdrop-blur-xl border border-gray-200 rounded-2xl p-8 shadow-lg hover:shadow-indigo-300/60 hover:-translate-y-3 transition-all duration-500">
+  <div class="relative z-10 text-center">
+    <h2 class="text-2xl font-bold text-gray-800">Pro Plus</h2>
+    <p class="text-4xl font-extrabold text-blue-600 mt-3">$249<span class="text-sm text-gray-500 font-medium"> / 12 months</span></p>
+    <p class="text-gray-500 mt-2 mb-6">Best value for established shops</p>
 
-  <h2 style="font-size:22px; color:#333;">Pro Plus</h2>
-  <p style="font-size:26px; color:#007bff; margin:10px 0;">$249 <span style="font-size:14px; color:#777;">/ 12 months</span></p>
-  <p style="color:#666; margin-bottom:20px;">Best value for established shops</p>
+    <button class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-2.5 rounded-lg font-semibold shadow-md hover:shadow-indigo-400/50 transition-all duration-300">
+      Get Started
+    </button>
 
-  <button style="background:#007bff; color:#fff; border:none; border-radius:6px; padding:10px 20px; font-weight:600; cursor:pointer; width:100%; transition:background 0.3s;"
-    onmouseover="this.style.background='#005fcc';" 
-    onmouseout="this.style.background='#007bff';">Get Started</button>
-
-  <ul style="list-style:none; padding:0; text-align:left; margin-top:20px; color:#555; font-size:14px; line-height:1.8;">
-    <li>✔️ 12 months subscription</li>
-    <li>✔️ Everything in Pro</li>
-    <li>✔️ Dedicated account manager</li>
-    <li>✔️ 24/7 priority support</li>
-    <li>✔️ Unlimited lens SKUs</li>
-    <li>✔️ Advanced customization</li>
-    <li>✔️ API access</li>
-  </ul>
+    <ul class="mt-6 text-left text-gray-600 space-y-2 text-sm">
+      <li>🌟 12 months subscription</li>
+      <li>💡 Everything in Pro</li>
+      <li>👤 Dedicated account manager</li>
+      <li>⏰ 24/7 priority support</li>
+      <li>🔓 Unlimited lens SKUs</li>
+      <li>🎯 Advanced customization</li>
+      <li>🔗 API access</li>
+    </ul>
+  </div>
 </div>
 
 
   </div>
 
-  <p style="text-align:center; margin-top:40px; font-size:14px; color:#777;">
-    All plans include a 14-day free trial. No credit card required.<br>
-    <a href="#" style="color:#007bff; text-decoration:none;">Need a custom plan for multiple locations? Contact our sales team</a>
-  </p>
+  <div class="text-center mt-16 text-gray-600 text-sm">
+    All plans include a <span class="text-blue-600 font-semibold">14-day free trial</span>. No credit card required.<br>
+    <a href="#" class="text-blue-600 hover:underline mt-2 inline-block">Need a custom plan for multiple locations? Contact our sales team</a>
+  </div>
 
 </body>
