@@ -5,3 +5,5 @@
 @include('web.content.work')
 @include('web.content.tech')
 @include('web.layouts.footer')
+
+

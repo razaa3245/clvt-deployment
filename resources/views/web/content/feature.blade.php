@@ -65,8 +65,8 @@
             </svg>
           </a>
         </div>
-        <h3 style="font-size:1.25rem; font-weight:700; color:#111;">VTO for Glasses</h3>
-        <p style="color:#666; margin-top:10px;">Instant, lag-free virtual try-on with high-quality 3D rendering.</p>
+        <h3 style="font-size:1.25rem; font-weight:700; color:#111;">All lenses Tryon's </h3>
+        <p style="color:#666; margin-top:10px;">Instant, lag-free virtual try-on with high-quality.</p>
       </div>
 
       <!-- CARD 3 -->

@@ -1,3 +1,5 @@
+@include('web.layouts.header')
+@include('web.layouts.navbar')
 
 <body style="font-family: 'Segoe UI', sans-serif; background-color: #f8fbff; margin: 0; padding: 40px;">
 
