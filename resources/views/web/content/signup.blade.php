@@ -6,23 +6,34 @@
   <title>VisionTech - Login & Signup</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+  <style>
+    /* smooth floating animation for background or cards */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+    .float { animation: float 6s ease-in-out infinite; }
+  </style>
 </head>
 
 <body
   class="m-0 p-4 font-sans bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#334155] min-h-screen flex items-center justify-center overflow-y-auto">
 
+  <!-- Outer Glass Card -->
   <div
-    class="bg-white/10 backdrop-blur-xl border border-white/20 w-[420px] rounded-2xl shadow-2xl p-8 text-center transition-all duration-300 mt-6 mb-6">
+    class="bg-white/10 backdrop-blur-2xl border border-white/20 w-[420px] rounded-2xl shadow-2xl p-8 text-center transition-all duration-500 hover:shadow-cyan-500/30 float mt-6 mb-6">
 
     <!-- Logo -->
     <div class="mb-6">
-      <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" alt="VisionTech Logo" width="70"
-        class="rounded-xl mx-auto shadow-lg">
+      <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" alt="VisionTech Logo"
+        class="w-20 h-20 rounded-2xl mx-auto shadow-lg ring-2 ring-cyan-400/30 transition-all duration-500 hover:scale-110 hover:ring-cyan-300">
     </div>
 
-    <h2 class="text-white text-3xl font-semibold mb-2 tracking-wide">VisionTech</h2>
-    <p class="text-gray-300 mb-6 text-sm">Experience next-gen optical management</p>
+    <h2 class="text-white text-4xl font-extrabold mb-1 tracking-wide bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent">
+      VisionTech
+    </h2>
+    <p class="text-gray-300 mb-8 text-sm">Experience Next-Gen Optical Intelligence</p>
 
     <!-- Toggle Buttons -->
     <div class="flex justify-between mb-6 bg-white/10 rounded-lg p-1 backdrop-blur-lg border border-white/20">
@@ -37,13 +48,13 @@
     </div>
 
     <!-- Login Form -->
-    <form id="loginForm" onsubmit="handleLogin(event)">
+    <form id="loginForm" onsubmit="handleLogin(event)" class="animate__animated animate__fadeIn">
       <input type="email" id="loginEmail" placeholder="Email" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <input type="password" id="loginPassword" placeholder="Password" required
-        class="w-full py-3 px-4 mb-6 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-6 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <button type="submit"
-        class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold rounded-md transition hover:scale-105">
+        class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold rounded-md shadow-md transition-all duration-300 hover:scale-105">
         Sign In
       </button>
       <div class="mt-4">
@@ -52,23 +63,23 @@
     </form>
 
     <!-- Signup Form -->
-    <form id="signupForm" class="hidden" onsubmit="handleSignup(event)">
+    <form id="signupForm" class="hidden animate__animated animate__fadeIn" onsubmit="handleSignup(event)">
       <input type="text" id="name" placeholder="Full Name" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <input type="text" id="shopname" placeholder="Shop Name" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <input type="text" id="retailer" placeholder="Retailer Name"
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <textarea id="address" placeholder="Address" rows="2"
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border resize-none focus:border-blue-400 outline-none"></textarea>
+        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border resize-none focus:border-cyan-400 outline-none"></textarea>
       <input type="tel" id="phone" placeholder="Phone Number"
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <input type="email" id="signupEmail" placeholder="Email" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-4 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <input type="password" id="signupPassword" placeholder="Password" required
-        class="w-full py-3 px-4 mb-6 text-sm text-gray-900 rounded-md border focus:border-blue-400 outline-none">
+        class="w-full py-3 px-4 mb-6 text-sm text-gray-900 rounded-md border focus:border-cyan-400 outline-none">
       <button type="submit"
-        class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold rounded-md transition hover:scale-105">
+        class="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold rounded-md shadow-md transition-all duration-300 hover:scale-105">
         Sign Up
       </button>
       <div class="mt-4">
@@ -93,14 +104,16 @@
       const res = await fetch(`${apiBase}/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ email, password })
       });
+
       const data = await res.json();
       msg.textContent = res.ok ? `Welcome ${data.user?.name}!` : data.message || 'Login failed.';
+
       if (res.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-         window.location.href = '/adminboard';
+        window.location.href = '/adminboard';
       }
     }
 
@@ -124,8 +137,8 @@
         headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
 
+      const data = await res.json();
       if (res.ok) {
         msg.textContent = '✅ Account created! Redirecting to OTP...';
         localStorage.setItem('signupEmail', payload.email);
@@ -140,6 +153,7 @@
       const signupForm = document.getElementById('signupForm');
       const loginBtn = document.getElementById('loginBtn');
       const signupBtn = document.getElementById('signupBtn');
+
       if (type === 'signup') {
         loginForm.classList.add('hidden');
         signupForm.classList.remove('hidden');

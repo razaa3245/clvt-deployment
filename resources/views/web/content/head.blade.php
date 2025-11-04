@@ -1,5 +1,5 @@
 <div class="flex bg-gradient-to-br from-white via-blue-50 to-blue-100 min-h-screen">
-  <main class="flex-1 grid grid-cols-12 items-center gap-6 mt-20 px-12">
+  <main class="flex-1 grid grid-cols-12 items-center gap-5 px-20">
     <!-- Left Content -->
     <div class="col-span-12 md:col-span-6 space-y-6">
       <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">

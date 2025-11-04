@@ -51,4 +51,3 @@ Route::get('/lenses', function () {
     return view('lense/index');
 });
 
-
