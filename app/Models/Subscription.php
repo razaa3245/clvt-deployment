@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Subscription extends Model
+{
+    use HasFactory;
+
+    protected $table = 'subscriptions';
+    protected $primaryKey = 'subscription_id';
+
+    protected $fillable = [
+        'shopkeeper_id',
+        'plan_name',
+        'price',
+        'start_date',
+        'end_date',
+        'status',
+    ];
+
+    public function shopkeeper()
+    {
+        return $this->belongsTo(Shopkeeper::class, 'shopkeeper_id', 'shopkeeper_id');
+    }
+}
