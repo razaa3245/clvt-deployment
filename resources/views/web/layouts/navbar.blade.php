@@ -18,7 +18,7 @@
       <a href="price.blade.php" class="hover:text-gray-600 transition">Pricing</a>
       <a href="contact.blade.php" class="hover:text-gray-600 transition">Contact Us</a>
       <a href="aboutus.blade.php" class="hover:text-gray-600 transition">About Us</a>
-      <a href="signup.blade.php" class="hover:text-gray-600 transition">Login/Signup</a>
+      <a href="signup" class="hover:text-gray-600 transition">Login/Signup</a>
       <a href="shopkeeper.blade.php" class="text-red-400 hover:text-red-300 font-medium">Get Started</a>
     </nav>
 

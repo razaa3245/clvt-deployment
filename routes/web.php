@@ -9,8 +9,8 @@ Route::get('/', function () {
 Route::get('/aboutus.blade.php', function () {
     return view('web/content/aboutus');
 });
-Route::get('/signup.blade.php', function () {
-    return view('web/content/signup');
+Route::get('/signup', function () {
+    return view('auth/signup');
 });
 Route::get('/price.blade.php', function () {
     return view('web/content/price');
