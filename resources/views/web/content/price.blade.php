@@ -17,7 +17,7 @@
         <p class="text-4xl font-extrabold text-blue-600 mt-3">$29.99<span class="text-sm text-gray-500 font-medium"> / 1 month</span></p>
         <p class="text-gray-500 mt-2 mb-6">Perfect for small optical shops</p>
 
-        <a href="signup.blade.php">
+        <a href="{{ route('subscription.start', ['plan' => 'basic']) }}">
           <button class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition-all duration-300">
             Get Started
           </button>

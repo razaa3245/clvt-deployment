@@ -15,11 +15,11 @@
     <!-- Center: Navbar Links -->
     <nav class="flex justify-center flex-1 space-x-8 text-sm text-center">
       <a href="{{ route('home') }}" class="hover:text-gray-600 transition">Home</a>
-      <a href="price.blade.php" class="hover:text-gray-600 transition">Pricing</a>
-      <a href="contact.blade.php" class="hover:text-gray-600 transition">Contact Us</a>
-      <a href="aboutus.blade.php" class="hover:text-gray-600 transition">About Us</a>
+      <a href="price" class="hover:text-gray-600 transition">Pricing</a>
+      <a href="contact" class="hover:text-gray-600 transition">Contact Us</a>
+      <a href="aboutus" class="hover:text-gray-600 transition">About Us</a>
       <a href="signup" class="hover:text-gray-600 transition">Login/Signup</a>
-      <a href="shopkeeper.blade.php" class="text-red-400 hover:text-red-300 font-medium">Get Started</a>
+      <a href="shopkeeper" class="text-red-400 hover:text-red-300 font-medium">Get Started</a>
     </nav>
 
     <!-- Right: Empty (for balance or future icons/buttons) -->
