@@ -51,5 +51,11 @@ public function showLoginForm() {
     return view('auth.signup'); // render your combined login/signup page
 }
 
+public function logout(Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/login');
+}
 }
 

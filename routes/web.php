@@ -68,6 +68,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UserController;
 
 // Main landing pages
 Route::get('/', function () { return view('web.index'); })->name('home');
@@ -90,11 +91,13 @@ Route::get('/otp', function () { return view('auth.verify-otp'); })->name('otp')
 
 // Areas protected by session authentication—only for logged-in users
 Route::middleware('auth')->group(function () {
-    Route::get('/adminboard', function () { return view('web.content.adminboard'); })->name('adminboard');
+    Route::get('/adminboard', function () { return view('admin.adminboard'); })->name('adminboard');
     Route::get('/tryon', function () { return view('tryons.index'); });
     Route::get('/shopkeeper', function () { return view('shopkeeper.index'); });
     Route::get('/qr-code', function () { return view('qrcodes.index'); });
     Route::get('/lenses', function () { return view('lense.index'); });
+    Route::get('/adminboard', function () { return view('admin.adminboard'); })->name('adminboard');
+    Route::get('/shopkeeper', function () { return view('web.content.shopkeeper'); })->name('shopkeeper.dashboard');
     // Payment gateway page (after login)
     Route::get('/payment/{plan}', [PaymentController::class, 'show'])->name('subscription.payment');
 });
@@ -107,3 +110,10 @@ Route::get('/after-login-choice', function () {
 // Pricing "Get Started" button flow
 Route::get('/start-subscription/{plan}', [SubscriptionController::class, 'start'])
     ->name('subscription.start');
+
+//logout route
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// // User management routes
+// Route::get('/dashboard', [UserController::class, 'Dashboard'])
+//     ->middleware('auth','verified')->name('dashboard');

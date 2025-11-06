@@ -6,10 +6,24 @@ use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     protected UserService $userService;
+
+    public function __dashboard(UserService $userService){
+        if(auth::check() && auth::user()->type === 'admin'){
+            return view('admin.adminboard');
+        } 
+        else if(auth::check() && auth::user()->type === 'user'){
+            return view('web.content.shopkeeper');
+        }
+        else {
+            return redirect('/login');
+        }
+    }
 
     public function __construct(UserService $userService)
     {
