@@ -17,7 +17,3 @@ class CheckAuthenticated
         return $next($request);
     }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
