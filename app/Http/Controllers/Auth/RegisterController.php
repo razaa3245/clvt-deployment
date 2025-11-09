@@ -6,30 +6,35 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+        // ✅ Validate incoming data
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
         ]);
 
+        // ✅ Create a new user (default type: shopkeeper)
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'type' => 'shopkeeper',         // Set role as shopkeeper
-            'is_approved' => false,         // Require admin approval
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'type' => 'shopkeeper',   // Default role
+            'is_approved' => false,   // Admin must approve
         ]);
 
-        // You can skip auto-login, or show a pending message instead of logging in
-        // Auth::login($user); 
+        // ✅ Optionally, create token (if you want auto-login)
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Show a "pending approval" page or redirect with a flash message
-        return redirect()->route('login')->with('success', 'Registration successful! Your account is pending admin approval.');
+        // ✅ Return clean JSON response
+        return response()->json([
+            'message' => 'Registration successful! Your account is pending admin approval.',
+            'user' => $user,
+            // 'token' => $token, // Uncomment if you decide to auto-login users
+        ], 201);
     }
 }
