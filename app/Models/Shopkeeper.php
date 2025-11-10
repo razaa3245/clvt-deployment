@@ -13,6 +13,7 @@ class Shopkeeper extends Authenticatable
     protected $primaryKey = 'shopkeeper_id';
 
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'phone',

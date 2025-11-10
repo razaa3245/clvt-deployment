@@ -60,7 +60,7 @@ class UserService
             //}
 
             // Send OTP email
-            Mail::to($user->email)->send(new SendOtpMail($user, $otp));
+            // Mail::to($user->email)->send(new SendOtpMail($user, $otp));
 
             // If everything successful, commit transaction
             DB::commit();

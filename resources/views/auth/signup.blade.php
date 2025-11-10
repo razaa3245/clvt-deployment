@@ -184,16 +184,16 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     if (response.ok) {
       // Store token and user info
       userToken = result.token;
-      userRole = result.role;
+      userRole = result.user.type;
       console.log('User Role:', userRole);
       console.log('Token:', userToken ? 'Present' : 'Missing');
-      
+
       console.log('Login successful!');
       console.log('User Role:', userRole);
       console.log('Token:', userToken ? 'Present' : 'Missing');
-      
+
       localStorage.setItem('auth_token', result.token);
-      localStorage.setItem('user_role', result.role);
+      localStorage.setItem('user_role', result.user.type);
       localStorage.setItem('user_info', JSON.stringify(result.user));
 
       // Verify localStorage
@@ -205,15 +205,17 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       document.getElementById('message').innerHTML = '<p class="text-green-600 font-medium">Login successful!</p>';
 
       // Show modal for both shopkeeper and admin
-      if (result.type === 'shopkeeper' || result.type === 'admin') {
+      if (result.user.type === 'shopkeeper' || result.user.type === 'admin') {
         console.log('Showing dashboard modal for type:', result.type);
         showDashboardModal();
       } else {
         console.log('👥 Regular user - redirecting to home');
         // For other roles, redirect to home
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
+        goToDashboard();
+
+        // setTimeout(() => {
+        //   window.location.href = '/';
+        // }, 1000);
       }
     } else {
       console.error('Login failed:', result.message);
@@ -283,7 +285,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       if (userRole === 'shopkeeper') {
         window.location.href = '/shopkeeper/dashboard';
       } else if (userRole === 'admin') {
-        window.location.href = '/admin/adminboard';
+        window.location.href = '/admin/dashboard';
       }
     }
 
