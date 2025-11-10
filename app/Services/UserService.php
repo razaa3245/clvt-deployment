@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendOtpMail;
 use Illuminate\Support\Str;
 use Exception;
+
 class UserService
 {
     public function all()
@@ -26,17 +27,17 @@ class UserService
     {
         // Start database transaction
         DB::beginTransaction();
-        
+
         try {
             // Generate OTP
             $otp = rand(100000, 999999);
-            
+
             // Create user
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'type'        => 'shopkeeper', // Default role
-            'is_approved' => false,
+                'is_approved' => false,
                 'password' => Hash::make($data['password']),
                 'otp' => $otp,
                 'otp_expires_at' => now()->addMinutes(10),
@@ -44,18 +45,18 @@ class UserService
             ]);
 
             // If user is shopkeeper, create shopkeeper record
-            
-            //if (isset($data['type']) && $data['type'] === 'shopkeeper') {
-                $shopkeeper = Shopkeeper::create([
-                    'user_id' => 1,  // Link to user
-                    'name' => $data['name'],
-                    'email' => $data['email'],
-                    'phone' => $data['phone'] ?? null,
-                    'shop_name' => $data['shop_name'] ?? null,
-                    'address' => $data['address'] ?? null,
-                    'retailer_name' => $data['retailer_name'] ?? null,
 
-                ]);
+            //if (isset($data['type']) && $data['type'] === 'shopkeeper') {
+            $shopkeeper = Shopkeeper::create([
+                'user_id' => $user->id,  // Link to user
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'] ?? null,
+                'shop_name' => $data['shop_name'] ?? null,
+                'address' => $data['address'] ?? null,
+                'retailer_name' => $data['retailer_name'] ?? null,
+
+            ]);
             //}
 
             // Send OTP email
@@ -63,19 +64,18 @@ class UserService
 
             // If everything successful, commit transaction
             DB::commit();
-            
+
             return $user;
-            
         } catch (Exception $e) {
             // Rollback transaction on error
             DB::rollBack();
-            
+
             // Log error for debugging
             \Log::error('User registration failed: ' . $e->getMessage(), [
                 'email' => $data['email'] ?? 'unknown',
                 'trace' => $e->getTraceAsString()
             ]);
-            
+
             // Re-throw exception to be handled by controller
             throw new Exception('User registration failed: ' . $e->getMessage());
         }

@@ -15,10 +15,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type',           // ✅ Make sure this is here
-        'role',           // ✅ If you're using 'role' instead
-        'shopname',
-        'retailer',
+        'type', 
         'address',
         'phone',
         'is_approved',
