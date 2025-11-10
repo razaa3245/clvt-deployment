@@ -7,28 +7,34 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserRequest;
+use App\Services\UserService;
+
 
 class AuthController extends Controller
 {
     /**
      * Register new user (Shopkeeper by default)
      */
-    public function register(Request $request)
+    protected UserService $userService;
+public function __construct(UserService $userService)
     {
-        $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-        ]);
+        $this->userService = $userService;
+    }
+    public function register(UserRequest $request)
+    {
+        
 
-        // Create the new user with hashed password
-        $user = User::create([
-            'name'        => $validated['name'],
-            'email'       => $validated['email'],
-            'password'    => Hash::make($validated['password']),
-            'type'        => 'shopkeeper', // Default role
-            'is_approved' => false, // Must be approved by admin
-        ]);
+        // // Create the new user with hashed password
+        // $user = User::create([
+        //     'name'        => $validated['name'],
+        //     'email'       => $validated['email'],
+        //     'password'    => Hash::make($validated['password']),
+        //     'type'        => 'shopkeeper', // Default role
+        //     'is_approved' => false, // Must be approved by admin
+        // ]);
+        $user = $this->userService->registerUser($request->validated());
+
 
         return response()->json([
             'message' => 'Registration successful! Your account is pending admin approval.',

@@ -78,9 +78,9 @@
     <form id="signupForm" class="hidden">
       <input type="text" name="name" placeholder="Full Name" required
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="text" name="shopname" placeholder="Shop Name" required
+      <input type="text" name="shop_name" placeholder="Shop Name" required
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="text" name="retailer" placeholder="Retailer Name"
+      <input type="text" name="retailer_name" placeholder="Retailer Name"
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
       <textarea name="address" placeholder="Address" rows="2"
         class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 resize-none focus:border-cyan-400 outline-none shadow-sm"></textarea>
@@ -199,14 +199,14 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       // Verify localStorage
       console.log('Stored in localStorage:');
       console.log('   - auth_token:', localStorage.getItem('auth_token') ? 'Saved' : 'Failed');
-      console.log('   - user_role:', localStorage.getItem('user_role'));
+      console.log('   - user_type:', localStorage.getItem('user_role'));
       console.log('   - user_info:', localStorage.getItem('user_info'));
 
       document.getElementById('message').innerHTML = '<p class="text-green-600 font-medium">Login successful!</p>';
 
       // Show modal for both shopkeeper and admin
-      if (result.role === 'shopkeeper' || result.role === 'admin') {
-        console.log('Showing dashboard modal for role:', result.role);
+      if (result.type === 'shopkeeper' || result.type === 'admin') {
+        console.log('Showing dashboard modal for type:', result.type);
         showDashboardModal();
       } else {
         console.log('👥 Regular user - redirecting to home');
@@ -237,8 +237,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         name: formData.get('name'),
         email: formData.get('email'),
         password: formData.get('password'),
-        shopname: formData.get('shopname'),
-        retailer: formData.get('retailer'),
+        shop_name: formData.get('shop_name'),
+        retailer_name: formData.get('retailer_name'),
         address: formData.get('address'),
         phone: formData.get('phone')
       };

@@ -19,7 +19,7 @@ class Shopkeeper extends Authenticatable
         'shop_name',
         'address',
         'status',
-        'password',
+        'retailer_name',
     ];
 
     protected $hidden = ['password'];
