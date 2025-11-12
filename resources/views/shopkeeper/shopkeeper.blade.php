@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,14 +13,19 @@
 
   <!-- HEADER -->
 
-  <header class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200 shadow-sm flex justify-between items-center px-10 py-4">
+  <header
+    class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200 shadow-sm flex justify-between items-center px-10 py-4">
     <div class="flex items-center gap-3">
       <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
-      <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VirtualLens</h1>
+      <h1
+        class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+        VirtualLens</h1>
     </div>
     <nav class="flex gap-8 text-sm font-medium">
-      <a href="shopkeeper.blade.php" class="text-slate-700 hover:text-cyan-600 hover:underline transition-all duration-300">my dashboard</a>
-      <a href="signup.blade.php" onclick="logout()" class="text-red-500 hover:text-red-400 hover:underline transition-all duration-300">Logout</a>
+      <a href="shopkeeper.blade.php"
+        class="text-slate-700 hover:text-cyan-600 hover:underline transition-all duration-300">my dashboard</a>
+      <a href="signup.blade.php" onclick="logout()"
+        class="text-red-500 hover:text-red-400 hover:underline transition-all duration-300">Logout</a>
     </nav>
   </header>
 
@@ -28,175 +34,207 @@
   <main class="max-w-7xl mx-auto px-8 py-14">
 
 
-<!-- STATS SECTION -->
-<div class="grid md:grid-cols-2 gap-8 mb-10">
+    <!-- STATS SECTION -->
+    <div class="grid md:grid-cols-2 gap-8 mb-10">
 
-  <div class="relative bg-white rounded-2xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-cyan-100 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-    <p class="text-sm text-slate-500 mb-2">Total Try-Ons</p>
-    <div class="flex justify-between items-center">
-      <h2 class="text-5xl font-extrabold text-slate-800 tracking-tight">1,247</h2>
-      <span class="text-3xl">📈</span>
-    </div>
-    <p class="text-green-600 text-xs mt-2 font-semibold">+12% from last month</p>
-  </div>
-
-  <div class="relative bg-white rounded-2xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-indigo-100 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-    <p class="text-sm text-slate-500 mb-2">Subscription</p>
-    <h2 class="text-2xl font-semibold text-slate-800">Pro Plan</h2>
-    <p class="text-cyan-600 text-sm mt-1">124 days remaining</p>
-  </div>
-
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="grid lg:grid-cols-2 gap-10">
-
-  <!-- QR CODE CARD -->
-  <div class="bg-white rounded-3xl p-10 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300">
-    <h3 class="text-xl font-bold flex items-center gap-2 mb-3 text-slate-800"> Your Shop’s QR Code</h3>
-    <p class="text-slate-500 text-sm mb-6">Display this QR code for customers to instantly access your lens catalogue.</p>
-
-    <div class="flex flex-col items-center my-6">
-      <div class="w-52 h-52 border border-dashed border-cyan-400 flex items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-50 to-blue-50 shadow-inner hover:scale-105 hover:shadow-cyan-200 transition-all duration-300">
-        <span class="text-cyan-500 text-sm tracking-wide">QR CODE</span>
+      <div
+        class="relative bg-white rounded-2xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-cyan-100 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+        </div>
+        <p class="text-sm text-slate-500 mb-2">Total Try-Ons</p>
+        <div class="flex justify-between items-center">
+          <h2 class="text-5xl font-extrabold text-slate-800 tracking-tight">1,247</h2>
+          <span class="text-3xl">📈</span>
+        </div>
+        <p class="text-green-600 text-xs mt-2 font-semibold">+12% from last month</p>
       </div>
-      <p class="text-slate-500 text-xs mt-3">Scan to view lens catalogue</p>
+
+      <div
+        class="relative bg-white rounded-2xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-indigo-100 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+        </div>
+        <p class="text-sm text-slate-500 mb-2">Subscription</p>
+        <h2 class="text-2xl font-semibold text-slate-800">Pro Plan</h2>
+        <p class="text-cyan-600 text-sm mt-1">124 days remaining</p>
+      </div>
+
     </div>
 
-    <div class="flex gap-5 mt-5">
-      <button class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2.5 rounded-lg shadow-md hover:scale-[1.03] hover:shadow-cyan-300 transition-all duration-300">
-        Download QR
-      </button>
-      <button class="flex-1 border border-cyan-400 text-cyan-600 font-semibold py-2.5 rounded-lg hover:bg-cyan-50 transition-all duration-300">
-        Copy Link
-      </button>
-    </div>
+    <!-- MAIN CONTENT -->
+    <div class="grid lg:grid-cols-2 gap-10">
 
-    <p class="text-slate-500 text-sm mt-6">Catalogue: 
-      <a href="{{ route('shopkeeper.catalog') }}" class="btn btn-primary">
-    View Catalog
-</a>
+      <!-- QR CODE CARD -->
+      <div
+        class="bg-white rounded-3xl p-10 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300">
+        <h3 class="text-xl font-bold flex items-center gap-2 mb-3 text-slate-800"> Your Shop’s QR Code</h3>
+        <p class="text-slate-500 text-sm mb-6">Display this QR code for customers to instantly access your lens
+          catalogue.</p>
 
-    </p>
-  </div>
+        <div class="flex flex-col items-center my-6">
+          <div
+            class="w-52 h-52 border border-dashed border-cyan-400 flex items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-50 to-blue-50 shadow-inner hover:scale-105 hover:shadow-cyan-200 transition-all duration-300">
+            <span class="text-cyan-500 text-sm tracking-wide">QR CODE</span>
+          </div>
+          <p class="text-slate-500 text-xs mt-3">Scan to view lens catalogue</p>
+        </div>
 
-  <!-- SIDE PANEL -->
-  <div class="flex flex-col gap-6">
+        <div class="flex gap-5 mt-5">
+          <button
+            class="flex-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2.5 rounded-lg shadow-md hover:scale-[1.03] hover:shadow-cyan-300 transition-all duration-300">
+            Download QR
+          </button>
+          <button
+            class="flex-1 border border-cyan-400 text-cyan-600 font-semibold py-2.5 rounded-lg hover:bg-cyan-50 transition-all duration-300">
+            Copy Link
+          </button>
+        </div>
 
-    <!-- Quick Actions -->
-    <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300">
-      <h3 class="text-xl font-bold mb-3 flex items-center gap-2 text-slate-800"> Quick Actions</h3>
-      <p class="text-slate-500 text-sm mb-5">Manage your shop, upgrade plans, or preview the try-on feature in one click.</p>
+        <p class="text-slate-500 text-sm mt-6">Catalogue:
+          <a href="{{ route('shopkeeper.catalog') }}" class="btn btn-primary">
+            View Catalog
+          </a>
 
-      <div class="divide-y divide-slate-200">
-        <button class="w-full text-left py-3 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-all duration-300 font-medium text-sm flex items-center gap-2"> Preview Try-On Experience</button>
-        <!-- ✅ CORRECT (Using route name) -->
-<a href="{{ route('price') }}">
-    <button class="w-full text-left py-3 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-all duration-300 font-medium text-sm flex items-center gap-2">
-        Upgrade Plan
-    </button>
-</a>
+        </p>
+      </div>
 
+      <!-- SIDE PANEL -->
+      <div class="flex flex-col gap-6">
+
+        <!-- Quick Actions -->
+        <div
+          class="bg-white rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300">
+          <h3 class="text-xl font-bold mb-3 flex items-center gap-2 text-slate-800"> Quick Actions</h3>
+          <p class="text-slate-500 text-sm mb-5">Manage your shop, upgrade plans, or preview the try-on feature in one
+            click.</p>
+
+          <div class="divide-y divide-slate-200">
+            <!-- ✅ AFTER (Working link) -->
+            <a href="{{ route('catalog') }}" target="_blank">
+              <button
+                class="w-full text-left py-3 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-all duration-300 font-medium text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                Preview Try-On Experience
+              </button>
+            </a>
+
+            <!-- ✅ CORRECT (Using route name) -->
+            <a href="{{ route('price') }}">
+              <button
+                class="w-full text-left py-3 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-all duration-300 font-medium text-sm flex items-center gap-2">
+                Upgrade Plan
+              </button>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div
+          class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300">
+          <h3 class="text-xl font-bold mb-3 flex items-center gap-2 text-slate-800"> AI Insights</h3>
+          <p class="text-slate-600 text-sm mb-5">Your users prefer <span class="text-cyan-600 font-semibold">Sky
+              Blue</span> and <span class="text-cyan-600 font-semibold">Hazel</span> lenses. Try promoting them next
+            week!</p>
+          <button
+            class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2.5 px-6 rounded-lg hover:scale-105 hover:shadow-cyan-300 transition-all font-semibold shadow-md">Generate
+            New Insights</button>
+        </div>
       </div>
     </div>
+    <script>
+      // ========================================
+      // STEP 1: Authentication Check on Page Load
+      // ========================================
+      document.addEventListener('DOMContentLoaded', function () {
+        const token = localStorage.getItem('auth_token');
+        const role = localStorage.getItem('user_role');
+        const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
 
-    <!-- AI Insights -->
-    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-8 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300">
-      <h3 class="text-xl font-bold mb-3 flex items-center gap-2 text-slate-800"> AI Insights</h3>
-      <p class="text-slate-600 text-sm mb-5">Your users prefer <span class="text-cyan-600 font-semibold">Sky Blue</span> and <span class="text-cyan-600 font-semibold">Hazel</span> lenses. Try promoting them next week!</p>
-      <button class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2.5 px-6 rounded-lg hover:scale-105 hover:shadow-cyan-300 transition-all font-semibold shadow-md">Generate New Insights</button>
-    </div>
-  </div>
-</div>
-<script>
-// ========================================
-// STEP 1: Authentication Check on Page Load
-// ========================================
-document.addEventListener('DOMContentLoaded', function() {
-    const token = localStorage.getItem('auth_token');
-    const role = localStorage.getItem('user_role');
-    const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
-    
-    console.log('🔐 Checking authentication...');
-    console.log('Token:', token ? 'Present' : 'Missing');
-    console.log('Role:', role);
-    
-    // Check if user is authenticated and is a shopkeeper
-    if (!token || role !== 'shopkeeper') {
-        console.error('❌ Unauthorized access');
-        alert('Please login as a shopkeeper to access this page');
-        window.location.href = '/signup';
-        return;
-    }
-    
-    console.log('✅ Shopkeeper authenticated:', userInfo.name || userInfo.email);
-    
-    // Load dashboard data from API
-    loadDashboardData(token);
-});
+        console.log('🔐 Checking authentication...');
+        console.log('Token:', token ? 'Present' : 'Missing');
+        console.log('Role:', role);
 
-// ========================================
-// STEP 2: Fetch Dashboard Data from API
-// ========================================
-async function loadDashboardData(token) {
-    console.log('📡 Fetching shopkeeper dashboard data from API...');
-    console.log('🔗 URL: /api/shopkeeper/dashboard')
-    
-    try {
-        const response = await fetch('/api/shopkeeper/dashboard', {
+        // Check if user is authenticated and is a shopkeeper
+        if (!token || role !== 'shopkeeper') {
+          console.error('❌ Unauthorized access');
+          alert('Please login as a shopkeeper to access this page');
+          window.location.href = '/signup';
+          return;
+        }
+
+        console.log('✅ Shopkeeper authenticated:', userInfo.name || userInfo.email);
+
+        // Load dashboard data from API
+        loadDashboardData(token);
+      });
+
+      // ========================================
+      // STEP 2: Fetch Dashboard Data from API
+      // ========================================
+      async function loadDashboardData(token) {
+        console.log('📡 Fetching shopkeeper dashboard data from API...');
+        console.log('🔗 URL: /api/shopkeeper/dashboard')
+
+        try {
+          const response = await fetch('/api/shopkeeper/dashboard', {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+              'Authorization': 'Bearer ' + token,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
             }
-        });
+          });
 
-        console.log('📥 API Response Status:', response.status);
+          console.log('📥 API Response Status:', response.status);
 
-        const result = await response.json();
-        console.log('📦 API Response Data:', result);
-        
-        if (response.ok && result.success) {
+          const result = await response.json();
+          console.log('📦 API Response Data:', result);
+
+          if (response.ok && result.success) {
             console.log('✅ Dashboard data loaded successfully');
             updateDashboardUI(result.data);
-        } else {
+          } else {
             console.error('❌ Failed to load dashboard:', result.message);
             alert('Failed to load dashboard: ' + (result.message || 'Unknown error'));
-            
+
             // Show error modal
             showErrorModal('Failed to load dashboard');
+          }
+        } catch (error) {
+          console.error('🚨 Dashboard load error:', error);
+          showErrorModal('Failed to load dashboard');
         }
-    } catch (error) {
-        console.error('🚨 Dashboard load error:', error);
-        showErrorModal('Failed to load dashboard');
-    }
-}
+      }
 
-// ========================================
-// STEP 3: Update Dashboard UI with Data
-// ========================================
-function updateDashboardUI(data) {
-    console.log('🎨 Updating dashboard UI with data:', data);
-    
-    // Update stats if you have IDs in your HTML
-    // Example: If you add id="total-tryons" to the 1,247 element
-    // document.getElementById('total-tryons').textContent = data.stats.total_tryons.toLocaleString();
-    
-    console.log('Total Try-Ons:', data.stats.total_tryons);
-    console.log('Subscription:', data.stats.subscription_plan);
-    console.log('Days Remaining:', data.stats.days_remaining);
-}
+      // ========================================
+      // STEP 3: Update Dashboard UI with Data
+      // ========================================
+      function updateDashboardUI(data) {
+        console.log('🎨 Updating dashboard UI with data:', data);
 
-// ========================================
-// STEP 4: Show Error Modal
-// ========================================
-function showErrorModal(message) {
-    // Create a simple error modal
-    const modal = document.createElement('div');
-    modal.innerHTML = `
+        // Update stats if you have IDs in your HTML
+        // Example: If you add id="total-tryons" to the 1,247 element
+        // document.getElementById('total-tryons').textContent = data.stats.total_tryons.toLocaleString();
+
+        console.log('Total Try-Ons:', data.stats.total_tryons);
+        console.log('Subscription:', data.stats.subscription_plan);
+        console.log('Days Remaining:', data.stats.days_remaining);
+      }
+
+      // ========================================
+      // STEP 4: Show Error Modal
+      // ========================================
+      function showErrorModal(message) {
+        // Create a simple error modal
+        const modal = document.createElement('div');
+        modal.innerHTML = `
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;">
             <div style="background: white; padding: 30px; border-radius: 10px; max-width: 400px; text-align: center;">
                 <h3 style="color: #333; margin-bottom: 15px; font-size: 20px;">⚠️ ${message}</h3>
@@ -207,46 +245,49 @@ function showErrorModal(message) {
             </div>
         </div>
     `;
-    document.body.appendChild(modal);
-}
+        document.body.appendChild(modal);
+      }
 
-// ========================================
-// STEP 5: Logout Function
-// ========================================
-async function logout() {
-    console.log('🚪 Logging out...');
-    
-    const token = localStorage.getItem('auth_token');
-    
-    try {
-        const response = await fetch('/api/logout', {
+      // ========================================
+      // STEP 5: Logout Function
+      // ========================================
+      async function logout() {
+        console.log('🚪 Logging out...');
+
+        const token = localStorage.getItem('auth_token');
+
+        try {
+          const response = await fetch('/api/logout', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer ' + token,
-                'Accept': 'application/json'
+              'Authorization': 'Bearer ' + token,
+              'Accept': 'application/json'
             }
-        });
-        
-        console.log('✅ Logout successful');
-    } catch (error) {
-        console.error('⚠️ Logout error:', error);
-    }
-    
-    // Clear local storage
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user_role');
-    localStorage.removeItem('user_info');
-    
-    console.log('🧹 Local storage cleared');
-    
-    // Redirect to login page
-    window.location.href = '/signup';
-}
-</script>
+          });
+
+          console.log(' Logout successful');
+        } catch (error) {
+          console.error('Logout error:', error);
+        }
+
+        // Clear local storage
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user_role');
+        localStorage.removeItem('user_info');
+
+        console.log('🧹 Local storage cleared');
+
+        // Redirect to login page
+        window.location.href = '/signup';
+      }
+
+
+    </script>
 
 
   </main>
   @include('web.layouts.footer')
 
 </body>
+
 </html>

@@ -122,3 +122,10 @@ Route::get('/shopkeeper/catalog', [ShopkeeperController::class, 'showCatalog'])-
 Route::get('/price', function () {
     return view('web.content.price'); // adjust path according to your structure
 })->name('price');
+
+
+
+// Subscription routes
+Route::get('/subscription/start', [SubscriptionController::class, 'start'])->name('subscription.start');
+Route::post('/subscription/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout')->middleware('auth');
+Route::get('/subscription/success', [SubscriptionController::class, 'success'])->name('subscription.success');
