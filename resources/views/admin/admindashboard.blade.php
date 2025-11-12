@@ -6,32 +6,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VisionTech - Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- ✅ Alpine.js for sidebar interactivity -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen">
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex">
 
-  <!-- HEADER -->
-  <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-50 transition-all duration-300 hover:shadow-md">
-    <div class="flex items-center justify-between px-6 py-[10px]">
-      <!-- Logo / Brand -->
-      <div class="flex items-center gap-3">
-        <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
-        <a href="{{ route('home') }}" class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</a>
-      </div>
-      
-      <div class="flex items-center gap-4">
-        <!-- Display admin email -->
-        <span id="admin-email" class="text-sm text-gray-600"></span>
-        <!-- Logout Button -->
-        <button onclick="logout()" class="text-red-500 hover:text-red-400 hover:underline transition-all duration-300">
-          Logout
+  <!-- ✅ SIDEBAR (Integrated here) -->
+  <aside x-data="{ open: false }" 
+         :class="open ? 'w-64' : 'w-20'" 
+         class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0">
+
+    <!-- Top Section -->
+    <div>
+      <!-- Logo -->
+      <div class="flex items-center justify-between p-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
+            <span class="text-cyan-600 font-bold text-lg">S</span>
+          </div>
+          <div x-show="open" class="text-gray-700">
+            <span id="admin-email" class="text-sm text-gray-600"></span>
+            <p class="text-xs text-gray-400 -mt-1"></p>
+          </div>
+        </div>
+        <button @click="open = !open" class="text-gray-400 hover:text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
         </button>
       </div>
-    </div>
-  </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="max-w-7xl mx-auto p-10">
+      <!-- Overview -->
+      <nav class="mt-6">
+        <p x-show="open" class="text-xs text-gray-400 px-6 mb-2 uppercase tracking-widest">Overview</p>
+        <ul>
+        
+          <li>
+           <li>
+          <a href="/shopkeeper/catalog" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3h18l-1 9H4L3 3zM3 12h18v6a3 3 0 01-3 3H6a3 3 0 01-3-3v-6z" />
+            </svg>
+            <span x-show="open" x-transition class="ml-3 text-sm">Products</span>
+          </a>
+        </li>
+          <li>
+            <a href="#" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M21 15a2 2 0 01-2 2H5l-2 2V5a2 2 0 012-2h14a2 2 0 012 2v10z" />
+              </svg>
+              <span x-show="open" class="ml-3 text-sm">Messages</span>
+            </a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Account Section -->
+    <div class="border-t border-gray-100 py-4">
+      <ul>
+        <li>
+          <a href="#" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span x-show="open" class="ml-3 text-sm">Settings</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7" />
+            </svg>
+            <button onclick="logout()" class="text-red-500 hover:text-red-400 hover:underline transition-all duration-300">
+            Logout
+          </button>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- ✅ MAIN PAGE CONTENT -->
+  <div class="flex-1 flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-50 transition-all duration-300 hover:shadow-md">
+      <div class="flex items-center justify-between px-6 py-[10px]">
+        <!-- Logo / Brand -->
+        <div class="flex items-center gap-3">
+          <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
+          <a href="{{ route('home') }}" class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</a>
+        </div>
+        
+        <div class="flex items-center gap-4">
+          <!-- Display admin email -->
+          <span id="admin-email" class="text-sm text-gray-600"></span>
+          <!-- Logout Button -->
+         
+        </div>
+      </div>
+    </header>
+
+ 
+
+    <!-- MAIN CONTAINER -->
+<main class="max-w-7xl mx-auto p-10">
     
     <!-- Loading Spinner (shows while fetching data) -->
     <div id="loading-spinner" class="flex justify-center items-center py-20">
@@ -191,12 +287,12 @@
                 // Update UI with fetched data
                 updateDashboardUI(result.data);
             } else {
-                console.error('Failed to load dashboard:', result.message);
+                console.error('❌ Failed to load dashboard:', result.message);
                 alert('Failed to load dashboard data: ' + (result.message || 'Unknown error'));
                 window.location.href = '/signup';
             }
         } catch (error) {
-            console.error('Dashboard load error:', error);
+            console.error('🚨 Dashboard load error:', error);
             alert('Error loading dashboard. Please check your connection and try again.');
             document.getElementById('loading-spinner').innerHTML = 
                 '<p class="text-red-600">Failed to load dashboard. Please refresh the page.</p>';
@@ -387,3 +483,4 @@
 
 </body>
 </html>
+

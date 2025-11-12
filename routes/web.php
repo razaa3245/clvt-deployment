@@ -86,7 +86,6 @@ Route::get('/features', fn() => view('web.content.feature'))->name('features');
 Route::get('/price', fn() => view('web.content.price'))->name('pricing');
 Route::get('/catalog', fn() => view('web.content.catalog'))->name('catalog');
 Route::get('/contact', fn() => view('web.content.contact'))->name('contact');
-
 Route::get('/signup', function () {
     return view('auth.signup');
 })->name('signup');
@@ -123,6 +122,9 @@ Route::get('/price', function () {
     return view('web.content.price'); // adjust path according to your structure
 })->name('price');
 
+Route::get('/shopkeeper/catalog1', function () {
+    return view('web.content.catalog1'); // adjust path according to your structure
+})->name('price');
 
 
 // Subscription routes
