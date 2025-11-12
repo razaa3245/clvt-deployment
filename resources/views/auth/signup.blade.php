@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,8 +37,10 @@
 
     <!-- Logo -->
     <div class="mb-6">
-      <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" alt="VisionTech Logo"
-        class="w-20 h-20 rounded-2xl mx-auto shadow-lg ring-2 ring-cyan-300/40 transition-all duration-500 hover:scale-110 hover:ring-cyan-400">
+      <a href="{{ url('/') }}" title="Back to Home">
+        <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" alt="VisionTech Logo"
+          class="w-20 h-20 rounded-2xl mx-auto shadow-lg ring-2 ring-cyan-300/40 logo-hover">
+      </a>
     </div>
 
     <h2
