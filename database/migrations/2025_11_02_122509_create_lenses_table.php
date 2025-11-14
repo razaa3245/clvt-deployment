@@ -9,15 +9,13 @@ return new class extends Migration {
     {
         Schema::create('lenses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shopkeeper_id')->constrained('shopkeepers')->onDelete('cascade');
             $table->string('name');
             $table->string('brand');
             $table->enum('type', ['contact', 'spectacle', 'colored'])->default('contact');
-            $table->decimal('price', 10, 2);
-            $table->integer('stock')->default(0);
+            $table->string('color')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->timestamps();
+            $table->timestamps(); // creates created_at and updated_at
         });
     }
 

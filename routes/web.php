@@ -78,6 +78,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Api\ShopkeeperController;
+use App\Http\Controllers\LensController;
 
 // Static pages only
 Route::get('/', fn() => view('web.index'))->name('home');
@@ -107,7 +108,9 @@ Route::prefix('subscription')->name('subscription.')->group(function () {
     Route::get('/cancel', [SubscriptionController::class, 'cancel'])->name('cancel');
 });
 
-
+Route::get('/messages', function () {
+    return view('web.content.messages');
+})->name('messages');
 //contact page routing
 Route::get('/contact', function () {
     return view('web.content.contact');
@@ -131,3 +134,31 @@ Route::get('/shopkeeper/catalog1', function () {
 Route::get('/subscription/start', [SubscriptionController::class, 'start'])->name('subscription.start');
 Route::post('/subscription/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout')->middleware('auth');
 Route::get('/subscription/success', [SubscriptionController::class, 'success'])->name('subscription.success');
+
+
+
+
+
+// Public routes
+Route::get('/', function () {
+    return view('web.index');
+})->name('home');
+
+Route::get('/lenses', [LensController::class, 'index'])->name('lenses.index');
+
+// Admin routes (add authentication middleware in production)
+Route::prefix('admin')->group(function () {
+    Route::get('/lenses', [LensController::class, 'adminIndex'])->name('admin.lenses.index');
+    Route::get('/lenses/create', [LensController::class, 'create'])->name('admin.lenses.create');
+    Route::get('/lenses/{id}/edit', [LensController::class, 'edit'])->name('admin.lenses.edit');
+});
+
+
+
+
+// In routes/web.php (for admin panel)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('admin/lenses', LensController::class);
+});
+
+
