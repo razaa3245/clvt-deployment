@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class LensController extends Controller
 {
     //public function dashboard()
 public function dashboard()

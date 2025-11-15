@@ -27,6 +27,8 @@ class AdminController extends Controller
         $totalShops = User::where('type', 'shopkeeper')->count();
         $totallens = Lens::count();
         $activeUsers = User::where('is_approved', true)->count();
+        $totallens = Lens::count();
+// This should ideally come from a Lenses model/table
 
         // Get recent shops
         $recentShops = User::where('type', 'shopkeeper')

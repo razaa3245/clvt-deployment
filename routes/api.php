@@ -37,7 +37,36 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
     Route::get('/admin/shops', [AdminController::class, 'getShops']);
     Route::post('/admin/approve/{id}', [AdminController::class, 'approveShopkeeper']);
-    
     // Shopkeeper dashboard API ✅ ADDED
     Route::get('/shopkeeper/dashboard', [ShopkeeperController::class, 'dashboard']);
 });
+
+
+
+
+// Public API routes
+Route::prefix('lenses')->group(function () {
+    Route::get('/', [LensController::class, 'apiIndex']); // Get all lenses
+    Route::get('/{id}', [LensController::class, 'apiShow']); // Get single lens
+});
+
+// Admin API routes (add authentication middleware in production)
+Route::prefix('admin/lenses')->group(function () {
+    Route::post('/', [LensController::class, 'store']); // Create lens
+    Route::put('/{id}', [LensController::class, 'update']); // Update lens
+    Route::delete('/{id}', [LensController::class, 'destroy']); // Delete lens
+});
+
+
+
+
+
+
+// OR in routes/api.php (for API)
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('admin/lenses', LensController::class);
+});
+
+
+
+

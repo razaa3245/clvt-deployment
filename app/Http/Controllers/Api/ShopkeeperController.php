@@ -15,17 +15,17 @@ class ShopkeeperController extends Controller
     public function dashboard(Request $request)
     {
         $user = $request->user();
-        
+
         // REMOVED: type check kyunki route already protected hai
         // Frontend pe role check ho raha hai, yahan ki zaroorat nahi
-        
+
         // Log for debugging
         Log::info('Shopkeeper dashboard accessed', [
             'user_id' => $user->id,
             'email' => $user->email,
             'type' => $user->type ?? 'not set'
         ]);
-        
+
         // Dashboard data
         $data = [
             'user' => [
@@ -33,7 +33,7 @@ class ShopkeeperController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'type' => $user->type,
-                'shop_name' => $user->shopname ?? 'danish optics'
+                'shop_name' => $user->name ?? 'danish optics'
             ],
             'stats' => [
                 'total_tryons' => 1247,
@@ -42,14 +42,24 @@ class ShopkeeperController extends Controller
                 'days_remaining' => 124
             ],
             'qr_code' => [
-                'url' => url('/catalog/' . $user->id),
-                'catalogue_link' => 'https://virtual-lens.io/catalogue/' . $user->id
-            ]
+                'url' => url('/shopkeeper/catalog'),
+                'catalogue_link' => url('/shopkeeper/catalog')
+            ],
+
+            'links' => [
+                'catalog' => url('/shopkeeper/catalog'),
+            ],
         ];
-        
+
         return response()->json([
             'success' => true,
             'data' => $data
         ], 200);
     }
+    public function showCatalog()
+    {
+        // You can pass dynamic data here later if needed
+        return view('web.content.catalog');
+    }
+   
 }

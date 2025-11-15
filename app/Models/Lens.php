@@ -9,18 +9,22 @@ class Lens extends Model
 {
     use HasFactory;
 
+    // Table name
     protected $table = 'lenses';
-    protected $primaryKey = 'lens_id';
 
+    // Primary key (the migration uses 'id')
+    protected $primaryKey = 'id';
+
+    // Columns that are mass assignable
     protected $fillable = [
-        'shopkeeper_id',
         'name',
         'brand',
-        'color',
-        'price',
         'type',
-        'image_url',
+        'color',
+        'description',
+        'image',
     ];
+
 
     public function shopkeeper()
     {

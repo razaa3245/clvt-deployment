@@ -30,14 +30,14 @@
         <ul class="space-y-2 text-sm">
           <li><a href="#" class="hover:underline">Press assets</a></li>
           <li><a href="#" class="hover:underline">Subscribe via RSS</a></li>
-          <li><a href="contact" class="hover:underline">Contact us</a></li>
+          <li><a href="#" class="hover:underline">Contact us</a></li>
         </ul>
       </div>
       <!-- Company -->
       <div>
         <h3 class="font-semibold mb-3">Company</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="/aboutus" class="hover:underline">About VisionTech</a></li>
+          <li><a href="/aboutus1" class="hover:underline">About VisionTech</a></li>
           <li><a href="#" class="hover:underline">Careers</a></li>
           <li><a href="#" class="hover:underline">Investors</a></li>
         </ul>

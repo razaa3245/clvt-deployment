@@ -6,16 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 
 
 class AuthController extends Controller
 {
-    /**
-     * Register new user (Shopkeeper by default)
-     */
+    
     protected UserService $userService;
 public function __construct(UserService $userService)
     {
@@ -23,16 +21,6 @@ public function __construct(UserService $userService)
     }
     public function register(UserRequest $request)
     {
-        
-
-        // // Create the new user with hashed password
-        // $user = User::create([
-        //     'name'        => $validated['name'],
-        //     'email'       => $validated['email'],
-        //     'password'    => Hash::make($validated['password']),
-        //     'type'        => 'shopkeeper', // Default role
-        //     'is_approved' => false, // Must be approved by admin
-        // ]);
         $user = $this->userService->registerUser($request->validated());
 
 
