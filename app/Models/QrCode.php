@@ -10,17 +10,15 @@ class QrCode extends Model
     use HasFactory;
 
     protected $table = 'qr_codes';
-    protected $primaryKey = 'qrcode_id';
 
     protected $fillable = [
-        'shopkeeper_id',
-        'lens_id',
+        'shop_id',
         'qr_image',
     ];
 
     public function shopkeeper()
     {
-        return $this->belongsTo(Shopkeeper::class, 'shopkeeper_id', 'shopkeeper_id');
+        return $this->belongsTo(Shopkeeper::class, 'shop_id', 'id');
     }
 
     public function lens()

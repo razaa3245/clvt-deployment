@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\QrCode;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Models\Shopkeeper;
 
 class ShopkeeperController extends Controller
 {
@@ -15,6 +17,10 @@ class ShopkeeperController extends Controller
     public function dashboard(Request $request)
     {
         $user = $request->user();
+        $shopkeeper = Shopkeeper::where('user_id',$user->id)->first();
+        $qr_code = $shopkeeper
+            ? QrCode::where('shop_id', $shopkeeper->id)->first()
+            : null;
 
         // REMOVED: type check kyunki route already protected hai
         // Frontend pe role check ho raha hai, yahan ki zaroorat nahi
@@ -41,10 +47,7 @@ class ShopkeeperController extends Controller
                 'subscription_plan' => 'Pro Plan',
                 'days_remaining' => 124
             ],
-            'qr_code' => [
-                'url' => url('/shopkeeper/catalog'),
-                'catalogue_link' => url('/shopkeeper/catalog')
-            ],
+            'qr_code' => $qr_code,
 
             'links' => [
                 'catalog' => url('/shopkeeper/catalog'),
@@ -61,5 +64,5 @@ class ShopkeeperController extends Controller
         // You can pass dynamic data here later if needed
         return view('web.content.catalog');
     }
-   
+
 }

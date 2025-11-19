@@ -12,7 +12,7 @@ class QrCodeResource extends JsonResource
             'qrcode_id'     => $this->qrcode_id,
             'shopkeeper_id' => $this->shopkeeper_id,
             'lens_id'       => $this->lens_id,
-            'qr_image'      => $this->qr_image,
+            'qr_image' => $this->qr_image ? asset('storage/' . $this->qr_image) : null,
             'created_at'    => $this->created_at->toDateTimeString(),
 
             'shopkeeper'    => new ShopkeeperResource($this->whenLoaded('shopkeeper')),

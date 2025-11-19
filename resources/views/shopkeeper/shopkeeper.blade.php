@@ -143,9 +143,10 @@
     <p class="text-slate-500 text-sm mb-6">Display this QR code for customers to instantly access your lens catalogue.</p>
 
     <div class="flex flex-col items-center my-6">
-      <div class="w-52 h-52 border border-dashed border-cyan-400 flex items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-50 to-blue-50 shadow-inner hover:scale-105 hover:shadow-cyan-200 transition-all duration-300">
+      {{-- <div class="w-52 h-52 border border-dashed border-cyan-400 flex items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-50 to-blue-50 shadow-inner hover:scale-105 hover:shadow-cyan-200 transition-all duration-300">
         <span class="text-cyan-500 text-sm tracking-wide">QR CODE</span>
-      </div>
+      </div> --}}
+      <img id="shop-qr-img" src="" class="w-full h-full object-contain">
       <p class="text-slate-500 text-xs mt-3">Scan to view lens catalogue</p>
     </div>
 
@@ -263,6 +264,31 @@ function updateDashboardUI(data) {
     // document.getElementById('total-tryons').textContent = data.stats.total_tryons.toLocaleString();
 
     console.log('Total Try-Ons:', data.stats.total_tryons);
+  console.log('Qr code:', data.qr_code ? data.qr_code.qr_image : null);
+  // Show QR image (try storage link first, then public path)
+  try {
+    const qrPath = data.qr_code?.qr_image || '';
+    const imgEl = document.getElementById('shop-qr-img');
+
+    if (!imgEl) return;
+
+    if (!qrPath) {
+      imgEl.src = '';
+      imgEl.alt = 'No QR available';
+      return;
+    }
+
+    // Prefer the storage symlinked path (public/storage/...)
+    imgEl.src = '/storage/' + qrPath;
+
+    // If loading from /storage/... fails, fall back to direct public path
+    imgEl.onerror = function () {
+      this.onerror = null;
+      this.src = '/' + qrPath;
+    };
+  } catch (e) {
+    console.error('Error setting QR image:', e);
+  }
     console.log('Subscription:', data.stats.subscription_plan);
     console.log('Days Remaining:', data.stats.days_remaining);
 }
@@ -286,6 +312,7 @@ function showErrorModal(message) {
     `;
     document.body.appendChild(modal);
 }
+
 
 // ========================================
 // STEP 5: Logout Function
