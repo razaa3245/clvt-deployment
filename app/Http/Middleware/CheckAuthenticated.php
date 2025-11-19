@@ -8,14 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckAuthenticated
 {
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next)
     {
-        // For web requests use server-side session auth
         if (!Auth::check()) {
-            // preserve intended URL and redirect to named login route
-            return redirect()->guest(route('login'));
+            return redirect('/signup');
         }
-
 
         return $next($request);
     }

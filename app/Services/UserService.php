@@ -8,7 +8,6 @@ use App\Models\Shopkeeper;
 use App\Models\User;
 use Exception;
 use SimpleSoftwareIO\QrCode\Facades\QrCode as QrCodeGenerator;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -65,45 +64,12 @@ public function registerUser(array $data)
         // Generate and store QR image
         $fileName = 'qr_' . uniqid() . '.png';
         $filePath = 'qr_codes/' . $fileName;
-
-        // Prefer Endroid QR library if available, otherwise fall back to Google Charts API
-        $qrImage = null;
-        if (class_exists('Endroid\\QrCode\\Builder\\Builder')) {
-            try {
-                // Endroid QR code builder (if installed)
-                $result = \Endroid\QrCode\Builder\Builder::create()
-                    ->data($qrContent)
-                    ->size(300)
-                    ->build();
-
-                $qrImage = $result->getString();
-            } catch (\Exception $e) {
-                Log::warning('Endroid QR generation failed, falling back to Google Charts: ' . $e->getMessage());
-            }
-        }
-
-        if (empty($qrImage)) {
-            // Fallback: use Google Charts API to generate QR code image
-            try {
-                $qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' . urlencode($qrContent);
-                $response = Http::get($qrUrl);
-                if ($response->ok()) {
-                    $qrImage = $response->body();
-                } else {
-                    throw new Exception('Google Charts returned status ' . $response->status());
-                }
-            } catch (\Exception $e) {
-                Log::error('QR generation fallback failed: ' . $e->getMessage());
-                // As a last resort, generate a tiny placeholder image (1x1 PNG)
-                $qrImage = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBg5mQ6QAAAABJRU5ErkJggg==');
-            }
-        }
-
+        $qrImage = QrCodeGenerator::format('png')->size(300)->generate($qrContent);
         Storage::disk('public')->put($filePath, $qrImage);
 
         // Save QR image path to database
         QrCode::create([
-            'shop_id' => $shopkeeper->id,
+            'shopkeeper_id' => $shopkeeper->id,
             'qr_image' => $filePath,
         ]);
 
@@ -112,13 +78,15 @@ public function registerUser(array $data)
 
     } catch (\Exception $e) {
         DB::rollBack();
-        Log::error('User registration failed: ' . $e->getMessage(), [
+        \Log::error('User registration failed: ' . $e->getMessage(), [
             'email' => $data['email'] ?? 'unknown',
             'trace' => $e->getTraceAsString()
         ]);
         throw new \Exception('User registration failed: ' . $e->getMessage());
     }
 }
+
+
 
     public function resendOtp($email)
     {

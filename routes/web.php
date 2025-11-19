@@ -74,7 +74,6 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ContactController;
@@ -91,19 +90,6 @@ Route::get('/contact', fn() => view('web.content.contact'))->name('contact');
 Route::get('/signup', function () {
     return view('auth.signup');
 })->name('signup');
-
-// Login routes (web)
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-
-
-
-
-
-// add the route that u want to authenticate below this group
-Route::middleware('check.auth')->group(function () {
 
 // Shopkeeper dashboard - uses existing shopkeeper.blade.php
 Route::get('/shopkeeper/dashboard', function () {
@@ -167,8 +153,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/lenses/{id}/edit', [LensController::class, 'edit'])->name('admin.lenses.edit');
 });
 
-
-}); // here i end the authentication group
 
 
 

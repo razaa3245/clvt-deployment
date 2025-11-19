@@ -203,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if user is authenticated and is a shopkeeper
     if (!token || role !== 'shopkeeper') {
         console.error('❌ Unauthorized access');
+        alert('Please login as a shopkeeper to access this page');
         window.location.href = '/signup';
         return;
     }
@@ -275,7 +276,7 @@ function showErrorModal(message) {
     modal.innerHTML = `
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;">
             <div style="background: white; padding: 30px; border-radius: 10px; max-width: 400px; text-align: center;">
-                <h3 style="color: #333; margin-bottom: 15px; font-size: 20px;">⚠️ ${message}</h3>
+                <h3 style="color: #333; margin-bottom: 15px; font-size: 20px;">⚠ ${message}</h3>
                 <p style="color: #666; margin-bottom: 20px;">Please try again or contact support.</p>
                 <button onclick="window.location.href='/signup'" style="background: #3b82f6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
                     Back to Login
@@ -305,7 +306,7 @@ async function logout() {
 
         console.log('✅ Logout successful');
     } catch (error) {
-        console.error('⚠️ Logout error:', error);
+        console.error('⚠ Logout error:', error);
     }
 
     // Clear local storage
@@ -340,7 +341,7 @@ async function logout() {
 
                 console.log('✅ Logout successful');
             } catch (error) {
-                console.error('⚠️ Logout error:', error);
+                console.error('⚠ Logout error:', error);
             }
 
             localStorage.removeItem('auth_token');
