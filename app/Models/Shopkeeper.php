@@ -10,7 +10,6 @@ class Shopkeeper extends Authenticatable
     use HasFactory;
 
     protected $table = 'shopkeepers';
-    protected $primaryKey = 'shopkeeper_id';
 
     protected $fillable = [
         'user_id',
@@ -28,21 +27,21 @@ class Shopkeeper extends Authenticatable
     // Relationships
     public function lenses()
     {
-        return $this->hasMany(Lens::class, 'shopkeeper_id', 'shopkeeper_id');
+        return $this->hasMany(Lens::class, 'shop_id', 'id');
     }
 
     public function subscriptions()
     {
-        return $this->hasMany(Subscription::class, 'shopkeeper_id', 'shopkeeper_id');
+        return $this->hasMany(Subscription::class, 'shop_id', 'id');
     }
 
     public function qrcodes()
     {
-        return $this->hasMany(QrCode::class, 'shopkeeper_id', 'shopkeeper_id');
+        return $this->hasMany(QrCode::class, 'shop_id', 'id');
     }
 
     public function analytics()
     {
-        return $this->hasMany(Analytics::class, 'shopkeeper_id', 'shopkeeper_id');
+        return $this->hasMany(Analytics::class, 'shop_id', 'id');
     }
 }

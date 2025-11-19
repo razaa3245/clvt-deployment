@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('qr_codes', function (Blueprint $table) {
             $table->id();
             // use `shop_id` to be consistent with other tables (analytics, try_ons, etc.)
-            $table->foreignId('shop_id')->nullable()->constrained('shopkeepers')->cascadeOnDelete();
+            $table->integer('shop_id');
             $table->text('qr_image')->nullable();
             $table->timestamps();
         });
