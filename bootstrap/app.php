@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\CheckAuthenticated;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-//use App\Http\Middleware\CheckAuthenticated;//hunain ne kia
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,7 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
-        //$middleware->append(CheckAuthenticated::class); //hunain ne kia
+        $middleware->alias([
+            'check.auth' => CheckAuthenticated::class,
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

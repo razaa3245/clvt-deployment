@@ -125,10 +125,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
-    // API-based login
+    // Show login form
+    public function showLoginForm()
+    {
+        return view('auth.signup');
+    }
+
+    // Web-only login: session-based authentication
     public function login(Request $request)
     {
         $request->validate([
@@ -139,38 +146,39 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
         }
 
         $user = Auth::user();
 
-        // If user not approved
+        // Optional approval check for shopkeepers
         if ($user->type === 'shopkeeper' && isset($user->is_approved) && !$user->is_approved) {
             Auth::logout();
-            return response()->json([
-                'message' => 'Your account is pending admin approval.'
-            ], 403);
+            return back()->withErrors(['email' => 'Your account is pending admin approval.']);
         }
 
-        // Create API token
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $request->session()->regenerate();
 
-        return response()->json([
-            'message' => 'Login successful',
-            'user' => $user,
-            'role' => $user->type,
-            'token' => $token,
-        ], 200);
+        // Redirect by role or intended URL
+        if ($user->type === 'admin') {
+            return redirect()->intended(route('admin.dashboard'));
+        }
+
+        if ($user->type === 'shopkeeper') {
+            return redirect()->intended(route('shopkeeper.dashboard'));
+        }
+
+        return redirect()->intended('/');
     }
 
-    // Logout via API
+    // Web logout
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        return response()->json([
-            'message' => 'Logged out successfully'
-        ]);
+        return redirect()->route('login');
     }
 }
 

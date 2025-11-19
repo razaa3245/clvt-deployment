@@ -12,8 +12,8 @@
 <body class="bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-800 font-sans min-h-screen flex">
 
   <!-- SIDEBAR -->
-  <aside x-data="{ open: false }" 
-         :class="open ? 'w-64' : 'w-20'" 
+  <aside x-data="{ open: false }"
+         :class="open ? 'w-64' : 'w-20'"
          class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0">
 
     <!-- Top Section -->
@@ -42,7 +42,7 @@
       <nav class="mt-6">
         <p x-show="open" class="text-xs text-gray-400 px-6 mb-2 uppercase tracking-widest">Overview</p>
         <ul>
-          
+
           <li>
             <a href="/shopkeeper/catalog1" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
               <svg xmlns="http://www.w3.org/2000/svg"
@@ -102,8 +102,8 @@
         <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
       </div>
       <nav class="flex gap-8 text-sm font-medium">
-        
-        
+
+
       </nav>
     </header>
 
@@ -195,21 +195,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('auth_token');
     const role = localStorage.getItem('user_role');
     const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
-    
+
     console.log('🔐 Checking authentication...');
     console.log('Token:', token ? 'Present' : 'Missing');
     console.log('Role:', role);
-    
+
     // Check if user is authenticated and is a shopkeeper
     if (!token || role !== 'shopkeeper') {
         console.error('❌ Unauthorized access');
-        alert('Please login as a shopkeeper to access this page');
         window.location.href = '/signup';
         return;
     }
-    
+
     console.log('✅ Shopkeeper authenticated:', userInfo.name || userInfo.email);
-    
+
     // Load dashboard data from API
     loadDashboardData(token);
 });
@@ -220,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadDashboardData(token) {
     console.log('📡 Fetching shopkeeper dashboard data from API...');
     console.log('🔗 URL: /api/shopkeeper/dashboard')
-    
+
     try {
         const response = await fetch('/api/shopkeeper/dashboard', {
             method: 'GET',
@@ -235,14 +234,14 @@ async function loadDashboardData(token) {
 
         const result = await response.json();
         console.log('📦 API Response Data:', result);
-        
+
         if (response.ok && result.success) {
             console.log('✅ Dashboard data loaded successfully');
             updateDashboardUI(result.data);
         } else {
             console.error('❌ Failed to load dashboard:', result.message);
             alert('Failed to load dashboard: ' + (result.message || 'Unknown error'));
-            
+
             // Show error modal
             showErrorModal('Failed to load dashboard');
         }
@@ -257,11 +256,11 @@ async function loadDashboardData(token) {
 // ========================================
 function updateDashboardUI(data) {
     console.log('🎨 Updating dashboard UI with data:', data);
-    
+
     // Update stats if you have IDs in your HTML
     // Example: If you add id="total-tryons" to the 1,247 element
     // document.getElementById('total-tryons').textContent = data.stats.total_tryons.toLocaleString();
-    
+
     console.log('Total Try-Ons:', data.stats.total_tryons);
     console.log('Subscription:', data.stats.subscription_plan);
     console.log('Days Remaining:', data.stats.days_remaining);
@@ -292,9 +291,9 @@ function showErrorModal(message) {
 // ========================================
 async function logout() {
     console.log('🚪 Logging out...');
-    
+
     const token = localStorage.getItem('auth_token');
-    
+
     try {
         const response = await fetch('/api/logout', {
             method: 'POST',
@@ -303,19 +302,19 @@ async function logout() {
                 'Accept': 'application/json'
             }
         });
-        
+
         console.log('✅ Logout successful');
     } catch (error) {
         console.error('⚠️ Logout error:', error);
     }
-    
+
     // Clear local storage
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_role');
     localStorage.removeItem('user_info');
-    
+
     console.log('🧹 Local storage cleared');
-    
+
     // Redirect to login page
     window.location.href = '/signup';
 }
@@ -327,9 +326,9 @@ async function logout() {
         // ========================================
         async function logout() {
             console.log('🚪 Logging out...');
-            
+
             const token = localStorage.getItem('auth_token');
-            
+
             try {
                 await fetch('/api/logout', {
                     method: 'POST',
@@ -338,16 +337,16 @@ async function logout() {
                         'Accept': 'application/json'
                     }
                 });
-                
+
                 console.log('✅ Logout successful');
             } catch (error) {
                 console.error('⚠️ Logout error:', error);
             }
-            
+
             localStorage.removeItem('auth_token');
             localStorage.removeItem('user_role');
             localStorage.removeItem('user_info');
-            
+
             console.log('🧹 Local storage cleared');
             window.location.href = '/signup';
         }
