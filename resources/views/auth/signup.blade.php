@@ -26,6 +26,7 @@
       animation: float 6s ease-in-out infinite;
     }
   </style>
+  @include('layouts.auth')
 </head>
 
 <body
@@ -297,7 +298,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       document.getElementById('dashboardModal').classList.add('hidden');
       window.location.href = '/';
     }
-    
+
   </script>
 
 </body>

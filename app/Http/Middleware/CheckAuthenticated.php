@@ -10,9 +10,9 @@ class CheckAuthenticated
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
-            return redirect('/signup');
-        }
+        // if (!Auth::check()) {
+        //     return redirect('/signup');
+        // }
 
         return $next($request);
     }
