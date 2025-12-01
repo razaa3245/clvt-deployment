@@ -4,209 +4,332 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Lens Catalogue | VirtualLens</title>
+  <title>Lens Catalogue | VisionTech</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex">
+<body class="bg-gradient-to-br from-gray-50 to-gray-100">
+  
   <!-- SIDEBAR -->
   <aside x-data="{ open: false }" 
          :class="open ? 'w-64' : 'w-20'" 
-         class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0">
+         class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between fixed top-0 left-0 z-50">
 
     <!-- Top Section -->
     <div>
       <!-- Logo -->
       <div class="flex items-center justify-between p-4">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
-            <span class="text-cyan-600 font-bold text-lg">S</span>
+          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+            <span id="sidebar-email-first" class="text-sm text-gray-600"></span>
           </div>
           <div x-show="open" class="text-gray-700">
             <span id="sidebar-email" class="text-sm text-gray-600"></span>
-            <p class="text-xs text-gray-400 -mt-1"></p>
+            <p class="text-xs text-gray-400 -mt-1">Admin</p>
           </div>
         </div>
         <button @click="open = !open" class="text-gray-400 hover:text-gray-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h7" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
           </svg>
         </button>
       </div>
 
-      <!-- Overview -->
+      <!-- Navigation -->
       <nav class="mt-6">
         <p x-show="open" class="text-xs text-gray-400 px-6 mb-2 uppercase tracking-widest">Overview</p>
         <ul>
           <li>
-            <a href="/admin/dashboard" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                  class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            <a href="/admin/dashboard" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               <span x-show="open" x-transition class="ml-3 text-sm">Dashboard</span>
             </a>
           </li>
           <li>
-            <a href="/messages" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                  class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M21 15a2 2 0 01-2 2H5l-2 2V5a2 2 0 012-2h14a2 2 0 012 2v10z" />
+            <a href="/catalog" class="flex items-center px-6 py-2 bg-purple-50 text-purple-700 group border-r-4 border-purple-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
-              <span x-show="open" class="ml-3 text-sm">Notifications</span>
+              <span x-show="open" x-transition class="ml-3 text-sm font-semibold">Lens Catalog</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin/messages" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+              <span x-show="open" class="ml-3 text-sm">Approvals</span>
             </a>
           </li>
         </ul>
       </nav>
     </div>
 
- <!-- Account Section -->
-  <div class="border-t border-gray-100 py-4">
-        <ul>
-          <li>
-            <a href="#" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span x-show="open" class="ml-3 text-sm">Settings</span>
-            </a>
-          </li>
-          <li>
-            <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group w-full text-left">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              <span x-show="open" class="ml-3 text-sm text-red-500">Logout</span>
-            </button>
-          </li>
-        </ul>
-      </div>
+    <!-- Account Section -->
+    <div class="border-t border-gray-100 py-4">
+      <ul>
+        <li>
+          <a href="#" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span x-show="open" class="ml-3 text-sm">Settings</span>
+          </a>
+        </li>
+        <li>
+          <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group w-full text-left">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span x-show="open" class="ml-3 text-sm text-red-500">Logout</span>
+          </button>
+        </li>
+      </ul>
+    </div>
   </aside>
 
-  <!-- MAIN PAGE CONTENT -->
-  <div class="flex-1 flex flex-col">
-
+  <!-- MAIN CONTENT -->
+  <div class="ml-20 transition-all duration-300">
+    
     <!-- HEADER -->
-    <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-50 transition-all duration-300 hover:shadow-md">
-      <div class="flex items-center justify-between px-6 py-[10px]">
-        <!-- Logo / Brand -->
+    <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-40 transition-all duration-300 hover:shadow-md">
+      <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
-          <a href="/" class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</a>
+          <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
         </div>
         
         <div class="flex items-center gap-4">
-          <!-- Display admin email -->
           <span id="admin-email" class="text-sm text-gray-600"></span>
         </div>
       </div>
     </header>
 
-    <!-- Header -->
-    <div class="max-w-7xl mx-auto py-6 px-4">
-      <h1 class="text-3xl font-bold text-center text-cyan-600 mt-4">Lens Catalogue</h1>
-      <p class="text-center text-gray-500 mt-1">Browse our collection of premium colored contact lenses</p>
-    </div>
+    <!-- Page Header with Gradient -->
+    <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-10 py-8 border-b border-gray-200">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900">Lens Catalogue</h1>
+            <p class="text-gray-600 mt-1">Browse and manage your premium colored contact lenses</p>
+          </div>
+        </div>
 
-    <!-- Filter Buttons -->
-    <div class="flex justify-center space-x-3 mt-4">
-      <button onclick="filterLenses('all')" id="filter-all" class="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700">All</button>
-      <button onclick="filterLenses('natural')" id="filter-natural" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Natural</button>
-      <button onclick="filterLenses('vibrant')" id="filter-vibrant" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Vibrant</button>
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-3 mt-6">
+          <button onclick="filterLenses('all')" id="filter-all" class="px-5 py-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 shadow-md transition-all hover:shadow-lg font-semibold text-sm">
+            All Lenses
+          </button>
+          <button onclick="filterLenses('natural')" id="filter-natural" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+            Natural
+          </button>
+          <button onclick="filterLenses('vibrant')" id="filter-vibrant" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+            Vibrant
+          </button>
+          <button onclick="filterLenses('daily')" id="filter-daily" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+            Daily Wear
+          </button>
+          <button onclick="filterLenses('monthly')" id="filter-monthly" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+            Monthly
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Loading Spinner -->
     <div id="loading-spinner" class="flex justify-center items-center py-20">
-      <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-600"></div>
+      <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600"></div>
       <p class="ml-4 text-gray-600">Loading lenses...</p>
     </div>
 
-    <!-- Lens Cards Container -->
-    <div id="lenses-container" class="max-w-7xl mx-auto mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 hidden">
-      <!-- Lenses will be dynamically loaded here -->
+    <!-- Main Content Container -->
+    <div class="container mx-auto px-10 py-8">
+      
+      <!-- Statistics Bar -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="stats-section">
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all hover:shadow-lg">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Total Lenses</p>
+              <p class="text-3xl font-bold text-gray-900" id="total-lenses-count">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all hover:shadow-lg">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Categories</p>
+              <p class="text-3xl font-bold text-gray-900">5</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all hover:shadow-lg">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Premium Quality</p>
+              <p class="text-3xl font-bold text-gray-900">100%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lens Cards Container -->
+      <div id="lenses-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 hidden">
+        <!-- Lenses will be dynamically loaded here -->
+      </div>
+
+      <!-- No Lenses Message -->
+      <div id="no-lenses" class="hidden text-center py-20">
+        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+        </div>
+        <p class="text-gray-500 text-lg font-medium">No lenses found</p>
+        <p class="text-gray-400 text-sm mt-2">Try adjusting your filters or add new lenses</p>
+      </div>
     </div>
 
-    <!-- No Lenses Message -->
-    <div id="no-lenses" class="hidden text-center py-20">
-      <p class="text-gray-500 text-lg">No lenses found</p>
-    </div>
-
-    <!-- Features Section -->
-    <div class="max-w-7xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center px-4">
-      <div class="bg-white rounded-2xl shadow p-6">
-        <div class="text-cyan-600 text-3xl mb-2">👁️</div>
-        <h4 class="font-semibold text-gray-800 mb-1">Virtual Try-On</h4>
-        <p class="text-sm text-gray-500">See how each lens looks on you before buying</p>
-      </div>
-      <div class="bg-white rounded-2xl shadow p-6">
-        <div class="text-cyan-600 text-3xl mb-2">✨</div>
-        <h4 class="font-semibold text-gray-800 mb-1">Premium Quality</h4>
-        <p class="text-sm text-gray-500">FDA approved, comfortable daily wear lenses</p>
-      </div>
-      <div class="bg-white rounded-2xl shadow p-6">
-        <div class="text-cyan-600 text-3xl mb-2">🔄</div>
-        <h4 class="font-semibold text-gray-800 mb-1">Easy Returns</h4>
-        <p class="text-sm text-gray-500">30-day return policy on all unopened products</p>
-      </div>
-    </div>
+   
+   
 
     <!-- Footer CTA -->
-    <div class="max-w-4xl mx-auto bg-cyan-50 text-center mt-12 mb-12 p-8 rounded-2xl">
-      <h2 class="text-2xl font-bold text-cyan-700 mb-2">Ready to Manage Your Lenses?</h2>
-      <p class="text-gray-600 mb-4">You can update or delete lens details easily using the options above.</p>
-      <button onclick="window.location.href='/admin/dashboard'" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold">Go to Dashboard</button>
+    <div class="container mx-auto px-10 pb-12">
+      <div class="bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl shadow-xl p-10 text-center text-white">
+        <h2 class="text-3xl font-bold mb-3">Ready to Manage Your Lenses?</h2>
+        <p class="text-purple-100 mb-6 text-lg">Update or delete lens details easily using the management options</p>
+        <button onclick="window.location.href='/admin/dashboard'" class="bg-white text-purple-700 hover:bg-gray-100 px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
+          Go to Dashboard
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Edit Lens Modal -->
-  <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-      <h3 class="text-2xl font-bold mb-6">Edit Lens</h3>
-      <form id="editForm">
+  <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-8 py-6 border-b border-gray-200 sticky top-0 z-10">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900">Edit Lens Details</h3>
+          </div>
+          <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <form id="editForm" class="p-8">
         <input type="hidden" id="edit-lens-id">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Lens Name -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Lens Name *</label>
-            <input type="text" id="edit-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+              Lens Name <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="edit-name" required 
+                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all"
+                   placeholder="Enter lens name">
           </div>
           
+          <!-- Brand -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Brand</label>
-            <input type="text" id="edit-brand" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Brand</label>
+            <input type="text" id="edit-brand" 
+                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all"
+                   placeholder="Enter brand name">
           </div>
           
+          <!-- Color -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Color</label>
-            <input type="text" id="edit-color" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Color</label>
+            <input type="text" id="edit-color" 
+                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all"
+                   placeholder="e.g., Blue, Brown, Gray">
           </div>
           
+          <!-- Type -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Type *</label>
-            <input type="text" id="edit-type" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+              Type <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="edit-type" required 
+                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all"
+                   placeholder="e.g., Daily, Monthly">
           </div>
           
+          <!-- Image Upload -->
           <div class="col-span-2">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
-            <input type="file" id="edit-image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <div id="edit-image-preview" class="mt-2 hidden">
-              <img id="edit-preview-img" src="" alt="Preview" class="w-20 h-20 rounded-full object-cover border-2 border-gray-300">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Lens Image</label>
+            <div class="relative">
+              <input type="file" id="edit-image" accept="image/*" 
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 cursor-pointer">
+            </div>
+            <p class="text-xs text-gray-500 mt-2 flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Upload a new image or keep existing one (Max 2MB, JPG/PNG)
+            </p>
+            
+            <!-- Image Preview -->
+            <div id="edit-image-preview" class="mt-4 hidden">
+              <p class="text-sm font-medium text-gray-700 mb-2">Preview:</p>
+              <div class="inline-block p-2 border-2 border-gray-200 rounded-xl bg-gray-50">
+                <img id="edit-preview-img" src="" alt="Preview" class="w-24 h-24 rounded-lg object-cover">
+              </div>
             </div>
           </div>
         </div>
         
-        <div class="flex gap-4 mt-6">
-          <button type="submit" class="flex-1 bg-cyan-600 text-white py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-all">
+        <!-- Action Buttons -->
+        <div class="flex gap-4 mt-8 pt-6 border-t border-gray-200">
+          <button type="submit" 
+                  class="flex-1 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-4 rounded-xl font-bold text-lg shadow-md transition-all hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
             Update Lens
           </button>
-          <button type="button" onclick="closeEditModal()" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-all">
+          <button type="button" onclick="closeEditModal()" 
+                  class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-4 rounded-xl font-bold text-lg transition-all hover:shadow-md">
             Cancel
           </button>
         </div>
@@ -214,6 +337,57 @@
     </div>
   </div>
 
+  <!-- Custom Styles -->
+  <style>
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Smooth transitions for all interactive elements */
+    button, a, input, select {
+      transition: all 0.3s ease;
+    }
+
+    /* Card hover effect enhancement */
+    .lens-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .lens-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Loading animation */
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+
+  <!-- JavaScript -->
   <script>
     let allLenses = [];
     let currentFilter = 'all';
@@ -224,10 +398,14 @@
     document.addEventListener('DOMContentLoaded', function() {
       const token = localStorage.getItem('auth_token');
       const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
+      const email = userInfo.email;
+      const firstLetter = email.charAt(0).toUpperCase();   
       
       if (userInfo.email) {
         document.getElementById('admin-email').textContent = userInfo.email;
         document.getElementById('sidebar-email').textContent = userInfo.email;
+        // NEW separate line showing only first letter
+        document.getElementById('sidebar-email-first').textContent = firstLetter;
       }
       
       loadLenses();
@@ -254,6 +432,7 @@
           allLenses = data.data;
           document.getElementById('loading-spinner').classList.add('hidden');
           document.getElementById('lenses-container').classList.remove('hidden');
+          document.getElementById('total-lenses-count').textContent = allLenses.length;
           displayLenses(allLenses);
         } else {
           showNoLenses();
@@ -287,7 +466,7 @@
         // Determine image source
         let imageHtml;
         if (lens.image) {
-          imageHtml = `<div class="w-20 h-20 mx-auto rounded-full border-4 border-gray-100 overflow-hidden">
+          imageHtml = `<div class="w-28 h-28 mx-auto rounded-full border-4 border-purple-100 overflow-hidden shadow-lg mb-4">
             <img src="${lens.image}" alt="${lens.name}" class="w-full h-full object-cover">
           </div>`;
         } else {
@@ -306,38 +485,89 @@
           const lensColor = lens.color ? lens.color.toLowerCase() : 'gray';
           const bgColor = colorMap[lensColor] || '#808080';
           
-          imageHtml = `<div class="w-20 h-20 mx-auto rounded-full border-4 border-gray-100" style="background-color: ${bgColor};"></div>`;
+          imageHtml = `<div class="w-28 h-28 mx-auto rounded-full border-4 border-purple-100 shadow-lg mb-4" style="background: linear-gradient(135deg, ${bgColor} 0%, ${bgColor}dd 100%);"></div>`;
         }
         
-        // Generate random rating (for display purposes)
+        // Generate random rating and price
         const rating = (4.0 + Math.random() * 1).toFixed(1);
         const reviews = Math.floor(80 + Math.random() * 150);
-        
-        // Generate random price (for display purposes)
         const price = Math.floor(35 + Math.random() * 30);
         
         const lensCard = `
-          <div class="bg-white rounded-2xl shadow-md p-5 text-center hover:shadow-lg transition" data-type="${(lens.type || '').toLowerCase()}">
-            <div class="flex justify-between items-center mb-3">
-              <h3 class="text-lg font-semibold text-gray-800">${lens.name}</h3>
-              <span class="bg-cyan-100 text-cyan-700 text-xs px-2 py-1 rounded-full font-medium">New</span>
+          <div class="lens-card relative overflow-hidden bg-white rounded-2xl shadow-lg border-2 border-gray-100 p-6 text-center hover:border-purple-300 hover:shadow-2xl" data-type="${(lens.type || '').toLowerCase()}">
+            <!-- Top Badge -->
+            <div class="absolute top-4 right-4">
+              <span class="bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-md">New</span>
             </div>
-            ${imageHtml}
-            <p class="mt-3 text-sm text-gray-500">${lens.brand || 'Premium'} • ${lens.type || 'Colored'}</p>
-            <div class="flex justify-center items-center mt-2 text-yellow-500 text-sm">
-              ⭐ ${rating} <span class="text-gray-400 ml-1">(${reviews}+ reviews)</span>
-            </div>
-            <p class="text-xl font-bold mt-3">$${price} <span class="text-sm font-normal text-gray-500">per pair</span></p>
 
-            <div class="flex justify-center space-x-2 mt-4">
-              <button onclick="openEditModal(${lensId})" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-2 rounded-lg text-sm transition-all">Update Lens</button>
-              <button onclick="deleteLens(${lensId})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm transition-all">Delete Lens</button>
+            <!-- Lens Image -->
+            ${imageHtml}
+            
+            <!-- Lens Info -->
+            <h3 class="text-lg font-bold text-gray-900 mb-2 min-h-[56px] flex items-center justify-center">${lens.name}</h3>
+            <p class="text-sm text-gray-600 mb-3">
+              <span class="font-semibold">${lens.brand || 'Premium'}</span> • ${lens.type || 'Colored'}
+            </p>
+
+            <!-- Color Badge -->
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full mb-4">
+              <div class="w-3 h-3 rounded-full" style="background-color: ${getColorHex(lens.color || 'Gray')}"></div>
+              <span class="text-xs font-semibold text-gray-700">${lens.color || 'Gray'}</span>
+            </div>
+            
+            <!-- Rating -->
+            <div class="flex justify-center items-center mb-4 text-sm">
+              <div class="flex text-yellow-400 mr-2">
+                ${'★'.repeat(Math.floor(parseFloat(rating)))}${'☆'.repeat(5 - Math.floor(parseFloat(rating)))}
+              </div>
+              <span class="font-semibold text-gray-700">${rating}</span>
+              <span class="text-gray-400 ml-1">(${reviews})</span>
+            </div>
+            
+            <!-- Price -->
+            <div class="mb-6 pb-6 border-b border-gray-200">
+              <p class="text-3xl font-bold text-purple-700">$${price}</p>
+              <p class="text-sm text-gray-500 mt-1">per pair</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2">
+              <button onclick="openEditModal(${lensId})" 
+                      class="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-xl font-semibold transition-all hover:shadow-lg flex items-center justify-center gap-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Edit
+              </button>
+              <button onclick="deleteLens(${lensId})" 
+                      class="flex-1 bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-xl font-semibold transition-all hover:shadow-lg flex items-center justify-center gap-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Delete
+              </button>
             </div>
           </div>
         `;
         
         container.innerHTML += lensCard;
       });
+    }
+
+    // Helper function to get color hex
+    function getColorHex(colorName) {
+      const colorMap = {
+        'brown': '#8B4513',
+        'blue': '#4169E1',
+        'green': '#228B22',
+        'gray': '#808080',
+        'grey': '#808080',
+        'hazel': '#8E7618',
+        'violet': '#8B00FF',
+        'black': '#000000',
+        'amber': '#FFBF00'
+      };
+      return colorMap[colorName.toLowerCase()] || '#808080';
     }
 
     // ========================================
@@ -348,11 +578,13 @@
       
       // Update button styles
       document.querySelectorAll('[id^="filter-"]').forEach(btn => {
-        btn.classList.remove('bg-cyan-600', 'text-white');
-        btn.classList.add('bg-gray-200', 'text-gray-800');
+        btn.classList.remove('bg-purple-600', 'text-white', 'shadow-md');
+        btn.classList.add('bg-white', 'text-gray-700', 'border-2', 'border-gray-200');
       });
-      document.getElementById('filter-' + filter).classList.remove('bg-gray-200', 'text-gray-800');
-      document.getElementById('filter-' + filter).classList.add('bg-cyan-600', 'text-white');
+      
+      const activeBtn = document.getElementById('filter-' + filter);
+      activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-2', 'border-gray-200');
+      activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-md');
       
       // Filter lenses
       if (filter === 'all') {
@@ -366,6 +598,8 @@
       }
     }
 
+    // Continue with remaining functions (openEditModal, deleteLens, etc.)...
+    
     // ========================================
     // EDIT LENS MODAL
     // ========================================
@@ -386,9 +620,7 @@
       const previewImg = document.getElementById('edit-preview-img');
       
       if (lens.image && previewImg && imagePreview) {
-        const imageUrl = lens.image.startsWith('http') 
-          ? lens.image 
-          : '/storage/' + lens.image;
+        const imageUrl = lens.image.startsWith('http') ? lens.image : '/storage/' + lens.image;
         previewImg.src = imageUrl;
         imagePreview.classList.remove('hidden');
       } else if (imagePreview) {
@@ -404,10 +636,10 @@
     }
 
     // ========================================
-    // DELETE LENS
+    // DELETE LENS (keeping your existing code)
     // ========================================
     async function deleteLens(id) {
-      if (!confirm('Are you sure you want to delete this lens?')) return;
+      if (!confirm('Are you sure you want to delete this lens? This action cannot be undone.')) return;
 
       const token = localStorage.getItem('auth_token');
       let csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -423,8 +655,6 @@
         }
       }
       
-      console.log('Deleting lens ID:', id);
-      
       const endpoints = [
         `/admin/lenses/${id}`,
         `/api/admin/lenses/${id}`,
@@ -435,32 +665,21 @@
         let lastError = null;
         
         for (const endpoint of endpoints) {
-          console.log(`Trying endpoint: ${endpoint}`);
-          
           try {
             const headers = {
               'Accept': 'application/json',
               'X-Requested-With': 'XMLHttpRequest'
             };
             
-            if (csrfToken) {
-              headers['X-CSRF-TOKEN'] = csrfToken;
-            }
-            
-            if (token) {
-              headers['Authorization'] = 'Bearer ' + token;
-            }
+            if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken;
+            if (token) headers['Authorization'] = 'Bearer ' + token;
             
             let response = await fetch(endpoint, {
               method: 'DELETE',
               headers: headers
             });
             
-            console.log(`DELETE response: ${response.status} ${response.statusText}`);
-            
             if (response.status === 404 || response.status === 405) {
-              console.log('Trying POST with _method=DELETE');
-              
               const formData = new FormData();
               formData.append('_method', 'DELETE');
               
@@ -472,8 +691,6 @@
                 headers: postHeaders,
                 body: formData
               });
-              
-              console.log(`POST response: ${response.status} ${response.statusText}`);
             }
             
             if (response.ok) {
@@ -492,7 +709,6 @@
               }
               
               if (data.success !== false) {
-                console.log('✓ Lens deleted successfully via', endpoint);
                 alert('Lens deleted successfully');
                 await loadLenses();
                 return;
@@ -501,25 +717,21 @@
             
             const errorText = await response.text();
             lastError = { endpoint, status: response.status, body: errorText };
-            console.error('Failed:', lastError);
             
           } catch (fetchError) {
-            console.error(`Network error for ${endpoint}:`, fetchError);
             lastError = { endpoint, error: fetchError.message };
           }
         }
         
-        console.error('All endpoints failed. Last error:', lastError);
         alert('Failed to delete lens. Error: ' + (lastError.body || lastError.error || 'Unknown error'));
         
       } catch (error) {
-        console.error('Unexpected error:', error);
         alert('Error deleting lens: ' + error.message);
       }
     }
 
     // ========================================
-    // IMAGE PREVIEW
+    // IMAGE PREVIEW & FORM SETUP
     // ========================================
     function setupImagePreview() {
       const imageInput = document.getElementById('edit-image');
@@ -537,6 +749,13 @@
               return;
             }
             
+            if (file.size > 2 * 1024 * 1024) {
+              alert('Image size must be less than 2MB');
+              this.value = '';
+              imagePreview.classList.add('hidden');
+              return;
+            }
+            
             const reader = new FileReader();
             reader.onload = function(e) {
               previewImg.src = e.target.result;
@@ -548,9 +767,6 @@
       }
     }
 
-    // ========================================
-    // EDIT FORM SUBMISSION
-    // ========================================
     function setupEditForm() {
       const editForm = document.getElementById('editForm');
       
@@ -573,7 +789,6 @@
           }
           
           const lensId = document.getElementById('edit-lens-id').value;
-          console.log('Updating lens ID:', lensId);
           
           const formData = new FormData();
           formData.append('_method', 'PUT');
@@ -587,12 +802,6 @@
             formData.append('image', imageFile);
           }
           
-          // Log form data for debugging
-          console.log('Form data being sent:');
-          for (let pair of formData.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
-          }
-          
           const alternativeUrls = [
             `/admin/lenses/${lensId}`,
             `/api/admin/lenses/${lensId}`,
@@ -603,22 +812,13 @@
             let lastError = null;
             
             for (const tryUrl of alternativeUrls) {
-              console.log(`\nTrying to update at: ${tryUrl}`);
-              
               const headers = {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
               };
               
-              if (csrfToken) {
-                headers['X-CSRF-TOKEN'] = csrfToken;
-                console.log('CSRF Token added');
-              }
-              
-              if (token) {
-                headers['Authorization'] = 'Bearer ' + token;
-                console.log('Auth token added');
-              }
+              if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken;
+              if (token) headers['Authorization'] = 'Bearer ' + token;
               
               try {
                 const response = await fetch(tryUrl, {
@@ -627,36 +827,18 @@
                   body: formData
                 });
                 
-                console.log(`Response: ${response.status} ${response.statusText}`);
-                
-                // Try to read response body
-                const contentType = response.headers.get('content-type');
-                let responseText = await response.text();
-                console.log('Response body:', responseText);
-                
                 if (response.ok) {
+                  const contentType = response.headers.get('content-type');
+                  const responseText = await response.text();
                   let data;
                   
-                  if (contentType && contentType.includes('application/json')) {
-                    try {
-                      data = JSON.parse(responseText);
-                    } catch (e) {
-                      console.warn('Failed to parse JSON, treating as success');
-                      data = { success: true };
-                    }
-                  } else {
-                    try {
-                      data = JSON.parse(responseText);
-                    } catch (e) {
-                      console.warn('Non-JSON response, treating as success');
-                      data = { success: true };
-                    }
+                  try {
+                    data = JSON.parse(responseText);
+                  } catch (e) {
+                    data = { success: true };
                   }
                   
-                  console.log('Parsed data:', data);
-                  
                   if (data.success !== false) {
-                    console.log('✓ Lens updated successfully via', tryUrl);
                     alert('Lens updated successfully');
                     closeEditModal();
                     await loadLenses();
@@ -665,47 +847,34 @@
                     const errorMsg = data.errors 
                       ? Object.values(data.errors).flat().join(', ')
                       : data.message || 'Unknown error';
-                    console.error('Update failed with error:', errorMsg);
                     alert('Error: ' + errorMsg);
                     return;
                   }
-                } else {
-                  // Response not OK
-                  lastError = { url: tryUrl, status: response.status, body: responseText };
-                  console.error('Failed with status', response.status, ':', responseText);
                 }
                 
+                const errorText = await response.text();
+                lastError = { url: tryUrl, status: response.status, body: errorText };
+                
               } catch (fetchError) {
-                console.error(`Network error for ${tryUrl}:`, fetchError);
                 lastError = { url: tryUrl, error: fetchError.message };
               }
             }
             
-            // All endpoints failed
-            console.error('All endpoints failed. Last error:', lastError);
-            const errorMessage = lastError.body || lastError.error || 'Unknown error';
-            alert('Error updating lens: ' + errorMessage + '\n\nPlease check the console for more details.');
+            alert('Error updating lens: ' + (lastError.body || lastError.error || 'Unknown error'));
             
           } catch (error) {
-            console.error('Unexpected error:', error);
             alert('Error updating lens: ' + error.message);
           }
         });
       }
     }
 
-    // ========================================
-    // SHOW NO LENSES MESSAGE
-    // ========================================
     function showNoLenses() {
       document.getElementById('loading-spinner').classList.add('hidden');
       document.getElementById('lenses-container').classList.add('hidden');
       document.getElementById('no-lenses').classList.remove('hidden');
     }
 
-    // ========================================
-    // LOGOUT
-    // ========================================
     async function logout() {
       const token = localStorage.getItem('auth_token');
       
@@ -728,5 +897,8 @@
       window.location.href = '/signup';
     }
   </script>
+  <div class="pl-[5%]">
+    @include('web.layouts.footer')
+</div>
 </body>
 </html>

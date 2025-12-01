@@ -79,7 +79,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ShopkeeperController;
 use App\Http\Controllers\LensController;
-
+use App\Http\Controllers\MController;
 // Static pages only
 Route::get('/', fn() => view('web.index'))->name('home');
 Route::get('/aboutus', fn() => view('web.content.aboutus'))->name('aboutus');
@@ -189,3 +189,17 @@ Route::post('/shopkeeper-approvals/decline/{id}', [ShopkeeperController::class, 
 Route::get('/shopkeeper-approvals/details/{id}', [ShopkeeperController::class, 'getDetails'])
     ->name('shopkeeper.approvals.details');
 
+
+
+
+//model ko controll krra
+
+Route::get('/lens', [MController::class, 'index']);
+Route::get('/video_feed', [MController::class, 'stream']);
+Route::get('/lens/next', [MController::class, 'nextLens']);
+Route::get('/lens/prev', [MController::class, 'prevLens']);
+
+// routes/web.php
+Route::get('/model1', function () {
+    return view('web.content.lens');   // ← yahi sahi hai
+})->name('model1');

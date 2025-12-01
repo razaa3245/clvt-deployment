@@ -23,11 +23,15 @@ class ShopkeeperController extends Controller
     public function getPending()
     {
         try {
-            $shopkeepers = Shopkeeper::
-                orderBy('created_at', 'desc')
+            // Fetch users of type 'shopkeeper' which are not yet approved
+            $shopkeeperUsers = User::pendingShopkeepers()
+                ->orderBy('created_at', 'desc')
                 ->get();
 
-            $data = $shopkeepers->map(function ($shopkeeper) {
+            $data = $shopkeeperUsers->map(function ($shopkeeper) {
+                // Try to pull additional profile data from shopkeepers table (if exists)
+                $profile = Shopkeeper::where('user_id', $shopkeeper->id)->first();
+
                 $createdTime = strtotime($shopkeeper->created_at);
                 $now = time();
                 $diff = $now - $createdTime;
@@ -50,10 +54,11 @@ class ShopkeeperController extends Controller
                     'id' => $shopkeeper->id,
                     'name' => $shopkeeper->name,
                     'email' => $shopkeeper->email,
-                    'shop_name' => $shopkeeper->shop_name ?? 'N/A',
-                    'retailer_name' => $shopkeeper->retailer_name ?? 'N/A',
-                    'address' => $shopkeeper->address ?? 'N/A',
-                    'phone_number' => $shopkeeper->phone ?? 'N/A',
+                    'shop_name' => $profile->shop_name ?? 'N/A',
+                    'retailer_name' => $profile->retailer_name ?? 'N/A',
+                    'address' => $profile->address ?? 'N/A',
+                    // prefer profile phone if present, otherwise user's phone
+                    'phone_number' => $profile->phone ?? $shopkeeper->phone ?? 'N/A',
                     'created_at' => date('F j, Y g:i A', $createdTime),
                     'time_ago' => $timeAgo,
                     'is_approved' => $shopkeeper->is_approved
@@ -165,10 +170,11 @@ class ShopkeeperController extends Controller
                     'id' => $shopkeeper->id,
                     'name' => $shopkeeper->name,
                     'email' => $shopkeeper->email,
-                    'shop_name' => $shopkeeper->shop_name ?? 'N/A',
-                    'retailer_name' => $shopkeeper->retailer_name ?? 'N/A',
-                    'address' => $shopkeeper->address ?? 'N/A',
-                    'phone_number' => $shopkeeper->phone_number ?? 'N/A',
+                    // Prefer shopkeeper profile data if available
+                    'shop_name' => optional(Shopkeeper::where('user_id', $shopkeeper->id)->first())->shop_name ?? 'N/A',
+                    'retailer_name' => optional(Shopkeeper::where('user_id', $shopkeeper->id)->first())->retailer_name ?? 'N/A',
+                    'address' => optional(Shopkeeper::where('user_id', $shopkeeper->id)->first())->address ?? $shopkeeper->address ?? 'N/A',
+                    'phone_number' => optional(Shopkeeper::where('user_id', $shopkeeper->id)->first())->phone ?? $shopkeeper->phone ?? 'N/A',
                     'created_at' => $shopkeeper->created_at->format('F j, Y g:i A'),
                     'is_approved' => $shopkeeper->is_approved
                 ]

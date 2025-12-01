@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gradient-to-br from-gray-50 to-gray-100">
     <!-- SIDEBAR -->
     <aside x-data="{ open: false }" 
            :class="open ? 'w-64' : 'w-20'" 
@@ -20,7 +20,7 @@
         <div class="flex items-center justify-between p-4">
           <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
-              <span class="text-cyan-600 font-bold text-lg">V</span>
+              <span id="sidebar-email-first" class="text-sm text-gray-600"></span>
             </div>
             <div x-show="open" class="text-gray-700">
               <span id="sidebar-email" class="text-sm text-gray-600"></span>
@@ -39,10 +39,18 @@
         <nav class="mt-6">
           <p x-show="open" class="text-xs text-gray-400 px-6 mb-2 uppercase tracking-widest">Overview</p>
           <ul>
-            
+           
+                     <li>
+                        <a href="/admin/dashboard" class="flex items-center px-6 py-2 bg-cyan-50 text-cyan-700 group border-r-4 border-cyan-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <span x-show="open" x-transition class="ml-3 text-sm font-semibold">Dashboard</span>
+                        </a>
+                    </li>
             <li>
               <a href="/catalog" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
@@ -51,10 +59,10 @@
             </li>
             <li>
               <a href="messages" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15a2 2 0 01-2 2H5l-2 2V5a2 2 0 012-2h14a2 2 0 012 2v10z" />
-                </svg>
-                <span x-show="open" class="ml-3 text-sm">Notifications</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                <span x-show="open" class="ml-3 text-sm">Approvals</span>
               </a>
             </li>
           </ul>
@@ -110,79 +118,140 @@
         <!-- Main Content -->
         <div id="dashboard-content" class="container mx-auto px-4 py-8 hidden">
             <!-- Statistics Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="group bg-white rounded-2xl shadow p-6 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-blue-600 text-sm font-semibold">Total Shops</p>
-                            <p class="text-3xl font-bold mt-1" id="totalShops">0</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- Total Shops Card -->
+                <div class="relative overflow-hidden bg-white rounded-2xl shadow-lg border border-gray-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Live</span>
                         </div>
-                        <div class="text-4xl group-hover:scale-110 transition-transform duration-500">🏪</div>
+                        <h3 class="text-sm font-medium text-gray-500 mb-1">Total Shops</h3>
+                        <p class="text-4xl font-bold text-gray-900" id="totalShops">0</p>
+                        <div class="mt-4 flex items-center text-xs text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            Registered locations
+                        </div>
                     </div>
                 </div>
-                
-                <div class="group bg-white rounded-2xl shadow p-6 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-blue-600 text-sm font-semibold">Active Users</p>
-                            <p class="text-3xl font-bold mt-1" id="activeUsers">2</p>
+
+                <!-- Active Users Card -->
+                <div class="relative overflow-hidden bg-white rounded-2xl shadow-lg border border-gray-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">Active</span>
                         </div>
-                        <div class="text-4xl group-hover:scale-110 transition-transform duration-500">👥</div>
+                        <h3 class="text-sm font-medium text-gray-500 mb-1">Active Users</h3>
+                        <p class="text-4xl font-bold text-gray-900" id="activeUsers">2</p>
+                        <div class="mt-4 flex items-center text-xs text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Online now
+                        </div>
                     </div>
                 </div>
-                
-                <div class="group bg-white rounded-2xl shadow p-6 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-blue-600 text-sm font-semibold">Lens Catalog</p>
-                            <p class="text-3xl font-bold mt-1" id="totalLenses">0</p>
+
+                <!-- Lens Catalog Card -->
+                <div class="relative overflow-hidden bg-white rounded-2xl shadow-lg border border-gray-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Catalog</span>
                         </div>
-                        <div class="text-4xl group-hover:scale-110 transition-transform duration-500">👁️</div>
-                    </div>
-                </div>
-                
-                <div class="group bg-white rounded-2xl shadow p-6 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-blue-600 text-sm font-semibold">Total Value</p>
-                            <p class="text-3xl font-bold mt-1" id="totalValue">$0</p>
+                        <h3 class="text-sm font-medium text-gray-500 mb-1">Lens Catalog</h3>
+                        <p class="text-4xl font-bold text-gray-900" id="totalLenses">0</p>
+                        <div class="mt-4 flex items-center text-xs text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                            </svg>
+                            Products available
                         </div>
-                        <div class="text-4xl group-hover:scale-110 transition-transform duration-500">💰</div>
                     </div>
                 </div>
             </div>
 
+            <!-- Main Sections -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- Shop Management -->
-                <div class="bg-white rounded-3xl shadow p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="flex items-center mb-4">
-                        <span class="text-2xl mr-3">🏪</span>
-                        <h2 class="text-2xl font-bold">Shop Management</h2>
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-8 py-6 border-b border-gray-200">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900">Shop Management</h2>
+                                <p class="text-sm text-gray-600 mt-0.5">Manage and monitor registered optical shops</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-gray-600 mb-4">Manage and monitor registered optical shops</p>
-                    <input type="text" id="shop-search" placeholder="Search shops..." class="w-full px-4 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all">
-                    <div id="shopsList" class="space-y-4 max-h-96 overflow-y-auto">
-                        <p class="text-center text-gray-400 py-8">Loading shops...</p>
+                    
+                    <div class="p-8">
+                        <div class="relative mb-6">
+                            <input type="text" id="shop-search" placeholder="Search shops by name or email..." class="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        
+                        <div id="shopsList" class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+                            <p class="text-center text-gray-400 py-12 text-sm">Loading shops...</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Master Lens Catalog -->
-                <div class="bg-white rounded-3xl shadow p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center">
-                            <span class="text-2xl mr-3">👁️</span>
-                            <h2 class="text-2xl font-bold">Master Lens Catalog</h2>
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-8 py-6 border-b border-gray-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center shadow-md">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold text-gray-900">Master Lens Catalog</h2>
+                                    <p class="text-sm text-gray-600 mt-0.5">Add and manage lenses available across all shops</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-600 mb-4">Add and manage lenses available across all shops</p>
                     
-                    <button onclick="openAddLensModal()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all hover:scale-[1.02] shadow-md mb-4">
-                        + Add New Lens
-                    </button>
+                    <div class="p-8">
+                        <button onclick="openAddLensModal()" class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-4 rounded-xl font-semibold transition-all hover:shadow-xl hover:-translate-y-0.5 shadow-md flex items-center justify-center gap-2 mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Add New Lens
+                        </button>
 
-                    <!-- Lenses List -->
-                    <div id="lensesList" class="space-y-4 max-h-96 overflow-y-auto">
-                        <p class="text-center text-gray-400 py-8">Loading lenses...</p>
+                        <div id="lensesList" class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+                            <p class="text-center text-gray-400 py-12 text-sm">Loading lenses...</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -239,6 +308,27 @@
         </div>
     </div>
 
+    <style>
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+
     <script>
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
         let allLenses = [];
@@ -247,33 +337,42 @@
         // AUTHENTICATION & INITIALIZATION
         // ========================================
         document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('auth_token');
-            const role = localStorage.getItem('user_role');
-            const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
-            
-            console.log('🔐 Checking authentication...');
-            console.log('Token:', token ? 'Present' : 'Missing');
-            console.log('Role:', role);
-            
-            if (!token || role !== 'admin') {
-                console.error('❌ Unauthorized access');
-                alert('Please login as an admin to access this page');
-                window.location.href = '/signup';
-                return;
-            }
-            
-            console.log('✅ Admin authenticated:', userInfo.name || userInfo.email);
-            
-            if (userInfo.email) {
-                document.getElementById('admin-email').textContent = userInfo.email;
-                document.getElementById('sidebar-email').textContent = userInfo.email;
-            }
-            
-            loadDashboardData(token);
-            setupImagePreview();
-            setupFormSubmission();
-            setupShopSearch();
-        });
+    const token = localStorage.getItem('auth_token');
+    const role = localStorage.getItem('user_role');
+    const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
+    
+    console.log('🔐 Checking authentication...');
+    console.log('Token:', token ? 'Present' : 'Missing');
+    console.log('Role:', role);
+    
+    if (!token || role !== 'admin') {
+        console.error('❌ Unauthorized access');
+        alert('Please login as an admin to access this page');
+        window.location.href = '/signup';
+        return;
+    }
+    
+    console.log('✅ Admin authenticated:', userInfo.name || userInfo.email);
+    
+    if (userInfo.email) {
+        const email = userInfo.email;
+        const firstLetter = email.charAt(0).toUpperCase();   // first letter only
+
+        document.getElementById('admin-email').textContent = email;
+
+        // ORIGINAL full-email line (kept)
+        document.getElementById('sidebar-email').textContent = email;
+
+        // NEW separate line showing only first letter
+        document.getElementById('sidebar-email-first').textContent = firstLetter;
+    }
+    
+    loadDashboardData(token);
+    setupImagePreview();
+    setupFormSubmission();
+    setupShopSearch();
+});
+
 
         // ========================================
         // LOAD DASHBOARD DATA
@@ -308,107 +407,117 @@
                     alert('Failed to load dashboard data: ' + (result.message || 'Unknown error'));
                 }
             } catch (error) {
-                console.error('🚨 Dashboard load error:', error);
-                document.getElementById('loading-spinner').innerHTML = 
-                    '<p class="text-red-600">Failed to load dashboard. Please refresh the page.</p>';
+                console.error('❌ Error fetching dashboard data:', error);
+                alert('An error occurred while loading dashboard data. Please try again later.');
             }
         }
-
-        // ========================================
-        // UPDATE DASHBOARD UI
-        // ========================================
-        function updateDashboardUI(data) {
-            console.log('🎨 Updating dashboard UI with data:', data);
-            
-            if (data.stats) {
-                updateStats(data.stats);
-            }
-            
-            if (data.recent_shops) {
-                updateShopsList(data.recent_shops);
-            }
-            
-            loadLenses();
+            // ========================================
+    // UPDATE DASHBOARD UI
+    // ========================================
+    function updateDashboardUI(data) {
+        console.log('🎨 Updating dashboard UI with data:', data);
+        
+        if (data.stats) {
+            updateStats(data.stats);
         }
-
-        // ========================================
-        // UPDATE STATISTICS
-        // ========================================
-        function updateStats(stats) {
-            console.log('📊 Updating stats:', stats);
-            
-            document.getElementById('totalShops').textContent = stats.total_shops || 0;
-            document.getElementById('activeUsers').textContent = (stats.active_users || 0).toLocaleString();
-            document.getElementById('totalLenses').textContent = stats.lens_catalog || 0;
-            
-            const revenue = stats.monthly_revenue || 0;
-            document.getElementById('totalValue').textContent = '$' + (revenue / 1000).toFixed(1) + 'K';
+        
+        if (data.recent_shops) {
+            updateShopsList(data.recent_shops);
         }
+        
+        loadLenses();
+    }
 
-        // ========================================
-        // LOAD LENSES
-        // ========================================
-        async function loadLenses() {
-            try {
-                const token = localStorage.getItem('auth_token');
-                const response = await fetch('/api/lenses', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Accept': 'application/json'
-                    }
-                });
-                const data = await response.json();
-                
-                if (data.success) {
-                    allLenses = data.data;
-                    displayLenses(allLenses);
-                    updateLensCount();
+    // ========================================
+    // UPDATE STATISTICS
+    // ========================================
+    function updateStats(stats) {
+        console.log('📊 Updating stats:', stats);
+        
+        document.getElementById('totalShops').textContent = stats.total_shops || 0;
+        document.getElementById('activeUsers').textContent = (stats.active_users || 0).toLocaleString();
+        document.getElementById('totalLenses').textContent = stats.lens_catalog || 0;
+        
+        const revenue = stats.monthly_revenue || 0;
+        const totalValueEl = document.getElementById('totalValue');
+        if (totalValueEl) {
+            totalValueEl.textContent = '$' + (revenue / 1000).toFixed(1) + 'K';
+        }
+    }
+
+    // ========================================
+    // LOAD LENSES
+    // ========================================
+    async function loadLenses() {
+        try {
+            const token = localStorage.getItem('auth_token');
+            const response = await fetch('/api/lenses', {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/json'
                 }
-            } catch (error) {
-                console.error('Error loading lenses:', error);
-                document.getElementById('lensesList').innerHTML = '<p class="text-center text-red-400 py-8">Error loading lenses</p>';
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                allLenses = data.data;
+                displayLenses(allLenses);
+                updateLensCount();
             }
+        } catch (error) {
+            console.error('Error loading lenses:', error);
+            document.getElementById('lensesList').innerHTML = '<p class="text-center text-red-400 py-8">Error loading lenses</p>';
         }
+    }
 
-        // ========================================
-        // DISPLAY LENSES
-        // ========================================
-        function displayLenses(lenses) {
-            const lensesList = document.getElementById('lensesList');
+    // ========================================
+    // DISPLAY LENSES
+    // ========================================
+    function displayLenses(lenses) {
+        const lensesList = document.getElementById('lensesList');
+        
+        if (!lenses || lenses.length === 0) {
+            lensesList.innerHTML = '<p class="text-center text-gray-400 py-12 text-sm">No lenses found</p>';
+            return;
+        }
+        
+        lensesList.innerHTML = '';
+        lenses.forEach(lens => {
+            const lensId = lens.lens_id || lens.id;
             
-            if (!lenses || lenses.length === 0) {
-                lensesList.innerHTML = '<p class="text-center text-gray-400 py-8">No lenses found</p>';
-                return;
-            }
+            const imageHtml = lens.image 
+                ? `<img src="${lens.image}" alt="${lens.name}" class="w-14 h-14 rounded-xl object-cover border-2 border-gray-200 shadow-sm">`
+                : `<div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-md">${lens.name.charAt(0).toUpperCase()}</div>`;
             
-            lensesList.innerHTML = '';
-            lenses.forEach(lens => {
-                const lensId = lens.lens_id || lens.id;
-                
-                const imageHtml = lens.image 
-                    ? `<img src="${lens.image}" alt="${lens.name}" class="w-12 h-12 rounded-full object-cover border-2 border-gray-200">`
-                    : `<div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold">${lens.name.charAt(0).toUpperCase()}</div>`;
-                
-                const lensHTML = `
-                    <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all">
-                        <div class="flex items-center gap-4">
-                            ${imageHtml}
-                            <div>
-                                <h3 class="font-semibold text-gray-900">${lens.name}</h3>
-                                <p class="text-sm text-gray-600">${lens.brand || 'Generic'} • ${lens.type || 'Colored'}</p>
-                                <p class="text-xs text-gray-500">Color: ${lens.color || 'Grey'}</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-3">
-                            <button onclick="editLens(${lensId})" class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors">Edit</button>
-                            <button onclick="deleteLens(${lensId})" class="text-red-600 hover:text-red-800 font-medium text-sm transition-colors">Delete</button>
+            const lensHTML = `
+                <div class="group flex items-center justify-between p-4 border-2 border-gray-100 rounded-xl hover:border-purple-200 hover:bg-purple-50/50 transition-all duration-300 hover:shadow-md">
+                    <div class="flex items-center gap-4">
+                        ${imageHtml}
+                        <div>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-purple-700 transition-colors">${lens.name}</h3>
+                            <p class="text-sm text-gray-600 mt-0.5">${lens.brand || 'Generic'} • ${lens.type || 'Colored'}</p>
+                            <span class="inline-block mt-1.5 px-2.5 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                                ${lens.color || 'Grey'}
+                            </span>
                         </div>
                     </div>
-                `;
-                lensesList.innerHTML += lensHTML;
-            });
-        }
-
+                    <div class="flex gap-2">
+                        <button onclick="editLens(${lensId})" class="px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg font-medium text-sm transition-all hover:shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </button>
+                        <button onclick="deleteLens(${lensId})" class="px-4 py-2 bg-red-50 text-red-700 hover:bg-red-100 rounded-lg font-medium text-sm transition-all hover:shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            lensesList.innerHTML += lensHTML;
+        });
+    }
         // ========================================
         // UPDATE LENS COUNT
         // ========================================
@@ -438,21 +547,28 @@
             const shopsList = document.getElementById('shopsList');
             
             if (!shops || shops.length === 0) {
-                shopsList.innerHTML = '<p class="text-center text-gray-400 py-8">No shops found</p>';
+                shopsList.innerHTML = '<p class="text-center text-gray-400 py-12 text-sm">No shops found</p>';
                 return;
             }
             
             shopsList.innerHTML = '';
             shops.forEach(shop => {
                 const shopHTML = `
-                    <div class="group flex justify-between items-center p-5 bg-gray-50 border border-gray-200 rounded-2xl transition-all duration-500 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 hover:shadow-xl hover:border-blue-400">
-                        <div>
-                            <h3 class="font-semibold text-gray-800 group-hover:text-blue-700 transition-colors">${shop.name}</h3>
-                            <p class="text-sm text-gray-600">${shop.email}</p>
-                            <p class="text-xs text-gray-400 mt-1">${shop.status || 'Active'}</p>
+                    <div class="group flex justify-between items-center p-5 bg-gradient-to-r from-gray-50 to-blue-50 border-2 border-gray-100 rounded-xl transition-all duration-300 hover:border-blue-300 hover:shadow-lg hover:-translate-y-0.5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
+                                ${shop.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors text-base">${shop.name}</h3>
+                                <p class="text-sm text-gray-600 mt-0.5">${shop.email}</p>
+                                <span class="inline-block mt-1.5 px-2.5 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-full">
+                                    ${shop.status || 'Active'}
+                                </span>
+                            </div>
                         </div>
-                        <button onclick="viewShop(${shop.id})" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-semibold text-white shadow transition-all hover:scale-105">
-                            View
+                        <button onclick="viewShop(${shop.id})" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5">
+                            View Details
                         </button>
                     </div>
                 `;
@@ -855,5 +971,8 @@
 
         
     </script>
+    <div class="pl-[5%]">
+    @include('web.layouts.footer')
+</div>
 </body>
 </html>
