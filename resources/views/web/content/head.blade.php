@@ -19,7 +19,7 @@
       <div class="relative group">
         <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
         <div class="relative">
-          <img src="{{ asset('images/img1.jpeg') }}" alt="Virtual Try-On Demo"
+          <img src="{{ asset('images/front1.jpg') }}" alt="Virtual Try-On Demo"
             class="w-full max-w-xs sm:max-w-md h-auto rounded-2xl shadow-2xl group-hover:scale-105 transition-all duration-500 object-cover object-center border-4 border-white"
             style="aspect-ratio: 1/1;">
           <div class="absolute inset-0 bg-gradient-to-t from-blue-600/30 via-transparent to-transparent rounded-2xl"></div>
