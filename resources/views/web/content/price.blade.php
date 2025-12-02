@@ -9,6 +9,48 @@
   <script src="https://cdn.tailwindcss.com"></script>
   
 </head>
+   
+
+<header class="bg-white border-b border-gray-200 px-5 py-3 shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo" />
+      <a href="{{ route('home') }}" class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</a>
+    </div>
+
+    <!-- Hamburger Button -->
+    <button id="nav-toggle" class="md:hidden p-2 rounded text-gray-700 focus:outline-none">
+      <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Main Links (Desktop) -->
+    <nav id="nav-links" class="hidden md:flex flex-1 justify-center space-x-8 text-base items-center">
+      <a href="{{ route('home') }}" class="hover:text-gray-600 transition">Home</a>
+      <a href="{{ url('price') }}" class="hover:text-gray-600 transition">Pricing</a>
+      <a href="{{ url('contact') }}" class="hover:text-gray-600 transition">Contact Us</a>
+      <a href="{{ url('aboutus') }}" class="hover:text-gray-600 transition">About Us</a>
+      <a href="{{ url('signup') }}" class="hover:text-gray-600 transition">Login/Signup</a>
+      <a href="{{ url('signup') }}" class="text-red-400 hover:text-red-300 font-medium">Get Started</a>
+    </nav>
+  </div>
+
+  <!-- Mobile menu dropdown -->
+  <div id="mobile-menu" class="md:hidden hidden px-4 pt-2 pb-4 space-y-2 bg-white rounded shadow text-center">
+    <a href="{{ route('home') }}" class="block py-2 hover:text-gray-600">Home</a>
+    <a href="{{ url('price') }}" class="block py-2 hover:text-gray-600">Pricing</a>
+    <a href="{{ url('contact') }}" class="block py-2 hover:text-gray-600">Contact Us</a>
+    <a href="{{ url('aboutus') }}" class="block py-2 hover:text-gray-600">About Us</a>
+    <a href="{{ url('signup') }}" class="block py-2 hover:text-gray-600">Login/Signup</a>
+    <a href="{{ url('shopkeeper') }}" class="block py-2 text-red-400 hover:text-red-300 font-medium">Get Started</a>
+  </div>
+
+ 
+</header>
+
+
 
 <body class="bg-gradient-to-br from-slate-50 via-white to-slate-100 font-sans antialiased">
 
@@ -440,13 +482,13 @@
           Join hundreds of optical shops already using VisionTech to enhance customer experience
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a href="#pricing" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+          <a href="price" class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
             <span>Choose Your Plan</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
             </svg>
           </a>
-          <a href="#contact" class="inline-flex items-center gap-2 bg-white border-2 border-gray-300 hover:border-blue-600 text-gray-900 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-white border-2 border-gray-300 hover:border-blue-600 text-gray-900 hover:text-blue-600 font-semibold px-8 py-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
             <span>Contact Sales</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -457,4 +499,13 @@
     </div>
   </div>
 </body>
+ <script>
+    // Hamburger toggle menu script
+    const toggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    toggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+  @include('web.layouts.footer')
 </html>

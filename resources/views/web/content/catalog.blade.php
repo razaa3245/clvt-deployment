@@ -519,20 +519,9 @@
               <span class="text-xs font-semibold text-gray-700">${lens.color || 'Gray'}</span>
             </div>
             
-            <!-- Rating -->
-            <div class="flex justify-center items-center mb-4 text-sm">
-              <div class="flex text-yellow-400 mr-2">
-                ${'★'.repeat(Math.floor(parseFloat(rating)))}${'☆'.repeat(5 - Math.floor(parseFloat(rating)))}
-              </div>
-              <span class="font-semibold text-gray-700">${rating}</span>
-              <span class="text-gray-400 ml-1">(${reviews})</span>
-            </div>
             
-            <!-- Price -->
-            <div class="mb-6 pb-6 border-b border-gray-200">
-              <p class="text-3xl font-bold text-purple-700">$${price}</p>
-              <p class="text-sm text-gray-500 mt-1">per pair</p>
-            </div>
+            
+           
 
             <!-- Action Buttons -->
             <div class="flex gap-2">
