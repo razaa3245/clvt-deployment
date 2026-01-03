@@ -22,21 +22,21 @@ face_mesh = mp_face_mesh.FaceMesh(
 # ---------------------------------
 # Load Multiple Lens Images
 # ---------------------------------
-lens_files = ["lenses.png", "lenses1.png", "lenses2.png"]
+lens_files = ["lenses2.png", "lenses1.png", "lenses.png"]
 lens_images = []
 for file in lens_files:
     img = cv.imread(file, cv.IMREAD_UNCHANGED)
     if img is not None:
         lens_images.append(img)
     else:
-        print(f"⚠️ Warning: '{file}' not found, skipping...")
+        print(f" Warning: '{file}' not found, skipping...")
 
 if not lens_images:
-    raise SystemExit("❌ No lens images found!")
+    raise SystemExit(" No lens images found!")
 
 current_lens_index = 0
 lens_img = lens_images[current_lens_index]
-print(f"✅ Using lens: {lens_files[current_lens_index]}")
+print(f"Using lens: {lens_files[current_lens_index]}")
 
 LEFT_IRIS = [474, 475, 476, 477]
 RIGHT_IRIS = [469, 470, 471, 472]

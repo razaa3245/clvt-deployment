@@ -1,6 +1,6 @@
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex">
 
-  <!-- ✅ SIDEBAR (Integrated here) -->
+  <!--  SIDEBAR (Integrated here) -->
   <aside x-data="{ open: true }" 
          :class="open ? 'w-64' : 'w-20'" 
          class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0">

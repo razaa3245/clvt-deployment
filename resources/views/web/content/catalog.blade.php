@@ -387,7 +387,7 @@
     }
   </style>
 
-  <!-- JavaScript -->
+ 
   <script>
     let allLenses = [];
     let currentFilter = 'all';

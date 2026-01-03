@@ -341,18 +341,18 @@
     const role = localStorage.getItem('user_role');
     const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
     
-    console.log('🔐 Checking authentication...');
+    console.log('Checking authentication...');
     console.log('Token:', token ? 'Present' : 'Missing');
     console.log('Role:', role);
     
     if (!token || role !== 'admin') {
-        console.error('❌ Unauthorized access');
+        console.error(' Unauthorized access');
         alert('Please login as an admin to access this page');
         window.location.href = '/signup';
         return;
     }
     
-    console.log('✅ Admin authenticated:', userInfo.name || userInfo.email);
+    console.log(' Admin authenticated:', userInfo.name || userInfo.email);
     
     if (userInfo.email) {
         const email = userInfo.email;
@@ -378,7 +378,7 @@
         // LOAD DASHBOARD DATA
         // ========================================
         async function loadDashboardData(token) {
-            console.log('📡 Fetching dashboard data from API...');
+            console.log(' Fetching dashboard data from API...');
             
             try {
                 const response = await fetch('/api/admin/dashboard', {
@@ -390,24 +390,24 @@
                     }
                 });
 
-                console.log('📥 API Response Status:', response.status);
+                console.log(' API Response Status:', response.status);
 
                 const result = await response.json();
-                console.log('📦 API Response Data:', result);
+                console.log(' API Response Data:', result);
                 
                 if (response.ok && result.success) {
-                    console.log('✅ Dashboard data loaded successfully');
+                    console.log(' Dashboard data loaded successfully');
                     
                     document.getElementById('loading-spinner').classList.add('hidden');
                     document.getElementById('dashboard-content').classList.remove('hidden');
                     
                     updateDashboardUI(result.data);
                 } else {
-                    console.error('❌ Failed to load dashboard:', result.message);
+                    console.error(' Failed to load dashboard:', result.message);
                     alert('Failed to load dashboard data: ' + (result.message || 'Unknown error'));
                 }
             } catch (error) {
-                console.error('❌ Error fetching dashboard data:', error);
+                console.error(' Error fetching dashboard data:', error);
                 alert('An error occurred while loading dashboard data. Please try again later.');
             }
         }
@@ -415,7 +415,7 @@
     // UPDATE DASHBOARD UI
     // ========================================
     function updateDashboardUI(data) {
-        console.log('🎨 Updating dashboard UI with data:', data);
+        console.log(' Updating dashboard UI with data:', data);
         
         if (data.stats) {
             updateStats(data.stats);
@@ -432,7 +432,7 @@
     // UPDATE STATISTICS
     // ========================================
     function updateStats(stats) {
-        console.log('📊 Updating stats:', stats);
+        console.log(' Updating stats:', stats);
         
         document.getElementById('totalShops').textContent = stats.total_shops || 0;
         document.getElementById('activeUsers').textContent = (stats.active_users || 0).toLocaleString();
@@ -544,7 +544,7 @@
         // UPDATE SHOPS LIST
         // ========================================
         function updateShopsList(shops) {
-            console.log('🏪 Updating shops list:', shops);
+            console.log(' Updating shops list:', shops);
             
             const shopsList = document.getElementById('shopsList');
             
@@ -936,7 +936,7 @@
         // VIEW SHOP
         // ========================================
         function viewShop(shopId) {
-            console.log('👀 Viewing shop:', shopId);
+            console.log(' Viewing shop:', shopId);
             alert('Viewing shop ID: ' + shopId);
         }
 
@@ -944,7 +944,7 @@
         // LOGOUT
         // ========================================
         async function logout() {
-            console.log('🚪 Logging out...');
+            console.log(' Logging out...');
             
             const token = localStorage.getItem('auth_token');
             
@@ -957,16 +957,16 @@
                     }
                 });
                 
-                console.log('✅ Logout successful');
+                console.log(' Logout successful');
             } catch (error) {
-                console.error('⚠️ Logout error:', error);
+                console.error('Logout error:', error);
             }
             
             localStorage.removeItem('auth_token');
             localStorage.removeItem('user_role');
             localStorage.removeItem('user_info');
             
-            console.log('🧹 Local storage cleared');
+            console.log('Local storage cleared');
             window.location.href = '/signup';
         }
 

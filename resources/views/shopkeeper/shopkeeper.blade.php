@@ -77,9 +77,12 @@
         <p class="text-lg font-bold text-gray-900">Basic</p>
         <p class="text-xs text-gray-600 mt-1">Rs.25,000/month</p>
         <p class="text-xs text-gray-500 mt-1">Expires: Nov 12, 2025</p>
-        <button class="mt-3 w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm px-3 py-2 rounded-lg font-semibold transition-all hover:shadow-md">
+        <a href="/price">
+          <button class="mt-3 w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-700 hover:to-cyan-800 text-white text-sm px-3 py-2 rounded-lg font-semibold transition-all hover:shadow-md">
           Update Plan
         </button>
+        </a>
+        
       </div>
     </div>
 
@@ -109,7 +112,7 @@
 
 
 
-  <!-- ✅ MAIN CONTENT (Unchanged) -->
+  <!--  MAIN CONTENT (Unchanged) -->
   <div class="flex-1 flex flex-col">
     <header
       class="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-slate-200 shadow-sm flex justify-between items-center px-10 py-4">
@@ -221,12 +224,7 @@
         </button>
       </div>
 
-      <div class="mt-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
-        <p class="text-xs text-gray-500 mb-1">Catalogue URL:</p>
-        <a href="https://virtual-lens.io/catalogue" class="text-cyan-600 hover:text-cyan-700 hover:underline text-sm font-medium break-all">
-          https://virtual-lens.io/catalogue
-        </a>
-      </div>
+      
     </div>
   </div>
   <!-- Quick Actions Panel -->
@@ -248,7 +246,7 @@
     <div class="p-8">
       <div class="space-y-3">
         <!-- Preview Try-On Experience -->
-        <a href="/model1" class="group flex items-center justify-between p-5 border-2 border-gray-100 rounded-xl hover:border-cyan-200 hover:bg-cyan-50/50 transition-all duration-300 hover:shadow-md">
+        <a href="/shopkeeper/dashboard" class="group flex items-center justify-between p-5 border-2 border-gray-100 rounded-xl hover:border-cyan-200 hover:bg-cyan-50/50 transition-all duration-300 hover:shadow-md">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center group-hover:bg-cyan-200 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -315,9 +313,9 @@
           </div>
           <div>
             <h4 class="font-semibold text-gray-900 mb-1">Need Help?</h4>
-            <p class="text-sm text-gray-600 mb-3">Check our documentation or contact support for assistance with your shop setup.</p>
-            <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline">
-              View Documentation →
+            <p class="text-sm text-gray-600 mb-3">Contact support for assistance with your shop setup.</p>
+            <a href="/contactUs" class="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline">
+              Contact Us →
             </a>
           </div>
         </div>
@@ -326,38 +324,38 @@
   </div>
 </div>
       <script>
-        // ========================================
-        // STEP 1: Authentication Check on Page Load
-        // ========================================
+       
+        // Authentication Check on Page Load
+        
         document.addEventListener('DOMContentLoaded', function () {
           const token = localStorage.getItem('auth_token');
           const role = localStorage.getItem('user_role');
           const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
 
-          console.log('🔐 Checking authentication...');
+          console.log(' Checking authentication...');
           console.log('Token:', token ? 'Present' : 'Missing');
           console.log('Role:', role);
 
           // Check if user is authenticated and is a shopkeeper
           if (!token || role !== 'shopkeeper') {
-            console.error('❌ Unauthorized access');
+            console.error(' Unauthorized access');
             alert('Please login as a shopkeeper to access this page');
             window.location.href = '/signup';
             return;
           }
 
-          console.log('✅ Shopkeeper authenticated:', userInfo.name || userInfo.email);
+          console.log('Shopkeeper authenticated:', userInfo.name || userInfo.email);
 
           // Load dashboard data from API
           loadDashboardData(token);
         });
 
-        // ========================================
-        // STEP 2: Fetch Dashboard Data from API
-        // ========================================
+       
+        //  Fetch Dashboard Data from API
+        
         async function loadDashboardData(token) {
-          console.log('📡 Fetching shopkeeper dashboard data from API...');
-          console.log('🔗 URL: /api/shopkeeper/dashboard')
+          console.log(' Fetching shopkeeper dashboard data from API...');
+          console.log(' URL: /api/shopkeeper/dashboard')
 
           try {
             const response = await fetch('/api/shopkeeper/dashboard', {
@@ -369,38 +367,38 @@
               }
             });
 
-            console.log('📥 API Response Status:', response.status);
+            console.log(' API Response Status:', response.status);
 
             const result = await response.json();
-            console.log('📦 API Response Data:', result);
+            console.log(' API Response Data:', result);
 
             if (response.ok && result.success) {
-              console.log('✅ Dashboard data loaded successfully');
+              console.log(' Dashboard data loaded successfully');
               updateDashboardUI(result.data);
             } else {
-              console.error('❌ Failed to load dashboard:', result.message);
+              console.error(' Failed to load dashboard:', result.message);
               alert('Failed to load dashboard: ' + (result.message || 'Unknown error'));
 
               // Show error modal
               showErrorModal('Failed to load dashboard');
             }
           } catch (error) {
-            console.error('🚨 Dashboard load error:', error);
+            console.error(' Dashboard load error:', error);
             showErrorModal('Failed to load dashboard');
           }
         }
 
         
-        // ========================================
+       
         // AUTHENTICATION & INITIALIZATION
-        // ========================================
+        
         document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('auth_token');
     const role = localStorage.getItem('user_role');
     const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
     
     
-    console.log('✅ Admin authenticated:', userInfo.name || userInfo.email);
+    console.log(' Admin authenticated:', userInfo.name || userInfo.email);
     
     if (userInfo.email) {
         const email = userInfo.email;
@@ -422,19 +420,16 @@
 });
 
 
-        // ========================================
-        // STEP 3: Update Dashboard UI with Data
-        // ========================================
+        
+        // Update Dashboard UI with Data
+       
         function updateDashboardUI(data) {
-          console.log('🎨 Updating dashboard UI with data:', data);
+          console.log(' Updating dashboard UI with data:', data);
 
-          // Update stats if you have IDs in your HTML
-          // Example: If you add id="total-tryons" to the 1,247 element
-          // document.getElementById('total-tryons').textContent = data.stats.total_tryons.toLocaleString();
-
+         
           console.log('Total Try-Ons:', data.stats.total_tryons);
           console.log('Qr code:', data.qr_code ? data.qr_code.qr_image : null);
-          // Show QR image (try storage link first, then public path)
+       
           try {
             const qrPath = data.qr_code?.qr_image || '';
             const imgEl = document.getElementById('shop-qr-img');
@@ -447,10 +442,10 @@
               return;
             }
 
-            // Prefer the storage symlinked path (public/storage/...)
+         
             imgEl.src = '/storage/' + qrPath;
 
-            // If loading from /storage/... fails, fall back to direct public path
+            
             imgEl.onerror = function () {
               this.onerror = null;
               this.src = '/' + qrPath;
@@ -462,16 +457,15 @@
           console.log('Days Remaining:', data.stats.days_remaining);
         }
 
-        // ========================================
-        // STEP 4: Show Error Modal
-        // ========================================
+        //  Show Error Modal
+       
         function showErrorModal(message) {
           // Create a simple error modal
           const modal = document.createElement('div');
           modal.innerHTML = `
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 9999;">
             <div style="background: white; padding: 30px; border-radius: 10px; max-width: 400px; text-align: center;">
-                <h3 style="color: #333; margin-bottom: 15px; font-size: 20px;">⚠ ${message}</h3>
+                <h3 style="color: #333; margin-bottom: 15px; font-size: 20px;"> ${message}</h3>
                 <p style="color: #666; margin-bottom: 20px;">Please try again or contact support.</p>
                 <button onclick="window.location.href='/signup'" style="background: #3b82f6; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
                     Back to Login
@@ -483,11 +477,11 @@
         }
 
 
-        // ========================================
-        // STEP 5: Logout Function
-        // ========================================
+        
+        //  Logout Function
+      
         async function logout() {
-          console.log('🚪 Logging out...');
+          console.log(' Logging out...');
 
           const token = localStorage.getItem('auth_token');
 
@@ -501,9 +495,9 @@
             });
             localStorage.removeItem('auth_token');
 
-            console.log('✅ Logout successful');
+            console.log(' Logout successful');
           } catch (error) {
-            console.error('⚠ Logout error:', error);
+            console.error('Logout error:', error);
           }
 
           // Clear local storage
@@ -511,19 +505,16 @@
           localStorage.removeItem('user_role');
           localStorage.removeItem('user_info');
 
-          console.log('🧹 Local storage cleared');
+          console.log(' Local storage cleared');
 
           // Redirect to login page
           window.location.href = '/signup';
         }
 
-
-
-        // ========================================
         // LOGOUT
-        // ========================================
+        
         async function logout() {
-          console.log('🚪 Logging out...');
+          console.log(' Logging out...');
 
           const token = localStorage.getItem('auth_token');
 
@@ -536,16 +527,16 @@
               }
             });
 
-            console.log('✅ Logout successful');
+            console.log('Logout successful');
           } catch (error) {
-            console.error('⚠ Logout error:', error);
+            console.error('Logout error:', error);
           }
 
           localStorage.removeItem('auth_token');
           localStorage.removeItem('user_role');
           localStorage.removeItem('user_info');
 
-          console.log('🧹 Local storage cleared');
+          console.log(' Local storage cleared');
           window.location.href = '/signup';
         }
       </script>

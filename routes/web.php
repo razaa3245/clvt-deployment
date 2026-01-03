@@ -200,6 +200,6 @@ Route::get('/lens/next', [MController::class, 'nextLens']);
 Route::get('/lens/prev', [MController::class, 'prevLens']);
 
 // routes/web.php
-Route::get('/model1', function () {
-    return view('web.content.lens');   // ← yahi sahi hai
-})->name('model1');
+Route::get('shopkeeper/dashboard', function () {
+    return view('shopkeeper.shopkeeper');   // ← yahi sahi hai
+})->name('shopkeeper.dashboard');

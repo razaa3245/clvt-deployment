@@ -295,7 +295,7 @@ const email = userInfo.email;
 
     // Logout function
     async function logout() {
-      console.log('🚪 Logging out...');
+      console.log(' Logging out...');
       const token = localStorage.getItem('auth_token');
 
       try {
@@ -306,9 +306,9 @@ const email = userInfo.email;
             'Accept': 'application/json'
           }
         });
-        console.log('✅ Logout successful');
+        console.log(' Logout successful');
       } catch (error) {
-        console.error('⚠️ Logout error:', error);
+        console.error(' Logout error:', error);
       }
 
       localStorage.removeItem('auth_token');
@@ -317,7 +317,7 @@ const email = userInfo.email;
       localStorage.removeItem('token');
       localStorage.removeItem('adminEmail');
 
-      console.log('🧹 Local storage cleared');
+      console.log(' Local storage cleared');
       window.location.href = '/signup';
     }
 
@@ -331,12 +331,12 @@ const email = userInfo.email;
         'http://127.0.0.1:8000/api/admin/lenses',
       ];
 
-      console.log('🔍 Starting to fetch lenses...');
+      console.log(' Starting to fetch lenses...');
       console.log('Token:', token ? 'Present ✓' : 'Missing ✗');
 
       for (let endpoint of possibleEndpoints) {
         try {
-          console.log(`📡 Trying endpoint: ${endpoint}`);
+          console.log(` Trying endpoint: ${endpoint}`);
 
           const headers = {
             'Content-Type': 'application/json',
@@ -356,7 +356,7 @@ const email = userInfo.email;
 
           if (response.ok) {
             const data = await response.json();
-            console.log('✅ Success! Data received:', data);
+            console.log(' Success! Data received:', data);
 
             if (Array.isArray(data)) {
               allLenses = data;
@@ -369,19 +369,19 @@ const email = userInfo.email;
               allLenses = [];
             }
 
-            console.log(`📦 Total lenses found: ${allLenses.length}`);
+            console.log(` Total lenses found: ${allLenses.length}`);
             displayLenses(allLenses);
             return;
           } else {
             const errorText = await response.text();
-            console.log(`❌ Failed with status ${response.status}:`, errorText);
+            console.log(` Failed with status ${response.status}:`, errorText);
           }
         } catch (error) {
-          console.error(`❌ Error with endpoint ${endpoint}:`, error);
+          console.error(` Error with endpoint ${endpoint}:`, error);
         }
       }
 
-      console.error('❌ All endpoints failed');
+      console.error(' All endpoints failed');
       document.getElementById('loading').style.display = 'none';
       document.getElementById('no-lenses').style.display = 'flex';
       document.getElementById('no-lenses').innerHTML = `
@@ -406,17 +406,17 @@ const email = userInfo.email;
       const loading = document.getElementById('loading');
       const noLenses = document.getElementById('no-lenses');
 
-      console.log('📺 Displaying lenses:', lenses);
+      console.log(' Displaying lenses:', lenses);
       loading.style.display = 'none';
 
       if (!lenses || lenses.length === 0) {
-        console.log('⚠️ No lenses to display');
+        console.log(' No lenses to display');
         container.style.display = 'none';
         noLenses.style.display = 'flex';
         return;
       }
 
-      console.log(`✅ Displaying ${lenses.length} lenses`);
+      console.log(`Displaying ${lenses.length} lenses`);
       noLenses.style.display = 'none';
       container.style.display = 'grid';
       container.innerHTML = '';
@@ -430,7 +430,7 @@ const email = userInfo.email;
 
     // Create lens card HTML
     function createLensCard(lens) {
-      console.log('🎨 Creating card for lens:', lens);
+      console.log(' Creating card for lens:', lens);
 
       const id = lens.id || lens.lens_id;
       const name = lens.name || lens.lens_name || 'Unnamed Lens';
@@ -450,7 +450,7 @@ const email = userInfo.email;
         <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
           <!-- Card Header -->
           <div class="relative bg-gradient-to-br from-gray-50 to-blue-50 p-6">
-            ${isPopular ? '<span class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-xs px-3 py-1 rounded-full font-bold shadow-md">⭐ Popular</span>' : ''}
+            ${isPopular ? '<span class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-xs px-3 py-1 rounded-full font-bold shadow-md"> Popular</span>' : ''}
             
             <!-- Lens Image / Color Display -->
             ${imageUrl ? `

@@ -16,8 +16,8 @@ class UserController extends Controller
     public function __dashboard(UserService $userService){
         if(auth::check() && auth::user()->type === 'admin'){
             return view('admin.adminboard');
-        } 
-        else if(auth::check() && auth::user()->type === 'user'){
+        }
+        elseif(auth::check() && auth::user()->type === 'user'){
             return view('web.content.shopkeeper');
         }
         else {
