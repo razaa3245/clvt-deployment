@@ -42,6 +42,15 @@
                             <span x-show="open" x-transition class="ml-3 text-sm font-semibold">Dashboard</span>
                         </a>
                     </li>
+                     <li>
+                        <a href="/catalog" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <span x-show="open" x-transition class="ml-3 text-sm">Lens Catalog</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="/admin/messages" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,6 +64,7 @@
         </div>
         <div class="border-t border-gray-100 py-4">
             <ul>
+                
                 <li>
                     <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group w-full text-left">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -277,8 +287,140 @@
             </form>
         </div>
     </div>
+<div id="shopModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
+     style="background: rgba(15,23,42,0.5);"
+     onclick="handleModalBackdrop(event)">
+
+    <div id="shopModalBox" class="bg-white rounded-2xl w-full max-w-lg overflow-hidden border border-slate-200">
+
+        {{-- Hero header with gradient (matches VisionTech blue→purple) --}}
+        <div style="background: linear-gradient(135deg, #3b5fe2 0%, #7c3aed 100%); padding: 20px 22px 16px;">
+            <div class="flex items-start justify-between">
+                <div id="modalAvatar"
+                     style="width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,0.2);
+                            border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;
+                            justify-content:center;font-size:22px;font-weight:600;color:#fff;">
+                    ?
+                </div>
+                <button onclick="closeShopModal()"
+                        style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);
+                               border:none;color:#fff;cursor:pointer;font-size:14px;">✕</button>
+            </div>
+            <p id="modalName"  class="text-white font-semibold text-lg mt-2">—</p>
+            <p id="modalEmail" style="font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;">—</p>
+            <div class="flex gap-2 mt-2">
+                <span id="modalStatusBadge"
+                      style="font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500;
+                             background:rgba(255,255,255,0.2);color:#fff;
+                             border:1px solid rgba(255,255,255,0.3);">—</span>
+            </div>
+        </div>
+
+        {{-- Tabs --}}
+        <div class="flex border-b border-slate-100 px-5">
+            <button onclick="switchTab('info')"  id="tab-info"  class="modal-tab active-tab">Shop info</button>
+            <button onclick="switchTab('plan')"  id="tab-plan"  class="modal-tab">Plan</button>
+            <button onclick="switchTab('dates')" id="tab-dates" class="modal-tab">Timestamps</button>
+        </div>
+
+        {{-- Loading spinner --}}
+        <div id="modalSpinner" class="flex items-center justify-center gap-2 py-10 text-slate-400 text-sm">
+            <svg class="animate-spin w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+            </svg>
+            Fetching details…
+        </div>
+
+        {{-- Tab panels --}}
+        <div id="modalContent" class="hidden px-5 py-4 max-h-64 overflow-y-auto space-y-4">
+
+            {{-- Info tab --}}
+            <div id="panel-info">
+                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Identity</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="bg-slate-50 rounded-lg p-3">
+                        <p class="text-[10px] text-slate-400 font-medium">Full name</p>
+                        <p id="dName" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3">
+                        <p class="text-[10px] text-slate-400 font-medium">Retailer name</p>
+                        <p id="dRetailer" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3 col-span-2">
+                        <p class="text-[10px] text-slate-400 font-medium">Email address</p>
+                        <p id="dEmail" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3">
+                        <p class="text-[10px] text-slate-400 font-medium">Phone</p>
+                        <p id="dPhone" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3">
+                        <p class="text-[10px] text-slate-400 font-medium">Status</p>
+                        <p id="dStatus" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                    </div>
+                </div>
+                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mt-4 mb-2">Shop</p>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="bg-slate-50 rounded-lg p-3">
+                        <p class="text-[10px] text-slate-400 font-medium">Shop name</p>
+                        <p id="dShop" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3">
+                        <p class="text-[10px] text-slate-400 font-medium">Address</p>
+                        <p id="dAddress" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Plan tab --}}
+            <div id="panel-plan" class="hidden">
+                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Subscription</p>
+                <div style="background:linear-gradient(135deg,#ede9fe,#dbeafe);border-radius:10px;padding:14px 16px;"
+                     class="flex items-center justify-between">
+                    <div>
+                        <p id="dPlanName" class="text-sm font-semibold text-indigo-600">—</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Optical shop subscription</p>
+                    </div>
+                    <span id="dPlanStatus"
+                          class="bg-indigo-600 text-white text-[10px] px-3 py-1 rounded-full font-medium">—</span>
+                </div>
+            </div>
+
+            {{-- Timestamps tab --}}
+            <div id="panel-dates" class="hidden">
+                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Record info</p>
+                <div class="space-y-2">
+                    <div class="bg-slate-50 rounded-lg p-3">
+                        <p class="text-[10px] text-slate-400 font-medium">Created at</p>
+                        <p id="dCreated" class="text-xs font-mono text-slate-600 mt-0.5">—</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Footer --}}
+        <div id="modalFooter" class="hidden px-5 py-3 border-t border-slate-100 flex justify-end gap-2"
+             style="background:#fafbff;">
+            <button onclick="closeShopModal()"
+                    class="text-slate-500 text-xs font-medium px-4 py-2 rounded-lg border border-slate-200 hover:bg-slate-50">
+                Close
+            </button>
+            
+        </div>
+    </div>
+</div>
+</div>
 
     <style>
+        .modal-tab {
+    padding: 10px 14px; font-size: 12px; font-weight: 500;
+    color: #94a3b8; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; background: none; border-top: none;
+    border-left: none; border-right: none; cursor: pointer;
+}
+.active-tab { color: #3b5fe2 !important; border-bottom-color: #3b5fe2 !important; }
+
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -596,12 +738,75 @@
             });
         });
     }
+///////////////////Shop  details displaying///////////////////////
+    // ─── JS: place in your <script> or app.js ───────────────────────────
 
-    function viewShop(id) {
-        window.location.href = '/shopkeeper-approvals/details/' + id;
-    }
+function viewShop(id) {
+    // Show modal & spinner
+    document.getElementById('shopModal').classList.remove('hidden');
+    document.getElementById('modalSpinner').classList.remove('hidden');
+    document.getElementById('modalContent').classList.add('hidden');
+    document.getElementById('modalFooter').classList.add('hidden');
+    switchTab('info'); // reset to first tab
 
-    // ─────────────────────────────────────────────────────
+    fetch('/shopkeeper-approvals/details/' + id)
+        .then(r => r.json())
+        .then(result => {
+            if (!result.success) { alert(result.message); closeShopModal(); return; }
+
+            const s = result.data;
+
+            // Hero
+            document.getElementById('modalAvatar').textContent    = s.name?.charAt(0).toUpperCase() || '?';
+            document.getElementById('modalName').textContent       = s.name        || '—';
+            document.getElementById('modalEmail').textContent      = s.email       || '—';
+            document.getElementById('modalStatusBadge').textContent = s.plan_status || 'Unknown';
+
+            // Info tab
+            document.getElementById('dName').textContent      = s.name          || '—';
+            document.getElementById('dRetailer').textContent  = s.retailer_name  || '—';
+            document.getElementById('dEmail').textContent     = s.email          || '—';
+            document.getElementById('dPhone').textContent     = s.phone_number   || '—';
+            document.getElementById('dStatus').textContent    = s.plan_status    || '—';
+            document.getElementById('dShop').textContent      = s.shop_name      || '—';
+            document.getElementById('dAddress').textContent   = s.address        || '—';
+
+            // Plan tab
+            document.getElementById('dPlanName').textContent   = s.plan_name   || '—';
+            document.getElementById('dPlanStatus').textContent = s.plan_status || '—';
+
+            // Timestamps tab
+            document.getElementById('dCreated').textContent = s.created_at || '—';
+
+            // Show content
+            document.getElementById('modalSpinner').classList.add('hidden');
+            document.getElementById('modalContent').classList.remove('hidden');
+            document.getElementById('modalFooter').classList.remove('hidden');
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Error fetching shop details');
+            closeShopModal();
+        });
+}
+
+function closeShopModal() {
+    document.getElementById('shopModal').classList.add('hidden');
+}
+
+function handleModalBackdrop(e) {
+    if (e.target === document.getElementById('shopModal')) closeShopModal();
+}
+
+function switchTab(name) {
+    ['info', 'plan', 'dates'].forEach(t => {
+        document.getElementById('panel-' + t)?.classList.add('hidden');
+        document.getElementById('tab-' + t)?.classList.remove('active-tab');
+    });
+    document.getElementById('panel-' + name)?.classList.remove('hidden');
+    document.getElementById('tab-' + name)?.classList.add('active-tab');
+}   
+// ─────────────────────────────────────────────────────
     // IMAGE PREVIEW
     // ─────────────────────────────────────────────────────
     function setupImagePreview() {

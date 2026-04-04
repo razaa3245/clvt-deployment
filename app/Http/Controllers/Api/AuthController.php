@@ -66,12 +66,30 @@ public function __construct(UserService $userService)
 
             if ($shopkeeper->plan_status === 'expired' || $shopkeeper->plan_status === 'none') {
 
-                return response()->json([
-                    'message' => $shopkeeper->plan_status === 'expired'
-                        ? 'Your subscription has expired.'
-                        : 'Please select a subscription plan.',
-                    'redirect_to' => url('/price')
-                ], 403);
+                // If expired, check if plan_expiry time is still remaining
+                if ($shopkeeper->plan_status === 'expired' && !empty($shopkeeper->plan_expiry)) {
+                    $expiry = \Carbon\Carbon::parse($shopkeeper->plan_expiry);
+                    // If expiry is still in the future, account is seized
+                    if ($expiry->isFuture()) {
+                        return response()->json([
+                            'message' => 'Your account is seized.'
+                        ], 403);
+                    } else {
+                        // Expiry time has passed, redirect to subscription page
+                        return response()->json([
+                            'message' => 'Your subscription has expired.',
+                            'redirect_to' => url('/price')
+                        ], 403);
+                    }
+                } else {
+                    // If status is 'none' or expired without plan_expiry, redirect
+                    return response()->json([
+                        'message' => $shopkeeper->plan_status === 'expired'
+                            ? 'Your subscription has expired.'
+                            : 'Please select a subscription plan.',
+                        'redirect_to' => url('/price')
+                    ], 403);
+                }
             }
         }
     }

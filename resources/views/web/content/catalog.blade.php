@@ -20,9 +20,9 @@
       <!-- Logo -->
       <div class="flex items-center justify-between p-4">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-            <span id="sidebar-email-first" class="text-sm text-gray-600"></span>
-          </div>
+          <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
+                        <span id="sidebar-email-first" class=" text-purple-600 font-bold text-lg"></span>
+                    </div>
           <div x-show="open" class="text-gray-700">
             <span id="sidebar-email" class="text-sm text-gray-600"></span>
             <p class="text-xs text-gray-400 -mt-1">Admin</p>
@@ -71,15 +71,7 @@
     <!-- Account Section -->
     <div class="border-t border-gray-100 py-4">
       <ul>
-        <li>
-          <a href="#" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span x-show="open" class="ml-3 text-sm">Settings</span>
-          </a>
-        </li>
+        
         <li>
           <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group w-full text-left">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,17 +122,14 @@
           <button onclick="filterLenses('all')" id="filter-all" class="px-5 py-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 shadow-md transition-all hover:shadow-lg font-semibold text-sm">
             All Lenses
           </button>
-          <button onclick="filterLenses('natural')" id="filter-natural" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
-            Natural
-          </button>
-          <button onclick="filterLenses('vibrant')" id="filter-vibrant" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
-            Vibrant
-          </button>
           <button onclick="filterLenses('daily')" id="filter-daily" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
             Daily Wear
           </button>
           <button onclick="filterLenses('monthly')" id="filter-monthly" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
             Monthly
+          </button>
+          <button onclick="filterLenses('yearly')" id="filter-yearly" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+            Yearly
           </button>
         </div>
       </div>

@@ -79,12 +79,39 @@
       </div>
     </header>
 
-    <div class="bg-gradient-to-r from-cyan-50 via-blue-50 to-purple-50 border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-8 py-12 text-center">
-        <h1 class="text-4xl font-extrabold text-gray-900 mb-3">Lens Catalogue</h1>
-        <p class="text-gray-600 text-lg">Browse our premium collection and try them virtually</p>
-      </div>
-    </div>
+   <!-- Hero -->
+<div class="bg-gradient-to-r from-cyan-50 via-blue-50 to-purple-50 border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-8 py-12 text-center">
+    <h1 class="text-4xl font-extrabold text-gray-900 mb-3 font-syne">Lens Catalogue</h1>
+    <p class="text-gray-500 text-lg">Browse our premium collection and try them virtually</p>
+  </div>
+</div>
+
+<!-- Filter bar -->
+<div class="max-w-7xl mx-auto px-8 pt-8 pb-2 flex flex-wrap items-center gap-3">
+  <!-- Search -->
+  <div class="relative flex-1 min-w-[200px]">
+    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <input id="lens-search" type="text" placeholder="Search lenses…"
+      oninput="filterLenses()"
+      class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-xl bg-white
+             text-gray-800 placeholder-gray-400 focus:outline-none focus:border-cyan-400
+             focus:ring-1 focus:ring-cyan-300 transition-all">
+  </div>
+  <!-- Sort -->
+  <select id="lens-sort" onchange="filterLenses()"
+    class="py-2 px-3 text-sm border border-gray-200 rounded-xl bg-white text-gray-700
+           focus:outline-none focus:border-cyan-400 cursor-pointer">
+    <option value="default">Default order</option>
+    <option value="az">Name A → Z</option>
+    <option value="za">Name Z → A</option>
+  </select>
+  <!-- Count badge -->
+  <span id="lens-count" class="text-xs text-gray-400 font-medium whitespace-nowrap"></span>
+</div>
 
     <div id="loading" class="flex-1 flex flex-col items-center justify-center py-20">
       <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600"></div>
@@ -505,26 +532,132 @@
         }
       }
 
-      function displayLenses(lenses) {
-        const c = document.getElementById('lens-container');
-        document.getElementById('loading').style.display = 'none';
-        if (!lenses.length) {
-          document.getElementById('no-lenses').style.display = 'flex';
-          c.style.display = 'none'; return;
-        }
-        document.getElementById('no-lenses').style.display = 'none';
-        c.style.display = 'grid';
-        c.innerHTML = lenses.map(l => {
-          const img = l.image ? (l.image.startsWith('http') ? l.image : '/storage/' + l.image) : null;
-          return `<div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden p-6 hover:shadow-2xl transition-all">
-        <div class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow-md mb-4 overflow-hidden" style="background-color:${l.color || '#8B4513'}">
-          ${img ? `<img src="${img}" class="w-full h-full object-cover">` : ''}
+function displayLenses(lenses) {
+  allLenses = lenses;
+  filterLenses();
+}
+
+function filterLenses() {
+  const q    = (document.getElementById('lens-search')?.value || '').trim().toLowerCase();
+  const sort = document.getElementById('lens-sort')?.value || 'default';
+
+  let list = allLenses.filter(l =>
+    !q || (l.name || '').toLowerCase().includes(q)
+  );
+
+  if (sort === 'az') list = [...list].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+  if (sort === 'za') list = [...list].sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+
+  const c = document.getElementById('lens-container');
+  document.getElementById('loading').style.display = 'none';
+
+  const count = document.getElementById('lens-count');
+  if (count) count.textContent = `${list.length} lens${list.length !== 1 ? 'es' : ''}`;
+
+  if (!list.length) {
+    document.getElementById('no-lenses').style.display = 'flex';
+    c.style.display = 'none';
+    return;
+  }
+
+  document.getElementById('no-lenses').style.display = 'none';
+  c.style.display = 'grid';
+
+  const palettes = [
+    'linear-gradient(135deg,#ecfeff,#cffafe,#f0fdfa)',
+    'linear-gradient(135deg,#fdf4ff,#f5d0fe,#eff6ff)',
+    'linear-gradient(135deg,#fffbeb,#fde68a,#f5f3ff)',
+    'linear-gradient(135deg,#ecfdf5,#a7f3d0,#ecfeff)',
+  ];
+
+  c.innerHTML = list.map((l, i) => {
+    const img = l.image
+      ? (l.image.startsWith('http') ? l.image : '/storage/' + l.image)
+      : null;
+
+    const swatchColor = l.color || '#06b6d4';
+    const palette = palettes[i % palettes.length];
+
+    const imageHtml = img
+      ? `<img src="${img}" alt="${l.name || 'Lens'}"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">`
+      : `<div class="w-full h-full flex items-center justify-center"
+              style="background:${swatchColor}">
+           <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                stroke="rgba(255,255,255,0.9)" stroke-width="1.6">
+             <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </div>`;
+
+    return `
+    <div class="group relative bg-white rounded-3xl border border-slate-200/60 overflow-hidden flex flex-col
+                transition-all duration-300
+                shadow-[0_4px_12px_rgba(0,0,0,0.05)]
+                hover:shadow-[0_25px_50px_rgba(6,182,212,0.18)]
+                hover:-translate-y-1">
+
+      <!-- Top Visual -->
+      <div class="relative h-48 overflow-hidden" style="background:${palette}">
+        <div class="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
+
+        <!-- Decorative Blobs -->
+        <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-cyan-500/10 blur-2xl"></div>
+        <div class="absolute -bottom-8 left-6 w-20 h-20 rounded-full bg-cyan-300/20 blur-xl"></div>
+
+        <!-- Badge -->
+        <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md
+                     text-cyan-700 text-[10px] font-semibold tracking-widest uppercase
+                     px-3 py-1 rounded-full border border-cyan-200 shadow-sm">
+          Virtual Try-On
+        </span>
+
+        <!-- Lens Image -->
+        <div class="absolute left-1/2 -translate-x-1/2 -bottom-10 z-20
+                    w-24 h-24 rounded-full border-[5px] border-white
+                    overflow-hidden bg-slate-100
+                    shadow-[0_8px_30px_rgba(6,182,212,0.25)]">
+          ${imageHtml}
         </div>
-        <h3 class="text-lg font-bold text-center mb-4 text-gray-900">${l.name || 'Premium Lens'}</h3>
-        <button onclick="openTryOnModal('${l.id}')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-xl font-bold transition-all shadow-md">Try This Lens</button>
-      </div>`;
-        }).join('');
-      }
+      </div>
+
+      <!-- Content -->
+      <div class="flex flex-col items-center pt-14 pb-6 px-6 gap-2 flex-1 text-center">
+
+        <p class="text-[10px] font-semibold tracking-widest uppercase text-slate-400">
+          Premium Collection
+        </p>
+
+        <h3 class="text-[16px] font-bold text-slate-900 leading-snug">
+          ${l.name || 'Unnamed Lens'}
+        </h3>
+
+        <!-- Divider -->
+        <div class="w-10 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 mt-1 mb-3"></div>
+
+        <!-- CTA Button -->
+        <button onclick="openTryOnModal('${l.id}')"
+          class="relative mt-auto w-full flex items-center justify-center gap-2
+                 bg-gradient-to-r from-cyan-500 to-cyan-700
+                 hover:from-cyan-600 hover:to-cyan-800
+                 text-white text-[13px] font-semibold tracking-wide
+                 py-3 px-5 rounded-xl
+                 shadow-md hover:shadow-lg
+                 transition-all duration-200
+                 active:scale-[0.97] group">
+
+          <svg class="w-4 h-4 opacity-90 transition-transform group-hover:scale-110"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+
+          Try This Lens
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
 
       // ─────────────────────────────────────────
       // MODAL

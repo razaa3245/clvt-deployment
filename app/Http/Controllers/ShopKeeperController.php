@@ -288,29 +288,116 @@ class ShopkeeperController extends Controller
     }
 
     public function getDetails($id)
-    {
-        try {
-            $shopkeeper = User::where('id', $id)->where('type', 'shopkeeper')->first();
-            if (!$shopkeeper) {
-                return response()->json(['success' => false, 'message' => 'Not found'], 404);
-            }
-            $profile = Shopkeeper::where('user_id', $shopkeeper->id)->first();
+{
+    try {
+        // Find shopkeeper using user_id (IMPORTANT FIX)
+        $shopkeeper = Shopkeeper::where('user_id', $id)->first();
+
+        if (!$shopkeeper) {
             return response()->json([
-                'success' => true,
-                'data'    => [
-                    'id'            => $shopkeeper->id,
-                    'name'          => $shopkeeper->name,
-                    'email'         => $shopkeeper->email,
-                    'shop_name'     => optional($profile)->shop_name     ?? 'N/A',
-                    'retailer_name' => optional($profile)->retailer_name ?? 'N/A',
-                    'address'       => optional($profile)->address       ?? $shopkeeper->address ?? 'N/A',
-                    'phone_number'  => optional($profile)->phone         ?? $shopkeeper->phone   ?? 'N/A',
-                    'created_at'    => $shopkeeper->created_at->format('F j, Y g:i A'),
-                    'is_approved'   => $shopkeeper->is_approved,
-                ]
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+                'success' => false,
+                'message' => 'Not found'
+            ], 404);
         }
+
+        return response()->json([
+            'success' => true,
+            'data'    => [
+                'id'            => $shopkeeper->id,
+                'name'          => $shopkeeper->name,
+                'email'         => $shopkeeper->email,
+                'shop_name'     => $shopkeeper->shop_name ?? 'N/A',
+                'retailer_name' => $shopkeeper->retailer_name ?? 'N/A',
+                'address'       => $shopkeeper->address ?? 'N/A',
+                'phone_number'  => $shopkeeper->phone ?? 'N/A',
+                'created_at'    => $shopkeeper->created_at->format('F j, Y g:i A'),
+                'plan_name'     => $shopkeeper->plan_name ?? 'N/A',
+                'plan_status'   => $shopkeeper->plan_status ?? 'N/A',
+            ]
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ], 500);
     }
+}
+    // GET ALL SHOPKEEPERS (approved + pending)
+public function getAllShopkeepers()
+{
+    try {
+        $users = User::where('type', 'shopkeeper')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $data = $users->map(function ($user) {
+            $profile = Shopkeeper::where('user_id', $user->id)->first();
+
+            return [
+                'id'            => $user->id,
+                'name'          => $user->name,
+                'email'         => $user->email,
+                'shop_name'     => $profile->shop_name ?? 'N/A',
+                'retailer_name' => $profile->retailer_name ?? 'N/A',
+                'phone_number'  => $profile->phone ?? 'N/A',
+                'address'       => $profile->address ?? 'N/A',
+                'created_at'    => $user->created_at->format('F j, Y g:i A'),
+                'is_approved'   => $user->is_approved,
+                'is_active'     => $user->is_active,
+            ];
+        });
+
+        return response()->json(['success' => true, 'data' => $data]);
+
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+    }
+}
+public function toggleStatus($id)
+{
+    try {
+        $user = User::where('id', $id)
+            ->where('type', 'shopkeeper')
+            ->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Shopkeeper not found'
+            ], 404);
+        }
+
+        // Toggle user active status
+        $user->is_active = !$user->is_active;
+        $user->save();
+
+        // 🔥 UPDATE SHOPKEEPER PLAN STATUS
+        $shopkeeper = Shopkeeper::where('user_id', $user->id)->first();
+
+      if ($shopkeeper) {
+
+    if ($user->is_active == 0) {
+        $shopkeeper->plan_status = 'expired'; // ✅ FIXED
+    } else {
+        $shopkeeper->plan_status = 'active';
+    }
+
+    $shopkeeper->save();
+}
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully',
+            'is_active' => $user->is_active,
+            'plan_status' => $shopkeeper->plan_status ?? null
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
 }

@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+
 // Public API routes
 Route::prefix('lenses')->group(function () {
     Route::get('/', [LensController::class, 'apiIndex']); // Get all lenses
@@ -67,6 +68,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('admin/lenses', LensController::class);
 });
 
+Route::prefix('api/admin')->middleware('auth:sanctum')->group(function () {
+    // Lens CRUD — used by admindashboard.blade.php
+    Route::get('/lenses',           [LensController::class, 'apiIndex']);   // list all
+    Route::post('/lenses',          [LensController::class, 'store']);       // add new
+    Route::post('/lenses/{id}',     [LensController::class, 'update']);      // edit (POST + _method=PUT)
+    Route::delete('/lenses/{id}',   [LensController::class, 'destroy']);     // delete
 
+    // Admin Dashboard stats
+    Route::get('/dashboard',        [AdminController::class, 'dashboard']);
+});
 
 

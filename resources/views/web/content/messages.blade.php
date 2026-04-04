@@ -21,7 +21,7 @@
             <div class="flex items-center justify-between p-4">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
-                        <span id="sidebar-email-first" class="text-sm text-gray-600"></span>
+                        <span id="sidebar-email-first" class="text-cyan-600 font-bold text-lg"></span>
                     </div>
                      <div x-show="open" class="text-gray-700">
             <span id="sidebar-email" class="text-sm text-gray-600"></span>
@@ -29,8 +29,8 @@
           </div>
                 </div>
                 <button @click="open = !open" class="text-gray-400 hover:text-gray-600 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                         class="w-5 h-5" 
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="w-5 h-5"
                          fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                     </svg>
@@ -74,15 +74,7 @@
         <!-- Account Section -->
         <div class="border-t border-gray-100 py-4">
             <ul>
-                <li>
-                    <a href="#" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span x-show="open" class="ml-3 text-sm">Settings</span>
-                    </a>
-                </li>
+                
                 <li>
                     <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group w-full text-left">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,7 +99,7 @@
                 
                 <div class="flex items-center gap-4">
                     <span class="px-4 py-2 bg-cyan-50 text-cyan-700 rounded-lg font-semibold text-sm">
-                        <span x-data="shopkeeperApp()" x-text="shopkeepers.length"></span> Pending
+                        <span x-data="shopkeeperApp()" x-text="shopkeepers.length"></span> Shopkeepers
                     </span>
                 </div>
             </div>
@@ -124,7 +116,7 @@
                     </div>
                     <div>
                         <h1 class="text-3xl font-bold text-gray-900">Shopkeeper Approvals</h1>
-                        <p class="text-gray-600 mt-1">Review and manage pending shopkeeper registration requests</p>
+                        <p class="text-gray-600 mt-1">Review and manage registered shopkeepers</p>
                     </div>
                 </div>
             </div>
@@ -144,7 +136,7 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">Pending Requests</p>
+                            <p class="text-sm text-gray-500 font-medium">Registered Shopkeepers</p>
                             <p class="text-3xl font-bold text-gray-900" x-text="shopkeepers.length">0</p>
                         </div>
                     </div>
@@ -218,7 +210,12 @@
                                 <div class="flex-1">
                                     <div class="flex items-center gap-2 mb-2">
                                         <h3 class="font-bold text-gray-900 text-lg" x-text="shopkeeper.shop_name"></h3>
-                                        <span class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full">Pending</span>
+                                        <span 
+:class="shopkeeper.is_approved ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'"
+class="px-3 py-1 text-xs font-semibold rounded-full">
+
+<span x-text="shopkeeper.is_approved ? 'Approved' : 'Pending'"></span>
+</span>
                                     </div>
                                     <p class="text-sm text-gray-600 mb-2">
                                         <strong class="text-cyan-600" x-text="shopkeeper.name"></strong> has requested confirmation for their account.
@@ -250,20 +247,13 @@
                                     </svg>
                                     View
                                 </button>
-                                <button @click="approveShopkeeper(shopkeeper.id)" 
-                                        class="flex-1 lg:flex-none bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-3 rounded-xl text-sm font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Accept
-                                </button>
-                                <button @click="declineShopkeeper(shopkeeper.id)" 
-                                        class="flex-1 lg:flex-none bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-xl text-sm font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                    Decline
-                                </button>
+                                 <!-- ACTIVE / DEACTIVE -->
+        <button @click="toggleStatus(shopkeeper.id)"
+            :class="shopkeeper.is_active ? 'bg-yellow-500' : 'bg-green-500'"
+            class="text-white px-4 py-2 rounded">
+
+            <span x-text="shopkeeper.is_active ? 'Deactivate' : 'Activate'"></span>
+        </button>
                             </div>
                         </div>
                     </div>
@@ -321,7 +311,7 @@
                                     </div>
                                     <div>
                                         <h3 class="text-xl font-bold text-gray-900" x-text="selectedShopkeeper.shop_name"></h3>
-                                        <p class="text-sm text-gray-500">Registration Request</p>
+                                        <p class="text-sm text-gray-500">Shopkeeper Details</p>
                                     </div>
                                 </div>
 
@@ -416,20 +406,7 @@
                                     class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-md text-sm">
                                 Close
                             </button>
-                            <button @click="approveShopkeeper(selectedShopkeeper.id); showDetails = false" 
-                                    class="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-bold transition-all hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                                Accept Request
-                            </button>
-                            <button @click="declineShopkeeper(selectedShopkeeper.id); showDetails = false" 
-                                    class="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-xl font-bold transition-all hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                                Decline Request
-                            </button>
+                             
                         </div>
                     </div>
                 </div>
@@ -508,102 +485,75 @@
       setupEditForm();
     });
         function shopkeeperApp() {
-            return {
-                shopkeepers: [],
-                loading: true,
-                showDetails: false,
-                selectedShopkeeper: null,
-                csrfToken: document.querySelector('meta[name="csrf-token"]').content,
+    return {
+        shopkeepers: [],
+        loading: true,
+        showDetails: false,
+        selectedShopkeeper: null,
+        csrfToken: document.querySelector('meta[name="csrf-token"]').content,
 
-                init() {
-                    this.loadPendingShopkeepers();
-                    setInterval(() => this.loadPendingShopkeepers(), 30000);
-                },
+        init() {
+            this.loadShopkeepers();
+            setInterval(() => this.loadShopkeepers(), 30000);
+        },
 
-                async loadPendingShopkeepers() {
-                    try {
-                        const response = await fetch('{{ route("shopkeeper.approvals.getPending") }}', {
-                            headers: {
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': this.csrfToken
-                            }
-                        });
+        async loadShopkeepers() {
+            try {
+                const response = await fetch('/shopkeepers/all');
+                const result = await response.json();
 
-                        const result = await response.json();
-
-                        if (result.success) {
-                            this.shopkeepers = result.data;
-                        } else {
-                            console.error(result.message);
-                        }
-                    } catch (error) {
-                        console.error('Error loading shopkeepers:', error);
-                    } finally {
-                        this.loading = false;
-                    }
-                },
-
-                viewDetails(shopkeeper) {
-                    this.selectedShopkeeper = shopkeeper;
-                    this.showDetails = true;
-                },
-
-                async approveShopkeeper(id) {
-                    if (!confirm('Are you sure you want to approve this shopkeeper?')) return;
-
-                    try {
-                        const response = await fetch(`{{ url('/shopkeeper-approvals/approve') }}/${id}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': this.csrfToken
-                            }
-                        });
-
-                        const result = await response.json();
-
-                        if (result.success) {
-                            // remove the notification immediately (no blocking alert)
-                            this.shopkeepers = this.shopkeepers.filter(s => s.id !== id);
-                        } else {
-                            // show failure as a simple alert so admin knows what went wrong
-                            alert(result.message);
-                        }
-                    } catch (error) {
-                        alert('Failed to approve shopkeeper');
-                        console.error('Error:', error);
-                    }
-                },
-
-                async declineShopkeeper(id) {
-                    if (!confirm('Are you sure you want to decline and permanently remove this shopkeeper? This action cannot be undone.')) return;
-
-                    try {
-                        const response = await fetch(`{{ url('/shopkeeper-approvals/decline') }}/${id}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': this.csrfToken
-                            }
-                        });
-
-                        const result = await response.json();
-
-                        if (result.success) {
-                            // remove the notification immediately (no blocking alert)
-                            this.shopkeepers = this.shopkeepers.filter(s => s.id !== id);
-                        } else {
-                            alert(result.message);
-                        }
-                    } catch (error) {
-                        alert('Failed to decline shopkeeper');
-                        console.error('Error:', error);
-                    }
+                if (result.success) {
+                    this.shopkeepers = result.data;
                 }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                this.loading = false;
             }
+        },
+
+        async toggleStatus(id) {
+            try {
+                const response = await fetch(`/shopkeepers/toggle/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': this.csrfToken
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    this.loadShopkeepers();
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
+        viewDetails(shopkeeper) {
+            this.selectedShopkeeper = shopkeeper;
+            this.showDetails = true;
+        },
+
+        async approveShopkeeper(id) {
+            await fetch(`/shopkeeper-approvals/approve/${id}`, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': this.csrfToken }
+            });
+            this.loadShopkeepers();
+        },
+
+        async declineShopkeeper(id) {
+            await fetch(`/shopkeeper-approvals/decline/${id}`, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': this.csrfToken }
+            });
+            this.loadShopkeepers();
         }
+    }
+        }
+
 
         function logout() {
             const token = localStorage.getItem('auth_token');

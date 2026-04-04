@@ -126,13 +126,10 @@ Route::get('/api/lenses', [LensController::class, 'apiIndex'])->name('api.lenses
 // ═══════════════════════════════════════════════
 // API ROUTES — ADMIN (token-authenticated)
 // ═══════════════════════════════════════════════
-Route::prefix('api/admin')->middleware('auth:sanctum')->group(function () {
-    // Lens CRUD — used by admindashboard.blade.php
-    Route::get('/lenses',           [LensController::class, 'apiIndex']);   // list all
-    Route::post('/lenses',          [LensController::class, 'store']);       // add new
-    Route::post('/lenses/{id}',     [LensController::class, 'update']);      // edit (POST + _method=PUT)
-    Route::delete('/lenses/{id}',   [LensController::class, 'destroy']);     // delete
 
-    // Admin Dashboard stats
-    Route::get('/dashboard',        [AdminController::class, 'dashboard']);
-});
+
+Route::get('/shopkeeper-approvals/details/{id}', [ShopkeeperController::class, 'getDetails']);
+
+
+Route::get('/shopkeepers/all', [ShopkeeperController::class, 'getAllShopkeepers']);
+Route::post('/shopkeepers/toggle/{id}', [ShopkeeperController::class, 'toggleStatus']);
