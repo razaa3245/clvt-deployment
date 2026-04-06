@@ -5,650 +5,730 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VisionTech - Login & Signup</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    @keyframes float {
-      0% {
-        transform: translateY(0px);
-      }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      50% {
-        transform: translateY(-8px);
-      }
-
-      100% {
-        transform: translateY(0px);
-      }
+    :root {
+      --accent:  rgba(140,100,255,0.92);
+      --accent2: rgba(160,120,255,1);
+      --text:    rgba(255,255,255,0.95);
+      --muted:   rgba(255,255,255,0.50);
+      --link:    rgba(200,175,255,0.95);
+      --error:   rgba(255,100,100,0.9);
+      --success: rgba(80,220,160,0.9);
     }
 
-    .float {
-      animation: float 6s ease-in-out infinite;
+    html, body {
+      height: 100%; min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text); margin: 0; padding: 0;
+      background-image: url("{{ asset('images/back2.png') }}");
+      background-size: cover; background-position: center;
+      background-attachment: fixed; background-repeat: no-repeat;
+      background-color: #0a0a0a;
     }
 
-    /* Professional 3D Loader Styles */
-    .loader-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(12px) saturate(180%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 0; pointer-events: none;
     }
 
-    .loader-overlay.active {
-      opacity: 1;
-      visibility: visible;
+    /* ── WRAPPER: card flush to the right ── */
+    .auth-wrapper {
+      width: 100%; min-height: 100vh;
+      display: flex; align-items: center;
+      justify-content: flex-end;
+      padding: 24px 200px 24px 24px;
+      position: relative; z-index: 1;
     }
 
-    .loader-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
+    /* ── CARD ── */
+    .auth-card {
+      display: flex; width: 100%; max-width: 900px; min-height: 580px;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(44px) saturate(200%) brightness(1.1);
+      -webkit-backdrop-filter: blur(44px) saturate(200%) brightness(1.1);
+      border-radius: 28px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 2px 0 0 rgba(255,255,255,0.20) inset,
+                  0 40px 80px rgba(0,0,0,0.60), 0 8px 32px rgba(0,0,0,0.35);
+      position: relative; z-index: 1;
+    }
+    .auth-card::after {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55) 30%, rgba(255,255,255,0.55) 70%, transparent);
+      z-index: 10; pointer-events: none;
     }
 
-    .loader-container {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      perspective: 1200px;
-      transform-style: preserve-3d;
+    /* ══ LEFT PANEL — carousel ══ */
+    .left-panel { position: relative; flex: 0 0 42%; overflow: hidden; }
+
+    .carousel-track {
+      display: flex; width: 100%; height: 100%;
+      transition: transform 0.55s cubic-bezier(0.65,0,0.35,1);
     }
 
-    /* Outer rotating rings */
-    .loader-ring {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      transform-style: preserve-3d;
+    .carousel-slide {
+      flex: 0 0 100%; min-height: 580px;
+      position: relative; display: flex; flex-direction: column;
+      justify-content: space-between; padding: 28px;
+    }
+    /* ── NEW CAROUSEL IMAGE STYLE ── */
+.carousel-slide img.slide-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0; /* Sits behind the text content */
+}
+
+/* Ensure the overlay sits ON TOP of the image but BELOW the text */
+.carousel-slide::before {
+  z-index: 1; 
+}
+
+.slide-top, .slide-bottom {
+  z-index: 2; /* Keeps text and buttons on top */
+}
+    /* Slide background colours */
+    .slide-1 { background: linear-gradient(145deg, #12033a 0%, #2e1065 55%, #3b0764 100%); }
+    .slide-2 { background: linear-gradient(145deg, #03122a 0%, #0c2d6b 55%, #1a3a7a 100%); }
+    .slide-3 { background: linear-gradient(145deg, #1a0520 0%, #5b1545 55%, #7c1560 100%); }
+
+    /* Subtle overlay on each slide */
+    .carousel-slide::before {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.40) 100%);
     }
 
-    .ring-1 {
-      width: 180px;
-      height: 180px;
-      border-top-color: rgba(96, 165, 250, 0.8);
-      border-right-color: rgba(96, 165, 250, 0.4);
-      animation: rotate3d-1 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-      filter: drop-shadow(0 0 12px rgba(96, 165, 250, 0.6));
+    .slide-top, .slide-bottom { position: relative; z-index: 2; }
+
+    /* ── ANIMATED LOGO ── */
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+    .logo-mark { width: 38px; height: 38px; position: relative; flex-shrink: 0; }
+    .logo-mark svg { width: 100%; height: 100%; overflow: visible; }
+
+    .ring-spin {
+      transform-origin: 19px 19px;
+      animation: ringRotate 5s linear infinite;
+    }
+    @keyframes ringRotate { to { transform: rotate(360deg); } }
+
+    .dot-pulse { animation: dotGlow 2.2s ease-in-out infinite; }
+    @keyframes dotGlow {
+      0%,100% { opacity: 0.65; transform: scale(1); }
+      50%      { opacity: 1;    transform: scale(1.35); }
     }
 
-    .ring-2 {
-      width: 160px;
-      height: 160px;
-      border-bottom-color: rgba(6, 182, 212, 0.8);
-      border-left-color: rgba(6, 182, 212, 0.4);
-      animation: rotate3d-2 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse;
-      filter: drop-shadow(0 0 12px rgba(6, 182, 212, 0.6));
+    .logo-text {
+      font-family: 'Sora', sans-serif; font-size: 17px;
+      font-weight: 700; color: #fff; letter-spacing: -0.2px;
     }
 
-    .ring-3 {
-      width: 140px;
-      height: 140px;
-      border-top-color: rgba(59, 130, 246, 0.6);
-      border-bottom-color: rgba(59, 130, 246, 0.3);
-      animation: rotate3d-3 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-      filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.5));
+    /* ── BACK BTN — right of logo ── */
+    .logo-row {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 8px;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      color: rgba(255,255,255,0.85);
+      font-family: 'DM Sans', sans-serif; font-size: 11.5px; font-weight: 500;
+      padding: 6px 12px; border-radius: 100px;
+      text-decoration: none; cursor: pointer; white-space: nowrap;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: background 0.2s, color 0.2s; flex-shrink: 0;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+    /* ── CAPTION ── */
+    .slide-caption h2 {
+      font-family: 'Sora', sans-serif; font-size: 23px; font-weight: 600;
+      color: #fff; line-height: 1.3; letter-spacing: -0.3px;
+    }
+    .slide-caption p {
+      font-size: 13px; color: rgba(255,255,255,0.52);
+      margin-top: 7px; line-height: 1.55;
     }
 
-    @keyframes rotate3d-1 {
-      0% {
-        transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-      }
-      50% {
-        transform: translate(-50%, -50%) rotateX(180deg) rotateY(180deg) rotateZ(180deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotateX(360deg) rotateY(360deg) rotateZ(360deg);
-      }
+    /* ── DOTS + ARROWS ── */
+    .carousel-nav {
+      display: flex; align-items: center; gap: 8px; margin-top: 18px;
     }
-
-    @keyframes rotate3d-2 {
-      0% {
-        transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-      }
-      50% {
-        transform: translate(-50%, -50%) rotateX(-180deg) rotateY(180deg) rotateZ(-90deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotateX(-360deg) rotateY(360deg) rotateZ(-180deg);
-      }
-    }
-
-    @keyframes rotate3d-3 {
-      0% {
-        transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-      }
-      50% {
-        transform: translate(-50%, -50%) rotateX(90deg) rotateY(-90deg) rotateZ(270deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotateX(180deg) rotateY(-180deg) rotateZ(540deg);
-      }
-    }
-
-    /* Center glowing orb */
-    .center-orb {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6, #06b6d4);
-      box-shadow: 
-        0 0 30px rgba(96, 165, 250, 0.8),
-        0 0 60px rgba(59, 130, 246, 0.6),
-        0 0 90px rgba(6, 182, 212, 0.4),
-        inset 0 0 20px rgba(255, 255, 255, 0.3);
-      animation: orb-pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes orb-pulse {
-      0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
-        box-shadow: 
-          0 0 30px rgba(96, 165, 250, 0.8),
-          0 0 60px rgba(59, 130, 246, 0.6),
-          0 0 90px rgba(6, 182, 212, 0.4),
-          inset 0 0 20px rgba(255, 255, 255, 0.3);
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(1.1);
-        box-shadow: 
-          0 0 40px rgba(96, 165, 250, 1),
-          0 0 80px rgba(59, 130, 246, 0.8),
-          0 0 120px rgba(6, 182, 212, 0.6),
-          inset 0 0 30px rgba(255, 255, 255, 0.5);
-      }
-    }
-
-    /* Floating particles */
-    .particle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #60a5fa, #06b6d4);
-      box-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
-      animation: float-particle 4s ease-in-out infinite;
-    }
-
-    .particle:nth-child(1) {
-      top: 10%;
-      left: 20%;
-      animation-delay: 0s;
-      animation-duration: 3.5s;
-    }
-
-    .particle:nth-child(2) {
-      top: 20%;
-      right: 15%;
-      animation-delay: -0.5s;
-      animation-duration: 4s;
-    }
-
-    .particle:nth-child(3) {
-      bottom: 15%;
-      left: 15%;
-      animation-delay: -1s;
-      animation-duration: 3.8s;
-    }
-
-    .particle:nth-child(4) {
-      bottom: 20%;
-      right: 20%;
-      animation-delay: -1.5s;
-      animation-duration: 4.2s;
-    }
-
-    .particle:nth-child(5) {
-      top: 50%;
-      left: 5%;
-      animation-delay: -2s;
-      animation-duration: 3.6s;
-    }
-
-    .particle:nth-child(6) {
-      top: 50%;
-      right: 5%;
-      animation-delay: -2.5s;
-      animation-duration: 4.5s;
-    }
-
-    @keyframes float-particle {
-      0%, 100% {
-        transform: translateY(0) translateX(0) scale(1);
-        opacity: 0.6;
-      }
-      25% {
-        transform: translateY(-30px) translateX(15px) scale(1.2);
-        opacity: 1;
-      }
-      50% {
-        transform: translateY(-60px) translateX(-10px) scale(0.8);
-        opacity: 0.4;
-      }
-      75% {
-        transform: translateY(-30px) translateX(-20px) scale(1.1);
-        opacity: 0.9;
-      }
-    }
-
-    /* Loading text and progress */
-    .loader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .loader-text {
-      color: #ffffff;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 20px rgba(96, 165, 250, 0.5);
-      animation: text-glow 2s ease-in-out infinite;
-    }
-
-    @keyframes text-glow {
-      0%, 100% {
-        opacity: 1;
-        text-shadow: 0 2px 20px rgba(96, 165, 250, 0.5);
-      }
-      50% {
-        opacity: 0.85;
-        text-shadow: 0 2px 30px rgba(96, 165, 250, 0.8);
-      }
-    }
-
-    .loader-subtext {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 14px;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-
-    /* Progress dots */
-    .progress-dots {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      justify-content: center;
-    }
-
     .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #60a5fa, #06b6d4);
-      animation: dot-pulse 1.4s ease-in-out infinite;
+      height: 3px; border-radius: 2px;
+      background: rgba(255,255,255,0.30); cursor: pointer;
+      transition: background 0.3s, width 0.3s;
+    }
+    .dot.active { background: #fff; width: 26px !important; }
+    .dot:not(.active) { width: 11px; }
+
+    .nav-arrows { margin-left: auto; display: flex; gap: 6px; }
+    .arr-btn {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.24);
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.72); display: flex;
+      align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s, color 0.2s; flex-shrink: 0;
+    }
+    .arr-btn:hover { background: rgba(255,255,255,0.20); color: #fff; }
+
+    /* ══ RIGHT PANEL ══ */
+    .right-panel {
+      flex: 1; padding: 42px 38px; overflow-y: auto;
+      display: flex; flex-direction: column; justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border-left: 1px solid rgba(255,255,255,0.14);
     }
 
-    .dot:nth-child(1) {
-      animation-delay: 0s;
+    /* ── TABS ── */
+    .tab-bar {
+      display: flex; margin-bottom: 26px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 13px; padding: 4px;
     }
-
-    .dot:nth-child(2) {
-      animation-delay: 0.2s;
+    .tab-btn {
+      flex: 1; padding: 9px; border: none;
+      background: transparent; color: rgba(255,255,255,0.48);
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      cursor: pointer; border-radius: 9px;
+      transition: background 0.2s, color 0.2s;
     }
+    .tab-btn.active { background: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(124,92,252,0.4); }
 
-    .dot:nth-child(3) {
-      animation-delay: 0.4s;
+    /* ── FORM HEADER ── */
+    .form-header { margin-bottom: 26px; }
+    .form-title {
+      font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700;
+      color: #fff; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 7px;
     }
+    .form-subtitle { font-size: 13.5px; color: rgba(255,255,255,0.50); }
+    .form-subtitle a { color: var(--link); text-decoration: none; font-weight: 500; }
+    .form-subtitle a:hover { text-decoration: underline; }
 
-    @keyframes dot-pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.5;
-      }
-      50% {
-        transform: scale(1.5);
-        opacity: 1;
-        box-shadow: 0 0 12px rgba(96, 165, 250, 0.8);
-      }
-    }
-
-    /* Shimmer effect */
-    .shimmer {
-      position: absolute;
-      top: 0;
-      left: -100%;
+    /* ── FIELDS ── */
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+    .field { position: relative; margin-bottom: 11px; }
+    .field input, .field textarea {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-      );
-      animation: shimmer 2s infinite;
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.24); border-radius: 11px;
+      color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset;
+      font-family: 'DM Sans', sans-serif; font-size: 13.5px;
+      padding: 12px 15px; outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .field textarea { resize: none; line-height: 1.5; }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.36); }
+    .field input:focus, .field textarea:focus {
+      border-color: rgba(180,140,255,0.8);
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 0 3px rgba(160,120,255,0.20), 0 1px 0 rgba(255,255,255,0.15) inset;
+    }
+    .field.password-field input { padding-right: 42px; }
+    .toggle-pw {
+      position: absolute; right: 13px; top: 50%;
+      transform: translateY(-50%); background: none; border: none;
+      cursor: pointer; color: rgba(255,255,255,0.40);
+      display: flex; align-items: center; padding: 0; transition: color 0.2s;
+    }
+    .toggle-pw:hover { color: rgba(255,255,255,0.9); }
+
+    /* ── CHECKBOX ── */
+    .checkbox-label {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12.5px; color: rgba(255,255,255,0.50);
+      cursor: pointer; margin-bottom: 17px; user-select: none;
+    }
+    .checkbox-label input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 17px; height: 17px; min-width: 17px; border-radius: 5px;
+      border: 1.5px solid rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.10); cursor: pointer;
+      position: relative; transition: background 0.2s, border-color 0.2s;
+    }
+    .checkbox-label input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+    .checkbox-label input[type="checkbox"]:checked::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='11' height='8' viewBox='0 0 11 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L4 7L10 1' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center;
+    }
+    .checkbox-label a { color: var(--link); text-decoration: none; }
+    .checkbox-label a:hover { text-decoration: underline; }
+
+    /* ── PRIMARY BUTTON ── */
+    .btn-primary {
+      width: 100%; padding: 13px; border-radius: 11px; border: none;
+      background: var(--accent); color: #fff;
+      font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(124,92,252,0.35);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      letter-spacing: 0.1px;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(124,92,252,0.45); }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ── DIVIDER ── */
+    .divider { display: flex; align-items: center; gap: 11px; margin: 16px 0; color: rgba(255,255,255,0.38); font-size: 12px; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.16); }
+
+    /* ── SOCIAL ── */
+    .social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .btn-social {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 13px; border-radius: 11px;
+      border: 1px solid rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      color: rgba(255,255,255,0.88); box-shadow: 0 1px 0 rgba(255,255,255,0.10) inset;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-social:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.34); }
+    .btn-social svg { flex-shrink: 0; }
+
+    /* ── MESSAGES ── */
+    #message { font-size: 13px; margin-top: 8px; min-height: 18px; }
+    .msg-error { color: var(--error); } .msg-success { color: var(--success); }
+    .alert { margin-top: 8px; padding: 9px 13px; border-radius: 9px; font-size: 13px; }
+    .alert-success { background: rgba(78,204,163,0.10); color: var(--success); border: 1px solid rgba(78,204,163,0.22); }
+    .alert-error   { background: rgba(255,107,107,0.10); color: var(--error);   border: 1px solid rgba(255,107,107,0.22); }
+
+    /* ── LOADER ── */
+    .loader-overlay {
+      position: fixed; inset: 0; background: rgba(10,10,20,0.65);
+      backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    .loader-overlay.active { opacity: 1; visibility: visible; }
+    .loader-ring-wrap { position: relative; width: 68px; height: 68px; }
+    .l-ring { position: absolute; inset: 0; border-radius: 50%; border: 3px solid transparent; }
+    .l-ring-1 { border-top-color: var(--accent); animation: spin 1s linear infinite; }
+    .l-ring-2 { inset: 8px; border-top-color: rgba(124,92,252,0.4); animation: spin 0.7s linear infinite reverse; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── MODAL ── */
+    #dashboardModal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.60);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9998; backdrop-filter: blur(6px);
+    }
+    #dashboardModal.hidden { display: none; }
+    .modal-box {
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(50px) saturate(200%); -webkit-backdrop-filter: blur(50px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 2px 0 rgba(255,255,255,0.18) inset, 0 32px 80px rgba(0,0,0,0.55);
+      border-radius: 24px; padding: 38px 34px; max-width: 400px; width: 100%; text-align: center;
+    }
+    .modal-icon { width: 58px; height: 58px; background: rgba(80,220,160,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+    .modal-box h3 { font-family: 'Sora', sans-serif; font-size: 21px; font-weight: 700; color: #fff; margin-bottom: 9px; }
+    .modal-box p  { font-size: 13.5px; color: rgba(255,255,255,0.56); margin-bottom: 26px; }
+    .modal-actions { display: flex; flex-direction: column; gap: 9px; }
+    .modal-btn-secondary {
+      padding: 12px; border-radius: 11px;
+      border: 1px solid rgba(255,255,255,0.20); background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.58); font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 500;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .modal-btn-secondary:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 780px) {
+      .auth-wrapper { justify-content: center; padding: 16px; }
+      .auth-card { flex-direction: column; min-height: auto; max-width: 440px; }
+      .left-panel  { flex: 0 0 auto; }
+      .carousel-slide { min-height: 210px; }
+      .right-panel { padding: 26px 20px; }
+      .field-row { grid-template-columns: 1fr; }
     }
 
-    @keyframes shimmer {
-      0% {
-        left: -100%;
-      }
-      100% {
-        left: 100%;
-      }
-    }
+    .hidden { display: none !important; }
   </style>
 </head>
 
-<body
-  class="m-0 p-4 font-sans bg-gradient-to-br from-blue-50 via-cyan-50 to-white min-h-screen flex items-center justify-center overflow-y-auto">
+<body>
 
-  <!-- Professional 3D Loader Overlay -->
-  <div id="loaderOverlay" class="loader-overlay">
-    <div class="loader-wrapper">
-      <div class="loader-container">
-        <!-- Floating Particles -->
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        
-        <!-- Rotating Rings -->
-        <div class="loader-ring ring-1"></div>
-        <div class="loader-ring ring-2"></div>
-        <div class="loader-ring ring-3"></div>
-        
-        <!-- Center Glowing Orb -->
-        <div class="center-orb">
-          <div class="shimmer"></div>
-        </div>
+  <!-- LOADER -->
+  <div class="loader-overlay" id="loaderOverlay">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+      <div class="loader-ring-wrap">
+        <div class="l-ring l-ring-1"></div>
+        <div class="l-ring l-ring-2"></div>
       </div>
-
-      <!-- Loading Content -->
-      <div class="loader-content">
-        <div class="loader-text">Processing</div>
-        <div class="progress-dots">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="loader-subtext">Please wait a moment</div>
-      </div>
+      <span style="color:rgba(255,255,255,0.6);font-size:13px;letter-spacing:0.5px;">Please wait…</span>
     </div>
   </div>
 
-  <!-- Outer Card -->
-  <div
-    class="bg-white/90 backdrop-blur-xl border border-gray-200 w-[420px] rounded-2xl shadow-lg p-8 text-center transition-all duration-500 hover:shadow-cyan-200/50 float mt-6 mb-6">
+  <div class="auth-wrapper">
+    <div class="auth-card">
 
-    <!-- Logo -->
-    <div class="mb-6">
-      <a href="{{ url('/') }}" title="Back to Home">         
-        <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" alt="VisionTech Logo"           
-        class="w-20 h-20 rounded-2xl mx-auto shadow-lg ">
-             </a>
-    </div>
+      <!-- ══ LEFT PANEL ══ -->
+      <div class="left-panel">
+        <div class="carousel-track" id="carouselTrack">
 
-    <h2
-      class="text-4xl font-extrabold mb-1 tracking-wide bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 text-transparent">
-      VisionTech
-    </h2>
-    <p class="text-gray-600 mb-8 text-sm">Experience Next-Gen Optical Intelligence</p>
+          <!-- ── Slide 1 ── -->
+          <div class="carousel-slide slide-1">
+            <img src="{{ asset('images/c1.jpg') }}" alt="Capturing Moments" class="slide-bg">
+            <div class="slide-top">
+              <div class="logo-row">
+                <a href="/" class="logo">
+                  <div class="logo-mark">
+                    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <!-- spinning dashed ring with orbiting dot -->
+                      <g class="ring-spin">
+                        <circle cx="19" cy="19" r="15.5" stroke="rgba(255,255,255,0.55)" stroke-width="1.3" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+                        <circle cx="19" cy="3.5" r="2.2" fill="white" opacity="0.95"/>
+                      </g>
+                      <!-- static hexagon frame -->
+                      <path d="M19 8L27.5 13V23L19 28L10.5 23V13L19 8Z"
+                            stroke="rgba(255,255,255,0.85)" stroke-width="1.4"
+                            stroke-linejoin="round" fill="rgba(255,255,255,0.07)"/>
+                      <!-- pulsing center dot -->
+                      <circle class="dot-pulse" cx="19" cy="19" r="3.2" fill="white" opacity="0.95"/>
+                    </svg>
+                  </div>
+                  <span class="logo-text">VisionTech</span>
+                </a>
+                <a href="/" class="back-btn">
+                  Back to website
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none">
+                    <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="slide-bottom">
+              <div class="slide-caption">
+                <h2>Capturing Moments,<br>Creating Memories</h2>
+                <p>Store and relive every precious moment with crystal clarity.</p>
+              </div>
+              <div class="carousel-nav">
+                <div class="dot active" data-index="0"></div>
+                <div class="dot" data-index="1"></div>
+                <div class="dot" data-index="2"></div>
+                <div class="nav-arrows">
+                  <button class="arr-btn" id="prevBtn">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <button class="arr-btn" id="nextBtn">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <!-- Toggle Buttons -->
-    <div class="flex justify-between mb-6 bg-gray-100 rounded-lg p-1 border border-gray-200">
-      <button id="loginBtn" type="button" onclick="showForm('login')"
-        class="w-[48%] bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold py-2 rounded-md shadow-md transition-all duration-300 hover:scale-105">
-        Login
-      </button>
-      <button id="signupBtn" type="button" onclick="showForm('signup')"
-        class="w-[48%] text-gray-600 font-semibold py-2 rounded-md transition-all duration-300 hover:bg-cyan-50 hover:text-cyan-700">
-        Sign Up
-      </button>
-    </div>
+          <!-- ── Slide 2 ── -->
+          <div class="carousel-slide slide-2">
+            <img src="{{ asset('images/c2.png') }}" alt="Capturing Moments" class="slide-bg">
+            <div class="slide-top">
+              <div class="logo-row">
+                <a href="/" class="logo">
+                  <div class="logo-mark">
+                    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g class="ring-spin">
+                        <circle cx="19" cy="19" r="15.5" stroke="rgba(255,255,255,0.55)" stroke-width="1.3" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+                        <circle cx="19" cy="3.5" r="2.2" fill="white" opacity="0.95"/>
+                      </g>
+                      <path d="M19 8L27.5 13V23L19 28L10.5 23V13L19 8Z" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-linejoin="round" fill="rgba(255,255,255,0.07)"/>
+                      <circle class="dot-pulse" cx="19" cy="19" r="3.2" fill="white" opacity="0.95"/>
+                    </svg>
+                  </div>
+                  <span class="logo-text">VisionTech</span>
+                </a>
+                <a href="/" class="back-btn">
+                  Back to website
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="slide-bottom">
+              <div class="slide-caption">
+                <h2>Smart Way of Selection,<br>Zero Hassle</h2>
+                <p>Try lenses in real-time and choose the best for you.</p>
+              </div>
+              <div class="carousel-nav">
+                <div class="dot" data-index="0"></div>
+                <div class="dot active" data-index="1"></div>
+                <div class="dot" data-index="2"></div>
+                <div class="nav-arrows">
+                  <button class="arr-btn" id="prevBtn2">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <button class="arr-btn" id="nextBtn2">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <!-- LOGIN FORM -->
-    <form id="loginForm">
-      <input type="email" name="email" placeholder="Email" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="password" name="password" placeholder="Password" required
-        class="w-full py-3 px-4 mb-6 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      
-      <button type="submit" id="loginSubmitBtn"
-        class="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold rounded-md shadow-md transition-all duration-300 hover:scale-105">
-        Login
-      </button>
-      
-      <div class="mt-4">
-        <a href="#" onclick="showForm('signup')" class="text-xs text-cyan-600 hover:underline">Don't have an account?
-          Sign Up</a>
+          <!-- ── Slide 3 ── -->
+          <div class="carousel-slide slide-3">
+            <img src="{{ asset('images/c3.png') }}" alt="Capturing Moments" class="slide-bg">
+            <div class="slide-top">
+              <div class="logo-row">
+                <a href="/" class="logo">
+                  <div class="logo-mark">
+                    <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g class="ring-spin">
+                        <circle cx="19" cy="19" r="15.5" stroke="rgba(255,255,255,0.55)" stroke-width="1.3" stroke-dasharray="5 3.5" stroke-linecap="round"/>
+                        <circle cx="19" cy="3.5" r="2.2" fill="white" opacity="0.95"/>
+                      </g>
+                      <path d="M19 8L27.5 13V23L19 28L10.5 23V13L19 8Z" stroke="rgba(255,255,255,0.85)" stroke-width="1.4" stroke-linejoin="round" fill="rgba(255,255,255,0.07)"/>
+                      <circle class="dot-pulse" cx="19" cy="19" r="3.2" fill="white" opacity="0.95"/>
+                    </svg>
+                  </div>
+                  <span class="logo-text">VisionTech</span>
+                </a>
+                <a href="/" class="back-btn">
+                  Back to website
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="slide-bottom">
+              <div class="slide-caption">
+                <h2>Grow Faster,<br>Sell Smarter</h2>
+                <p>Powerful analytics that turn your data into profitable decisions.</p>
+              </div>
+              <div class="carousel-nav">
+                <div class="dot" data-index="0"></div>
+                <div class="dot" data-index="1"></div>
+                <div class="dot active" data-index="2"></div>
+                <div class="nav-arrows">
+                  <button class="arr-btn" id="prevBtn3">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M9 3L5 7L9 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <button class="arr-btn" id="nextBtn3">
+                    <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /carousel-track -->
+      </div><!-- /left-panel -->
+
+      <!-- ══ RIGHT PANEL ══ -->
+      <div class="right-panel">
+
+        <div class="tab-bar">
+          <button class="tab-btn active" id="loginTab" onclick="showForm('login')">Login</button>
+          <button class="tab-btn"        id="signupTab" onclick="showForm('signup')">Create Account</button>
+        </div>
+
+        <!-- LOGIN -->
+        <div id="loginSection">
+          <div class="form-header">
+            <h1 class="form-title">Welcome back</h1>
+            <p class="form-subtitle">Don't have an account? <a href="#" onclick="showForm('signup')">Sign up</a></p>
+          </div>
+          <form id="loginForm">
+            <div class="field">
+              <input type="email" name="email" placeholder="Email address" required>
+            </div>
+            <div class="field password-field">
+              <input type="password" name="password" id="loginPassword" placeholder="Enter your password" required>
+              <button type="button" class="toggle-pw" onclick="togglePw('loginPassword',this)">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M1.5 9C1.5 9 4 3.75 9 3.75C14 3.75 16.5 9 16.5 9C16.5 9 14 14.25 9 14.25C4 14.25 1.5 9 1.5 9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.25" stroke="currentColor" stroke-width="1.4"/></svg>
+              </button>
+            </div>
+            <label class="checkbox-label">
+              <input type="checkbox" checked> Remember me on this device
+            </label>
+            <button type="submit" class="btn-primary" id="loginSubmitBtn">Login</button>
+          </form>
+          <div class="divider">Or continue with</div>
+          <div class="social-row">
+            <button class="btn-social">
+              <svg width="16" height="16" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.259c-.806.54-1.837.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18Z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>
+              Google
+            </button>
+            <button class="btn-social">
+              <svg width="14" height="16" viewBox="0 0 16 18" fill="none"><path d="M13.285 9.617c-.02-2.115 1.732-3.14 1.812-3.194-1-1.436-2.545-1.63-3.086-1.648-1.317-.133-2.573.775-3.24.775-.667 0-1.7-.757-2.793-.736-1.434.02-2.754.835-3.492 2.117C.895 9.55 2.023 13.94 3.59 16.35c.775 1.18 1.69 2.5 2.9 2.455 1.166-.046 1.605-.75 3.016-.75 1.41 0 1.81.75 3.035.728 1.255-.02 2.05-1.197 2.815-2.383.9-1.368 1.265-2.705 1.285-2.775-.03-.013-2.456-.94-2.478-3.758h.122ZM11.055 3.07C11.69 2.3 12.12 1.24 12 .18 11.09.22 9.99.79 9.33 1.54c-.59.67-1.11 1.76-.975 2.797.99.074 2-.5 2.7-1.267Z" fill="currentColor"/></svg>
+              Apple
+            </button>
+          </div>
+        </div>
+
+        <!-- SIGNUP -->
+        <div id="signupSection" class="hidden">
+          <div class="form-header">
+            <h1 class="form-title">Create an account</h1>
+            <p class="form-subtitle">Already have an account? <a href="#" onclick="showForm('login')">Log in</a></p>
+          </div>
+          <form id="signupForm" method="POST" action="{{ route('signup.prepare') }}">
+            @csrf
+            <div class="field-row">
+              <div class="field"><input type="text" name="name" placeholder="Full name" required></div>
+              <div class="field"><input type="text" name="shop_name" placeholder="Shop name" required></div>
+            </div>
+            <div class="field"><input type="text" name="retailer_name" placeholder="Retailer name" required></div>
+            <div class="field"><textarea name="address" placeholder="Address" rows="2"></textarea></div>
+            <div class="field-row">
+              <div class="field"><input type="tel" name="phone" placeholder="Phone number"></div>
+              <div class="field"><input type="email" name="email" placeholder="Email address" required></div>
+            </div>
+            <div class="field password-field">
+              <input type="password" name="password" id="signupPassword" placeholder="Create a password" required>
+              <button type="button" class="toggle-pw" onclick="togglePw('signupPassword',this)">
+                <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M1.5 9C1.5 9 4 3.75 9 3.75C14 3.75 16.5 9 16.5 9C16.5 9 14 14.25 9 14.25C4 14.25 1.5 9 1.5 9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.25" stroke="currentColor" stroke-width="1.4"/></svg>
+              </button>
+            </div>
+            <label class="checkbox-label">
+              <input type="checkbox" required> I agree to the <a href="#">Terms &amp; Conditions</a>
+            </label>
+            <button type="submit" class="btn-primary" id="signupSubmitBtn">Create account</button>
+          </form>
+          
+        </div>
+
+        <div id="message"></div>
+
+        @if (session('success'))
+          <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+          <div class="alert alert-error">{{ session('error') }}</div>
+        @endif
+
+      </div><!-- /right-panel -->
+    </div><!-- /auth-card -->
+  </div><!-- /auth-wrapper -->
+
+  <!-- SUCCESS MODAL -->
+  <div id="dashboardModal" class="hidden">
+    <div class="modal-box">
+      <div class="modal-icon">
+        <svg width="24" height="24" viewBox="0 0 26 26" fill="none"><path d="M5 13L10.5 18.5L21 8" stroke="#4ecca3" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-    </form>
-
-    <!-- SIGNUP FORM -->
-    <form id="signupForm" method="POST" action="{{ route('signup.prepare') }}" class="hidden">
-      @csrf
-      <input type="text" name="name" placeholder="Full Name" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="text" name="shop_name" placeholder="Shop Name" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="text" name="retailer_name" placeholder="Retailer Name" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <textarea name="address" placeholder="Address" rows="2"
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 resize-none focus:border-cyan-400 outline-none shadow-sm"></textarea>
-      <input type="tel" name="phone" placeholder="Phone Number"
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="email" name="email" placeholder="Email" required
-        class="w-full py-3 px-4 mb-4 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      <input type="password" name="password" placeholder="Password" required
-        class="w-full py-3 px-4 mb-6 text-sm text-gray-800 rounded-md border border-gray-300 focus:border-cyan-400 outline-none shadow-sm">
-      
-      <button type="submit" id="signupSubmitBtn"
-        class="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold rounded-md shadow-md transition-all duration-300 hover:scale-105">
-        Sign Up
-      </button>
-      
-      <div class="mt-4">
-        <a href="#" onclick="showForm('login')" class="text-xs text-cyan-600 hover:underline">Already have an account?
-          Login</a>
-      </div>
-    </form>
-
-    <div id="message" class="mt-4 text-sm"></div>
-
-    @if (session('success'))
-        <div class="mt-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-            {{ session('error') }}
-        </div>
-    @endif
-
-  </div>
-
-  <!-- Modal Popup for Shopkeeper -->
-  <div id="dashboardModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 transform transition-all">
-      <div class="text-center">
-        <div class="mb-4">
-          <svg class="w-16 h-16 mx-auto text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">Login Successful!</h3>
-        <p class="text-gray-600 mb-6">Would you like to go to your dashboard or continue visiting the website?</p>
-
-        <div class="flex flex-col gap-3">
-          <button onclick="goToDashboard()"
-            class="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold rounded-lg shadow-md hover:scale-105 transition-all duration-300">
-            Go to Dashboard
-          </button>
-          <button onclick="continueWebsite()"
-            class="w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all duration-300">
-            Continue on Website
-          </button>
-        </div>
+      <h3>Login Successful!</h3>
+      <p>Would you like to go to your dashboard or continue visiting the website?</p>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="goToDashboard()">Go to Dashboard</button>
+        <button class="modal-btn-secondary" onclick="continueWebsite()">Continue on Website</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Global variables for user session
-    let userRole = null;
-    let userToken = null;
+    /* ══════════ CAROUSEL ══════════ */
+    const SLIDES = 3;
+    let cur = 0, autoTimer;
 
-    // Toggle between login and signup forms
+    /* ══════════ UPDATED CAROUSEL LOGIC ══════════ */
+function goToSlide(n) {
+  cur = ((n % SLIDES) + SLIDES) % SLIDES;
+  
+  // Move the track
+  document.getElementById('carouselTrack').style.transform = `translateX(-${cur * 100}%)`;
+  
+  // Update Dots across all slides
+  document.querySelectorAll('.dot').forEach((dot, index) => {
+    // Since you have dots repeated in each slide, we match based on data-index
+    if (parseInt(dot.dataset.index) === cur) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+    // Wire up ALL prev/next buttons across all slides
+    document.querySelectorAll('[id^="prevBtn"]').forEach(btn => btn.addEventListener('click', () => { goToSlide(cur - 1); resetAuto(); }));
+    document.querySelectorAll('[id^="nextBtn"]').forEach(btn => btn.addEventListener('click', () => { goToSlide(cur + 1); resetAuto(); }));
+
+    // Wire up ALL dots (they call goToSlide via data-index)
+    document.querySelectorAll('.dot[data-index]').forEach(dot => {
+      dot.addEventListener('click', () => { goToSlide(parseInt(dot.dataset.index)); resetAuto(); });
+    });
+
+    function resetAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goToSlide(cur + 1), 4800);
+    }
+    resetAuto();
+
+    /* ══════════ TABS ══════════ */
     function showForm(type) {
-      const loginForm = document.getElementById('loginForm');
-      const signupForm = document.getElementById('signupForm');
-      const loginBtn = document.getElementById('loginBtn');
-      const signupBtn = document.getElementById('signupBtn');
-
-      if (type === 'signup') {
-        loginForm.classList.add('hidden');
-        signupForm.classList.remove('hidden');
-        signupBtn.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-cyan-400', 'text-white');
-        loginBtn.classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-cyan-400', 'text-white');
-      } else {
-        signupForm.classList.add('hidden');
-        loginForm.classList.remove('hidden');
-        loginBtn.classList.add('bg-gradient-to-r', 'from-blue-500', 'to-cyan-400', 'text-white');
-        signupBtn.classList.remove('bg-gradient-to-r', 'from-blue-500', 'to-cyan-400', 'text-white');
-      }
+      const s = type === 'signup';
+      document.getElementById('loginSection').classList.toggle('hidden', s);
+      document.getElementById('signupSection').classList.toggle('hidden', !s);
+      document.getElementById('loginTab').classList.toggle('active', !s);
+      document.getElementById('signupTab').classList.toggle('active', s);
+      document.getElementById('message').innerHTML = '';
     }
 
-    // Show/Hide  Loader
-    function showLoader(show) {
-      const loader = document.getElementById('loaderOverlay');
-      if (show) {
-        loader.classList.add('active');
-      } else {
-        loader.classList.remove('active');
-      }
+    /* ══════════ PASSWORD TOGGLE ══════════ */
+    function togglePw(id, btn) {
+      const inp = document.getElementById(id);
+      const show = inp.type === 'password';
+      inp.type = show ? 'text' : 'password';
+      btn.innerHTML = show
+        ? `<svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M2 2L16 16M7.5 7.68A2.25 2.25 0 0 0 10.32 10.5M4.09 4.2C2.67 5.3 1.5 7 1.5 9c0 0 2.5 5.25 7.5 5.25a8.1 8.1 0 0 0 3.84-.97M7 3.82A8.1 8.1 0 0 1 9 3.75c5 0 7.5 5.25 7.5 5.25s-.6 1.24-1.7 2.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>`
+        : `<svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M1.5 9C1.5 9 4 3.75 9 3.75C14 3.75 16.5 9 16.5 9C16.5 9 14 14.25 9 14.25C4 14.25 1.5 9 1.5 9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.25" stroke="currentColor" stroke-width="1.4"/></svg>`;
     }
 
-    // LOGIN FORM SUBMIT (AJAX to /api/login)
-    document.getElementById('loginForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+    /* ══════════ LOADER ══════════ */
+    function showLoader(show) { document.getElementById('loaderOverlay').classList.toggle('active', show); }
+    function setMsg(html, t) { document.getElementById('message').innerHTML = `<span class="msg-${t}">${html}</span>`; }
 
-      // Show loader
-      showLoader(true);
-
-      const formData = new FormData(this);
-      const data = {
-        email: formData.get('email'),
-        password: formData.get('password')
-      };
-
-      console.log('Attempting login with:', data.email);
-
+    /* ══════════ LOGIN ══════════ */
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault(); showLoader(true);
+      const fd = new FormData(this);
       try {
-        const response = await fetch('/api/login', {
+        const res = await fetch('/api/login', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(data)
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email: fd.get('email'), password: fd.get('password') })
         });
-
-        const result = await response.json();
-        console.log('Login API Response:', result);
-
-        if (response.ok) {
-          // Store token and user info
-          userToken = result.token;
-          userRole = result.user.type;
-          console.log('User Role:', userRole);
-          console.log('Token:', userToken ? 'Present' : 'Missing');
-
+        const result = await res.json();
+        if (res.ok) {
+          window.userToken = result.token; window.userRole = result.user.type;
           localStorage.setItem('auth_token', result.token);
-          localStorage.setItem('user_role', result.user.type);
-          localStorage.setItem('user_info', JSON.stringify(result.user));
-
-          console.log('Stored in localStorage:');
-          console.log('   - auth_token:', localStorage.getItem('auth_token') ? 'Saved' : 'Failed');
-          console.log('   - user_type:', localStorage.getItem('user_role'));
-          console.log('   - user_info:', localStorage.getItem('user_info'));
-
-          document.getElementById('message').innerHTML = '<p class="text-green-600 font-medium">Login successful!</p>';
-
-          // Hide loader before showing modal
-          showLoader(false);
-
-          // Show modal for both shopkeeper and admin
-          if (result.user.type === 'shopkeeper' || result.user.type === 'admin') {
-            console.log('Showing dashboard modal for type:', result.user.type);
-            showDashboardModal();
-          } else {
-            console.log('Regular user - redirecting to home');
-            goToDashboard();
-          }
+          localStorage.setItem('user_role',  result.user.type);
+          localStorage.setItem('user_info',  JSON.stringify(result.user));
+          setMsg('Login successful!', 'success'); showLoader(false);
+          if (['shopkeeper','admin'].includes(result.user.type)) {
+            document.getElementById('dashboardModal').classList.remove('hidden');
+          } else { goToDashboard(); }
         } else {
-          console.error('Login failed:', result.message);
-
-          // If backend indicates the subscription has expired, redirect to renewal
-          document.getElementById('message').innerHTML = '<p class="text-red-600 font-medium">' + result.message + '</p>';
-
-          const redirectUrl = result.redirect_to || '/subscription/select';
-          const isExpiredMessage = response.status === 403 && result.message && result.message.toLowerCase().includes('expired');
-
-          if (redirectUrl && isExpiredMessage) {
-            setTimeout(() => {
-              window.location.href = redirectUrl;
-            }, 1200);
-          }
-
+          setMsg(result.message || 'Login failed. Please try again.', 'error');
+          const expired = res.status === 403 && result.message?.toLowerCase().includes('expired');
+          if (expired && result.redirect_to) setTimeout(() => window.location.href = result.redirect_to, 1200);
           showLoader(false);
         }
-      } catch (error) {
-        console.error('Login error:', error);
-        document.getElementById('message').innerHTML = '<p class="text-red-600 font-medium">An error occurred. Please try again.</p>';
-        showLoader(false);
-      }
+      } catch { setMsg('An error occurred. Please try again.', 'error'); showLoader(false); }
     });
 
-    // SIGNUP FORM SUBMIT (redirect to plan selection)
-    document.getElementById('signupForm').addEventListener('submit', function () {
-      showLoader(true);
-    });
+    document.getElementById('signupForm').addEventListener('submit', function() { showLoader(true); });
 
-    // Show the dashboard modal
-    function showDashboardModal() {
-      document.getElementById('dashboardModal').classList.remove('hidden');
-    }
-
-    // Go to dashboard option
     function goToDashboard() {
-      if (userRole === 'shopkeeper') {
-        window.location.href = '/shopkeeper/dashboard';
-      } else if (userRole === 'admin') {
-        window.location.href = '/admin/dashboard';
-      }
+      window.location.href = { shopkeeper: '/shopkeeper/dashboard', admin: '/admin/dashboard' }[window.userRole] || '/';
     }
-
-    // Continue on website option
     function continueWebsite() {
       document.getElementById('dashboardModal').classList.add('hidden');
       window.location.href = '/';
     }
-
   </script>
 
 </body>
-
 </html>

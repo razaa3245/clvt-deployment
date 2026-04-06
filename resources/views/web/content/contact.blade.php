@@ -1,47 +1,59 @@
 @include('web.layouts.header')
 @include('web.layouts.navbar')
 
-<div class="font-sans bg-gradient-to-br from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0] min-h-screen py-20">
+<div class="font-sans bg-gradient-to-b from-white via-slate-50 to-blue-50 min-h-screen py-20 relative overflow-hidden">
+
+  <!-- Particles -->
+  <div id="particles"></div>
+  <div id="cursor-glow"></div>
 
   <div class="container mx-auto px-6 mt-20">
-    <!-- Header Section -->
-    <div class="text-center mb-16">
-      <h1 class="text-5xl font-bold text-gray-900 mb-4 tracking-tight">Get In Touch With Us</h1>
+
+    <!-- HERO -->
+    <div class="text-center mb-20 reveal">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">
+        Let’s Build Something Amazing Together
+      </h1>
       <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        We're here to help and answer any question you might have. We look forward to hearing from you.
+        Whether you're an optical business or an individual user, our team is ready to help you 
+        integrate and experience next-generation AR lens technology.
       </p>
     </div>
 
-    <div class="flex flex-col lg:flex-row justify-center items-start gap-8 max-w-6xl mx-auto">
+    <!-- MAIN GRID -->
+    <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
 
-      <!-- Left Contact Form -->
-      <div class="w-full lg:w-1/2 bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
-        <div class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-2">Send us a message</h2>
-          <p class="text-gray-600">Fill out the form below and we'll get back to you as soon as possible.</p>
-        </div>
+      <!-- FORM -->
+      <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/50 reveal">
+
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Send us a message</h2>
+        <p class="text-gray-600 mb-8">We typically respond within a few hours.</p>
 
         <form action="{{ route('contact.submit') }}" method="POST" class="space-y-6">
           @csrf
-          
+
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-            <input type="text" name="name" placeholder="shby..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 outline-none" required>
+            <input type="text" name="name" placeholder="Your Name"
+              class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:bg-white transition outline-none">
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-            <input type="email" name="email" placeholder="shby@example.com" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 outline-none" required>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+            <input type="email" name="email" placeholder="you@example.com"
+              class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:bg-white transition outline-none">
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
-            <input type="tel" name="phone" placeholder="+92 300 1234567" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 outline-none" required>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+            <input type="tel" name="phone"
+              class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:bg-white transition outline-none">
           </div>
 
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">Service</label>
-            <select name="service" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 outline-none">
+            <select name="service"
+              class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:bg-white transition outline-none">
               <option value="">Select a service</option>
               <option value="lens_fitting">Lens Fitting</option>
               <option value="virtual_tryon">Virtual Try-On</option>
@@ -51,73 +63,60 @@
 
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-            <textarea name="message" rows="4" placeholder="Tell us more about your inquiry..." class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 outline-none resize-none"></textarea>
+            <textarea name="message" rows="4"
+              class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:bg-white transition outline-none"></textarea>
           </div>
 
-          <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transform hover:-translate-y-0.5 transition-all duration-200">
+          <button type="submit"
+            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] transition">
             Send Message
           </button>
         </form>
       </div>
 
-      <!-- Right Contact Info -->
-      <div class="w-full lg:w-1/2 space-y-6">
-        
-        <!-- Contact Information Card -->
-        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900">Contact Information</h3>
-              <p class="text-sm text-gray-600">We're available 24/7</p>
-            </div>
-          </div>
+      <!-- RIGHT SIDE -->
+      <div class="space-y-8">
+
+        <!-- INFO CARD -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/50 reveal">
+
+          <h3 class="text-xl font-bold text-gray-900 mb-6">Contact Information</h3>
 
           <div class="space-y-5">
-            <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group">
-              <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors duration-200">
-                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                </svg>
+
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                📞
               </div>
               <div>
-                <p class="text-sm font-semibold text-gray-500 mb-1">Phone</p>
-                <p class="text-gray-900 font-medium">+92 325 2703679</p>
+                <p class="text-sm text-gray-500">Phone</p>
+                <p class="font-medium text-gray-900">+92 325 2703679</p>
               </div>
             </div>
 
-            <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group">
-              <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors duration-200">
-                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                ✉️
               </div>
               <div>
-                <p class="text-sm font-semibold text-gray-500 mb-1">Email</p>
-                <p class="text-gray-900 font-medium break-all">muhammadshoaib10808@gmail.com</p>
+                <p class="text-sm text-gray-500">Email</p>
+                <p class="font-medium text-gray-900 break-all">muhammadshoaib10808@gmail.com</p>
               </div>
             </div>
 
-            <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-all duration-200 group">
-              <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors duration-200">
-                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                </svg>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                📍
               </div>
               <div>
-                <p class="text-sm font-semibold text-gray-500 mb-1">Address</p>
-                <p class="text-gray-900 font-medium">Danish Optics, Satellite Town, Rawalpindi, Pakistan</p>
+                <p class="text-sm text-gray-500">Address</p>
+                <p class="font-medium text-gray-900">Danish Optics, Rawalpindi</p>
               </div>
             </div>
+
           </div>
         </div>
 
-       
         <!-- Social Links Card -->
         <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 hover:shadow-2xl transition-all duration-300">
           <h3 class="text-xl font-bold text-gray-900 mb-6">Connect With Us</h3>
@@ -142,15 +141,66 @@
     </div>
   </div>
 
+  <!-- SUCCESS ALERT -->
   @if(session('success'))
-    <script>
-        alert("{{ session('success') }}");
-    </script>
+  <script>
+    alert("{{ session('success') }}");
+  </script>
   @endif
-
 
 </div>
 
+
+<script>
+const container = document.getElementById("particles");
+for (let i = 0; i < 25; i++) {
+  let dot = document.createElement("div");
+  dot.className = "particle";
+  dot.style.left = Math.random() * 100 + "%";
+  dot.style.animationDuration = (5 + Math.random() * 5) + "s";
+  dot.style.width = dot.style.height = (4 + Math.random() * 4) + "px";
+  dot.style.opacity = 0.3 + Math.random();
+  container.appendChild(dot);
+}
+</script>
+
+<style>
+#particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Particle */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(37, 99, 235, 0.6); /* darker blue */
+  border-radius: 50%;
+  animation: float linear infinite;
+  
+  /* Glow effect */
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.6);
+}
+
+/* Animation */
+@keyframes float {
+  from {
+    transform: translateY(100vh) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(50vh) scale(1.2);
+  }
+  to {
+    transform: translateY(-10vh) scale(0.8);
+    opacity: 0.2;
+  }
+}
+</style>
 
 @include('web.layouts.footer')
 </body>
