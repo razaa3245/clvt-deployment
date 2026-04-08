@@ -43,12 +43,7 @@
       <div class="block md:hidden w-full flex justify-center my-6">
         <div class="relative group">
           <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition"></div>
-          <div class="relative">
-            <img src="{{ asset('images/front1.jpg') }}" alt="Virtual Try-On Demo"
-              class="w-full max-w-xs sm:max-w-md h-auto rounded-2xl shadow-2xl group-hover:scale-105 transition object-cover border-4 border-white"
-              style="aspect-ratio: 1/1;">
-            <div class="absolute inset-0 bg-gradient-to-t from-blue-600/30 via-transparent to-transparent rounded-2xl"></div>
-          </div>
+          
         </div>
       </div>
 
@@ -60,11 +55,11 @@
           Get Started
         </a>
 
-        <a href="#"
+        <a href="/contact"
           class="group border-2 border-white text-white hover:bg-white hover:text-blue-700 
                  px-8 py-4 rounded-xl shadow-lg transition"
           onclick="openModal('demoModal'); return false;">
-          Watch Demo
+          Get in Touch
         </a>
       </div>
 

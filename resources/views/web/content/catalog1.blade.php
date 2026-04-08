@@ -11,37 +11,89 @@
 <style>
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── Responsive sidebar ── */
+  /* ════ SHARED SIDEBAR STYLES ════ */
+  .app-shell { display:flex; min-height:100vh; }
+
+  .vt-sidebar {
+    width: 80px;
+    min-height: 100vh;
+    height: 100%;
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #0B1437;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+    z-index: 50;
+    overflow: hidden;
+    transition: width 0.3s cubic-bezier(.4,0,.2,1);
+  }
+  .vt-sidebar.open { width: 260px; }
+
+  .vt-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    margin: 2px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    color: rgba(255,255,255,.55);
+    transition: background .18s, color .18s;
+    white-space: nowrap;
+    overflow: hidden;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: calc(100% - 16px);
+    text-align: left;
+  }
+  .vt-nav-link:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.9); }
+  .vt-nav-link.active { background: rgba(59,130,246,.18); color: #fff; font-weight: 700; box-shadow: inset 3px 0 0 #3B82F6; }
+  .vt-nav-link svg { flex-shrink: 0; width: 20px; height: 20px; }
+  .vt-nav-label { margin-left: 12px; overflow: hidden; max-width: 0; opacity: 0; transition: max-width .3s, opacity .2s; }
+  .vt-sidebar.open .vt-nav-label { max-width: 180px; opacity: 1; }
+  .vt-plan-card { display: none; }
+  .vt-sidebar.open .vt-plan-card { display: block; }
+  .vt-section-label { display:none; }
+  .vt-sidebar.open .vt-section-label { display:block; }
+  .vt-user-info { display:none; overflow:hidden; }
+  .vt-sidebar.open .vt-user-info { display:block; }
+
+  /* Collapsed sidebar: tighter padding so avatar + hamburger never merge */
+  .vt-sidebar:not(.open) .vt-header-row { padding: 10px 6px !important; gap: 4px !important; }
+
+  /* Responsive */
   @media (max-width: 768px) {
-    body { flex-direction: column !important; }
-    aside {
-      width: 100% !important;
-      height: auto !important;
-      position: relative !important;
+    .app-shell { flex-direction: column; }
+    .vt-sidebar {
+      position: fixed !important;
+      top: auto !important; bottom: 0; left: 0; right: 0;
+      width: 100% !important; min-height: unset !important; height: auto !important;
+      flex-direction: row !important; justify-content: space-around !important;
+      align-items: center !important; padding: 0 !important;
+      border-right: none !important;
+      border-top: 1px solid rgba(255,255,255,.1) !important;
+      box-shadow: 0 -4px 20px rgba(0,0,0,.25) !important;
     }
-    aside > div:first-child nav ul {
-      display: flex;
-      flex-direction: row;
-      overflow-x: auto;
-    }
-    aside > div:last-child { display: none !important; }
-    aside > div:first-child > div:first-child { padding: 10px 16px; }
+    .vt-sidebar-desktop { display: none !important; }
+    .vt-sidebar-mobile { display: flex !important; }
+    .vt-main { padding-bottom: 72px !important; }
+  }
+  @media (min-width: 769px) {
+    .vt-sidebar-mobile { display: none !important; }
   }
 
   /* ── Responsive header ── */
   @media (max-width: 640px) {
     header { padding: 12px 16px !important; }
     header h1 { font-size: 15px !important; }
-  }
-
-  /* ── Hero ── */
-  @media (max-width: 640px) {
     .hero-inner { padding: 28px 16px !important; }
     .hero-inner h1 { font-size: 22px !important; }
-  }
-
-  /* ── Filter bar ── */
-  @media (max-width: 640px) {
     .filter-bar { padding: 16px 12px 4px !important; gap: 8px !important; }
   }
 
@@ -54,15 +106,9 @@
     box-sizing: border-box;
     width: 100%;
   }
-  @media (max-width: 1200px) {
-    #lens-container { grid-template-columns: repeat(3, 1fr) !important; }
-  }
-  @media (max-width: 900px) {
-    #lens-container { grid-template-columns: repeat(2, 1fr) !important; padding: 20px 16px !important; }
-  }
-  @media (max-width: 520px) {
-    #lens-container { grid-template-columns: 1fr !important; padding: 16px 12px !important; }
-  }
+  @media (max-width: 1200px) { #lens-container { grid-template-columns: repeat(3, 1fr) !important; } }
+  @media (max-width: 900px)  { #lens-container { grid-template-columns: repeat(2, 1fr) !important; padding: 20px 16px !important; } }
+  @media (max-width: 520px)  { #lens-container { grid-template-columns: 1fr !important; padding: 16px 12px !important; } }
 
   /* ── Modal responsive ── */
   @media (max-width: 480px) {
@@ -72,74 +118,97 @@
 </style>
 </head>
 
-<body class="min-h-screen flex" style="background:#F0F4FD;font-family:'Plus Jakarta Sans',sans-serif;color:#1E293B;">
-  <aside x-data="{ open: false }" :class="open ? 'w-64' : 'w-20'"
-    class="h-screen shadow-xl transition-all duration-300 flex flex-col justify-between sticky top-0 z-50" style="background:#0B1437;border-right:1px solid rgba(255,255,255,0.08);">
-    <div>
-      <div class="flex items-center justify-between p-4 border-b" style="border-color:rgba(255,255,255,0.08);">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
-            <span id="sidebar-email-first" class="text-white font-bold text-base"></span>
-          </div>
-          <div x-show="open" class="overflow-hidden">
-            <span id="admin-email-sidebar" class="text-white text-xs font-semibold block truncate max-w-[140px]"></span>
-            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,.4);">Shopkeeper</p>
-          </div>
+<body class="min-h-screen" style="background:#F0F4FD;font-family:'Plus Jakarta Sans',sans-serif;color:#1E293B;margin:0;">
+<div class="app-shell">
+
+<!-- ══════════════════════════════════════
+     SIDEBAR — Catalog (active: Lens Catalog)
+══════════════════════════════════════ -->
+<aside id="vt-sidebar" class="vt-sidebar">
+
+  <div class="vt-sidebar-desktop" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+    <!-- User row + toggle — avatar left, hamburger right, always in one row -->
+    <div class="vt-header-row" style="display:flex;align-items:center;justify-content:space-between;padding:14px;border-bottom:1px solid rgba(255,255,255,.08);gap:8px;">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+        <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#3B82F6,#06B6D4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span id="sidebar-email-first" style="color:#fff;font-weight:800;font-size:15px;"></span>
         </div>
-        <button @click="open = !open" class="p-1.5 rounded-lg flex-shrink-0 transition-colors" style="color:rgba(255,255,255,.5);" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='transparent'">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-          </svg>
-        </button>
+        <div class="vt-user-info">
+          <span id="admin-email-sidebar" style="color:#fff;font-size:12px;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;"></span>
+          <p style="color:rgba(255,255,255,.4);font-size:11px;margin:2px 0 0;">Shopkeeper</p>
+        </div>
       </div>
-      <nav class="mt-6">
-        <ul>
-          <li>
-            <a href="/shopkeeper/dashboard" class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm border-r-4 transition-all" style="color:rgba(255,255,255,.55);border-right-color:transparent;" onmouseover="this.style.background='rgba(255,255,255,.07)';this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.55)'">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              <span x-show="open" class="ml-3 text-sm">Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a href="/shopkeeper/catalog1"
-              class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm font-semibold border-r-4 transition-all" style="background:rgba(59,130,246,.15);color:#fff;border-right-color:#3B82F6;">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
-              <span x-show="open" class="ml-3 text-sm font-semibold">Lens Catalog</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="py-3 px-2 border-t" style="border-color:rgba(255,255,255,.08);">
-      <button onclick="logout()" class="flex items-center px-4 py-2.5 rounded-xl mx-1 w-full text-sm border-r-4 transition-all" style="color:rgba(239,68,68,.75);border-right-color:transparent;" onmouseover="this.style.background='rgba(239,68,68,.08)'" onmouseout="this.style.background='transparent'">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      <button onclick="vtToggleSidebar()" style="background:transparent;border:none;cursor:pointer;padding:6px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='transparent'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,.5)">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
         </svg>
-        <span x-show="open" class="ml-3 whitespace-nowrap">Logout</span>
       </button>
     </div>
-  </aside>
 
-  <div class="flex-1 flex flex-col overflow-x-hidden" style="font-family:'Plus Jakarta Sans',sans-serif;">
-    <header class="bg-white border-b sticky top-0 z-40 px-8 py-4" style="border-color:#E8EDF6;">
-      <div class="flex items-center justify-between">
-        <h1
-          class="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
-        <span class="ml-2 px-2.5 py-0.5 text-xs font-semibold rounded-full" style="background:#EFF6FF;color:#3B82F6;">Shopkeeper</span>
-        <span id="admin-email" class="text-sm font-medium" style="color:#64748B;"></span>
+    <!-- Nav -->
+    <nav style="margin-top:16px;flex:1;">
+      <p class="vt-section-label" style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:0 20px 8px;color:rgba(255,255,255,.28);">Overview</p>
+      <a href="/shopkeeper/dashboard" class="vt-nav-link">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span class="vt-nav-label">Dashboard</span>
+      </a>
+      <a href="/shopkeeper/catalog1" class="vt-nav-link active">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        <span class="vt-nav-label">Lens Catalog</span>
+      </a>
+    </nav>
+
+    <!-- Plan Card -->
+    <div class="vt-plan-card" style="margin:0 10px 16px;border-radius:14px;padding:14px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.28);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div style="width:30px;height:30px;border-radius:8px;background:rgba(59,130,246,.55);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#fff"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+        </div>
+        <span style="color:rgba(255,255,255,.85);font-size:12px;font-weight:600;">Current Plan</span>
       </div>
+      <p style="color:#fff;font-size:16px;font-weight:800;margin:0 0 2px;" id="sidebar-plan-name">—</p>
+      <p style="color:rgba(255,255,255,.5);font-size:11px;margin:0 0 2px;" id="sidebar-plan-price"></p>
+      <p style="color:rgba(255,255,255,.35);font-size:11px;margin:0 0 12px;" id="sidebar-plan-expiry">—</p>
+      <a href="/price" style="text-decoration:none;">
+        <button style="width:100%;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;" onmouseover="this.style.boxShadow='0 4px 14px rgba(59,130,246,.5)'" onmouseout="this.style.boxShadow=''">Update Plan</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Logout desktop -->
+  <div class="vt-sidebar-desktop" style="padding:10px 8px;border-top:1px solid rgba(255,255,255,.08);">
+    <button onclick="logout()" class="vt-nav-link" style="color:rgba(239,68,68,.8);" onmouseover="this.style.background='rgba(239,68,68,.08)'" onmouseout="this.style.background='transparent'">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+      <span class="vt-nav-label">Logout</span>
+    </button>
+  </div>
+
+  <!-- MOBILE tabs -->
+  <div class="vt-sidebar-mobile" style="display:none;width:100%;align-items:center;justify-content:space-around;padding:6px 0 8px;">
+    <a href="/shopkeeper/dashboard" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:6px 18px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,.55)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      <span style="color:rgba(255,255,255,.55);font-size:10px;">Dashboard</span>
+    </a>
+    <a href="/shopkeeper/catalog1" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:6px 18px;border-radius:12px;background:rgba(59,130,246,.25);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#fff"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      <span style="color:#fff;font-size:10px;font-weight:700;">Catalog</span>
+    </a>
+    <button onclick="logout()" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;cursor:pointer;padding:6px 18px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="rgba(239,68,68,.85)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+      <span style="color:rgba(239,68,68,.85);font-size:10px;">Logout</span>
+    </button>
+  </div>
+
+</aside>
+
+  <div class="vt-main" style="flex:1;display:flex;flex-direction:column;overflow-x:hidden;font-family:'Plus Jakarta Sans',sans-serif;">
+    <header class="vt-header" style="position:sticky;top:0;z-index:40;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid #E8EDF6;flex-wrap:wrap;gap:8px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" style="width:32px;height:32px;border-radius:8px;" alt="Logo">
+        <h1 class="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
+        <span style="background:#EFF6FF;color:#3B82F6;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;">Shopkeeper</span>
+      </div>
+      <span id="admin-email" class="email-label" style="font-size:13px;font-weight:500;color:#64748B;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px;"></span>
     </header>
 
    <!-- Hero -->
@@ -187,7 +256,8 @@
     </div>
 
     @include('web.layouts.footer')
-  </div>
+    </div><!-- /vt-main -->
+</div><!-- /app-shell -->
 
   <!-- Try-On Modal -->
   <div id="tryOnModal"
@@ -258,6 +328,13 @@
       let fpsFrames = 0, fpsLast = performance.now();
 
       // ─────────────────────────────────────────
+      // SIDEBAR TOGGLE
+      // ─────────────────────────────────────────
+      function vtToggleSidebar() {
+        document.getElementById('vt-sidebar').classList.toggle('open');
+      }
+
+      // ─────────────────────────────────────────
       // UI
       // ─────────────────────────────────────────
       function initUI() {
@@ -266,6 +343,23 @@
         document.getElementById('admin-email').textContent = email;
         document.getElementById('admin-email-sidebar').textContent = email;
         document.getElementById('sidebar-email-first').textContent = email.charAt(0).toUpperCase();
+
+        // Load plan info into sidebar
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+          fetch('/api/shopkeeper/dashboard', { headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/json' } })
+            .then(r => r.json()).then(result => {
+              if (result.success && result.data && result.data.stats) {
+                const s = result.data.stats;
+                const pn = document.getElementById('sidebar-plan-name');
+                const pp = document.getElementById('sidebar-plan-price');
+                const pe = document.getElementById('sidebar-plan-expiry');
+                if (pn) pn.textContent = s.subscription_plan || '—';
+                if (pp) pp.textContent = s.plan_price || '';
+                if (pe) pe.textContent = s.plan_expiry ? 'Expires: ' + s.plan_expiry : '—';
+              }
+            }).catch(() => {});
+        }
       }
 
       async function fetchLenses() {
