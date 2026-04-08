@@ -6,29 +6,30 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Lens Catalogue | VisionTech</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-gradient-to-br from-gray-50 to-gray-100">
+<body class="bg-[#F0F4FD]" style="font-family:'Plus Jakarta Sans',sans-serif;">
   
   <!-- SIDEBAR -->
   <aside x-data="{ open: false }" 
          :class="open ? 'w-64' : 'w-20'" 
-         class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between fixed top-0 left-0 z-50">
+         class="h-screen shadow-xl transition-all duration-300 flex flex-col justify-between fixed top-0 left-0 z-50" style="background:#0B1437;border-right:1px solid rgba(255,255,255,0.08);">
 
     <!-- Top Section -->
     <div>
       <!-- Logo -->
-      <div class="flex items-center justify-between p-4">
+      <div class="flex items-center justify-between p-4 border-b" style="border-color:rgba(255,255,255,0.08);">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
-                        <span id="sidebar-email-first" class=" text-purple-600 font-bold text-lg"></span>
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
+                        <span id="sidebar-email-first" class="text-white font-bold text-base"></span>
                     </div>
-          <div x-show="open" class="text-gray-700">
-            <span id="sidebar-email" class="text-sm text-gray-600"></span>
-            <p class="text-xs text-gray-400 -mt-1">Admin</p>
+          <div x-show="open" class="overflow-hidden">
+            <span id="sidebar-email" class="text-white text-xs font-semibold block truncate max-w-[140px]"></span>
+            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,.4);">Admin</p>
           </div>
         </div>
-        <button @click="open = !open" class="text-gray-400 hover:text-gray-600">
+        <button @click="open = !open" class="p-1.5 rounded-lg flex-shrink-0 transition-colors" style="color:rgba(255,255,255,.5);" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='transparent'">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
           </svg>
@@ -37,19 +38,19 @@
 
       <!-- Navigation -->
       <nav class="mt-6">
-        <p x-show="open" class="text-xs text-gray-400 px-6 mb-2 uppercase tracking-widest">Overview</p>
+        <p x-show="open" class="text-xs font-semibold tracking-widest uppercase px-3 mb-2" style="color:rgba(255,255,255,.3);">Overview</p>
         <ul>
           <li>
-            <a href="/admin/dashboard" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <a href="/admin/dashboard" class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm border-r-4 transition-all" style="color:rgba(255,255,255,.55);border-right-color:transparent;" onmouseover="this.style.background='rgba(255,255,255,.07)';this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.55)'">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               <span x-show="open" x-transition class="ml-3 text-sm">Dashboard</span>
             </a>
           </li>
           <li>
-            <a href="/catalog" class="flex items-center px-6 py-2 bg-purple-50 text-purple-700 group border-r-4 border-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <a href="/catalog" class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm font-semibold border-r-4 transition-all" style="background:rgba(59,130,246,.15);color:#fff;border-right-color:#3B82F6;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
@@ -57,8 +58,8 @@
             </a>
           </li>
           <li>
-            <a href="/admin/messages" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <a href="/admin/messages" class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm border-r-4 transition-all" style="color:rgba(255,255,255,.55);border-right-color:transparent;" onmouseover="this.style.background='rgba(255,255,255,.07)';this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.55)'">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
               <span x-show="open" class="ml-3 text-sm">Approvals</span>
@@ -69,15 +70,15 @@
     </div>
 
     <!-- Account Section -->
-    <div class="border-t border-gray-100 py-4">
+    <div class="py-3 px-2 border-t" style="border-color:rgba(255,255,255,.08);">
       <ul>
         
         <li>
-          <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-purple-50 text-gray-700 group w-full text-left">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <button onclick="logout()" class="flex items-center px-4 py-2.5 rounded-xl mx-1 w-full text-left text-sm border-r-4 transition-all" style="color:rgba(239,68,68,.75);border-right-color:transparent;" onmouseover="this.style.background='rgba(239,68,68,.08)'" onmouseout="this.style.background='transparent'">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
-            <span x-show="open" class="ml-3 text-sm text-red-500">Logout</span>
+            <span x-show="open" class="ml-3 whitespace-nowrap">Logout</span>
           </button>
         </li>
       </ul>
@@ -85,10 +86,10 @@
   </aside>
 
   <!-- MAIN CONTENT -->
-  <div class="ml-20 transition-all duration-300">
+  <div class="ml-20 transition-all duration-300" style="font-family:'Plus Jakarta Sans',sans-serif;">
     
     <!-- HEADER -->
-    <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-40 transition-all duration-300 hover:shadow-md">
+    <header class="bg-white border-b sticky top-0 z-40" style="border-color:#E8EDF6;padding:14px 32px;">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
@@ -102,33 +103,33 @@
     </header>
 
     <!-- Page Header with Gradient -->
-    <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-10 py-8 border-b border-gray-200">
+    <div class="px-8 py-8 border-b" style="background:linear-gradient(135deg,#0B1437 0%,#192566 100%);border-color:rgba(255,255,255,.1);">
       <div class="max-w-7xl mx-auto">
         <div class="flex items-center gap-4 mb-4">
-          <div class="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(139,92,246,.25);border:1px solid rgba(139,92,246,.3);">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
           </div>
           <div>
-            <h1 class="text-3xl font-bold text-gray-900">Lens Catalogue</h1>
-            <p class="text-gray-600 mt-1">Browse and manage your premium colored contact lenses</p>
+            <h1 class="text-2xl font-bold text-white">Lens Catalogue</h1>
+            <p class="text-sm mt-0.5" style="color:rgba(255,255,255,.5);">Browse and manage your premium colored contact lenses</p>
           </div>
         </div>
 
         <!-- Filter Buttons -->
         <div class="flex flex-wrap gap-3 mt-6">
-          <button onclick="filterLenses('all')" id="filter-all" class="px-5 py-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 shadow-md transition-all hover:shadow-lg font-semibold text-sm">
+          <button onclick="filterLenses('all')" id="filter-all" class="px-5 py-2.5 text-white rounded-xl font-semibold text-sm transition-all" style="background:#3B82F6;border:1.5px solid #3B82F6;box-shadow:0 4px 14px rgba(59,130,246,.3);">
             All Lenses
           </button>
-          <button onclick="filterLenses('daily')" id="filter-daily" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+          <button onclick="filterLenses('daily')" id="filter-daily" class="px-5 py-2.5 text-sm font-semibold rounded-xl transition-all" style="background:#fff;color:#64748B;border:1.5px solid #E8EDF6;" onmouseover="this.style.borderColor='#3B82F6';this.style.color='#3B82F6'" onmouseout="this.style.borderColor='#E8EDF6';this.style.color='#64748B'">
             Daily Wear
           </button>
-          <button onclick="filterLenses('monthly')" id="filter-monthly" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+          <button onclick="filterLenses('monthly')" id="filter-monthly" class="px-5 py-2.5 text-sm font-semibold rounded-xl transition-all" style="background:#fff;color:#64748B;border:1.5px solid #E8EDF6;" onmouseover="this.style.borderColor='#3B82F6';this.style.color='#3B82F6'" onmouseout="this.style.borderColor='#E8EDF6';this.style.color='#64748B'">
             Monthly
           </button>
-          <button onclick="filterLenses('yearly')" id="filter-yearly" class="px-5 py-2.5 bg-white text-gray-700 rounded-xl hover:bg-gray-50 border-2 border-gray-200 transition-all font-medium text-sm">
+          <button onclick="filterLenses('yearly')" id="filter-yearly" class="px-5 py-2.5 text-sm font-semibold rounded-xl transition-all" style="background:#fff;color:#64748B;border:1.5px solid #E8EDF6;" onmouseover="this.style.borderColor='#3B82F6';this.style.color='#3B82F6'" onmouseout="this.style.borderColor='#E8EDF6';this.style.color='#64748B'">
             Yearly
           </button>
         </div>
@@ -137,8 +138,8 @@
 
     <!-- Loading Spinner -->
     <div id="loading-spinner" class="flex justify-center items-center py-20">
-      <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600"></div>
-      <p class="ml-4 text-gray-600">Loading lenses...</p>
+      <div style="width:36px;height:36px;border:3px solid #E2E8F0;border-top-color:#8B5CF6;border-radius:50%;animation:spin .75s linear infinite;"></div>
+      <p class="ml-3 text-sm font-medium" style="color:#94A3B8;">Loading lenses...</p>
     </div>
 
     <!-- Main Content Container -->
@@ -146,7 +147,7 @@
       
       <!-- Statistics Bar -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="stats-section">
-        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all hover:shadow-lg">
+        <div class="p-6 transition-all hover:shadow-xl hover:-translate-y-1" style="background:#fff;border:1px solid #E8EDF6;border-radius:16px;">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +161,7 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all hover:shadow-lg">
+        <div class="p-6 transition-all hover:shadow-xl hover:-translate-y-1" style="background:#fff;border:1px solid #E8EDF6;border-radius:16px;">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -169,12 +170,12 @@
             </div>
             <div>
               <p class="text-sm text-gray-500 font-medium">Categories</p>
-              <p class="text-3xl font-bold text-gray-900">5</p>
+              <p class="text-3xl font-bold text-gray-900">3</p>
             </div>
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 transition-all hover:shadow-lg">
+        <div class="p-6 transition-all hover:shadow-xl hover:-translate-y-1" style="background:#fff;border:1px solid #E8EDF6;border-radius:16px;">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -211,10 +212,10 @@
 
     <!-- Footer CTA -->
     <div class="container mx-auto px-10 pb-12">
-      <div class="bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl shadow-xl p-10 text-center text-white">
+      <div class="rounded-2xl p-10 text-center text-white flex flex-col md:flex-row items-center justify-between gap-6" style="background:linear-gradient(135deg,#0B1437 0%,#192566 100%);">
         <h2 class="text-3xl font-bold mb-3">Ready to Manage Your Lenses?</h2>
         <p class="text-purple-100 mb-6 text-lg">Update or delete lens details easily using the management options</p>
-        <button onclick="window.location.href='/admin/dashboard'" class="bg-white text-purple-700 hover:bg-gray-100 px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5">
+        <button onclick="window.location.href='/admin/dashboard'" class="text-sm font-semibold px-6 py-3 rounded-xl transition-all" style="background:#3B82F6;color:#fff;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(59,130,246,.3);" onmouseover="this.style.boxShadow='0 6px 20px rgba(59,130,246,.45)'" onmouseout="this.style.boxShadow='0 4px 14px rgba(59,130,246,.3)'">
           Go to Dashboard
         </button>
       </div>
@@ -225,15 +226,15 @@
   <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto">
       <!-- Modal Header -->
-      <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-8 py-6 border-b border-gray-200 sticky top-0 z-10">
+      <div class="px-8 py-5 border-b sticky top-0 z-10" style="background:linear-gradient(135deg,#0B1437,#192566);border-color:rgba(255,255,255,.1);">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center shadow-md">
+            <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(139,92,246,.3);border:1px solid rgba(139,92,246,.4);">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900">Edit Lens Details</h3>
+            <h3 class="text-lg font-bold text-white">Edit Lens Details</h3>
           </div>
           <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -311,14 +312,14 @@
         <!-- Action Buttons -->
         <div class="flex gap-4 mt-8 pt-6 border-t border-gray-200">
           <button type="submit" 
-                  class="flex-1 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-4 rounded-xl font-bold text-lg shadow-md transition-all hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                  class="flex-1 text-white py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all" style="background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 4px 14px rgba(59,130,246,.3);">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
             Update Lens
           </button>
           <button type="button" onclick="closeEditModal()" 
-                  class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-4 rounded-xl font-bold text-lg transition-all hover:shadow-md">
+                  class="flex-1 py-3 rounded-xl font-semibold text-sm transition-all" style="background:#F1F5F9;color:#475569;border:none;cursor:pointer;" onmouseover="this.style.background='#E2E8F0'" onmouseout="this.style.background='#F1F5F9'">
             Cancel
           </button>
         </div>
@@ -374,6 +375,7 @@
     .animate-pulse {
       animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 
  

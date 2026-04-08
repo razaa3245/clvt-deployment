@@ -8,69 +8,119 @@
     <title>VisionTech - Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: #F0F4FD; }
+
+        /* Sidebar */
+        aside { background: #0B1437; }
+        .nav-active  { background: rgba(59,130,246,0.15); color: #fff; border-right-color: #3B82F6; }
+        .nav-idle    { color: rgba(255,255,255,0.55); border-right-color: transparent; }
+        .nav-idle:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.9); }
+        .nav-logout  { color: rgba(239,68,68,0.75); border-right-color: transparent; }
+        .nav-logout:hover { background: rgba(239,68,68,0.08); }
+        .sidebar-border { border-color: rgba(255,255,255,0.08); }
+
+        /* Spinner */
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .vt-spin { width:36px;height:36px;border:3px solid #E2E8F0;border-top-color:#3B82F6;border-radius:50%;animation:spin .75s linear infinite; }
+
+        /* Stat cards */
+        .stat-card { background:#fff;border:1px solid #E8EDF6;border-radius:16px;overflow:hidden;transition:box-shadow .2s,transform .2s; }
+        .stat-card:hover { box-shadow:0 8px 32px rgba(59,130,246,0.1);transform:translateY(-2px); }
+
+        /* Panels */
+        .panel { background:#fff;border:1px solid #E8EDF6;border-radius:20px;overflow:hidden; }
+
+        /* Search */
+        #shop-search { background:#F8FAFF;border:1.5px solid #E8EDF6;border-radius:12px;outline:none;transition:border-color .2s;font-family:'Plus Jakarta Sans',sans-serif;color:#0B1437; }
+        #shop-search:focus { border-color:#3B82F6; }
+
+        /* Add-lens button */
+        #add-lens-btn { background:linear-gradient(135deg,#3B82F6,#2563EB);border-radius:12px;box-shadow:0 4px 14px rgba(59,130,246,.3);transition:box-shadow .2s,transform .15s; }
+        #add-lens-btn:hover { box-shadow:0 6px 20px rgba(59,130,246,.45);transform:translateY(-1px); }
+
+        /* Modal tab */
+        .modal-tab { padding:10px 14px;font-size:12px;font-weight:500;color:#94a3b8;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;border-top:none;border-left:none;border-right:none;cursor:pointer; }
+        .active-tab { color:#3b5fe2 !important;border-bottom-color:#3b5fe2 !important; }
+
+        /* Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width:6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background:#f1f1f1;border-radius:10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background:#cbd5e1;border-radius:10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background:#94a3b8; }
+
+        /* Lens modal input */
+        .mi { border:1.5px solid #E2E8F0;border-radius:10px;transition:border-color .2s;font-family:'Plus Jakarta Sans',sans-serif;color:#0B1437; }
+        .mi:focus { border-color:#3B82F6;outline:none;box-shadow:0 0 0 3px rgba(59,130,246,.1); }
+    </style>
 </head>
 
-<body class="bg-gradient-to-br from-gray-50 to-gray-100">
+<body>
     <!-- SIDEBAR -->
     <aside x-data="{ open: false }" :class="open ? 'w-64' : 'w-20'"
-        class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between fixed top-0 left-0 z-50">
+        class="h-screen shadow-xl transition-all duration-300 flex flex-col justify-between fixed top-0 left-0 z-50 border-r sidebar-border">
         <div>
-            <div class="flex items-center justify-between p-4">
+            <div class="flex items-center justify-between p-4 border-b sidebar-border">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
-                        <span id="sidebar-email-first" class="text-cyan-600 font-bold text-lg"></span>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                         style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
+                        <span id="sidebar-email-first" class="text-white font-bold text-base"></span>
                     </div>
-                    <div x-show="open" class="text-gray-700">
-                        <span id="sidebar-email" class="text-sm text-gray-600"></span>
-                        <p class="text-xs text-gray-400 -mt-1">Admin</p>
+                    <div x-show="open" class="overflow-hidden">
+                        <span id="sidebar-email" class="text-white text-xs font-semibold block truncate max-w-[140px]"></span>
+                        <p class="text-xs mt-0.5" style="color:rgba(255,255,255,.4);">Admin</p>
                     </div>
                 </div>
-                <button @click="open = !open" class="text-gray-400 hover:text-gray-600">
+                <button @click="open = !open" class="p-1.5 rounded-lg flex-shrink-0 transition-colors"
+                        style="color:rgba(255,255,255,.5);"
+                        onmouseover="this.style.background='rgba(255,255,255,.1)'"
+                        onmouseout="this.style.background='transparent'">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                     </svg>
                 </button>
             </div>
-            <nav class="mt-6">
-                <p x-show="open" class="text-xs text-gray-400 px-6 mb-2 uppercase tracking-widest">Overview</p>
-                <ul>
+            <nav class="mt-4 px-2">
+                <p x-show="open" class="text-xs font-semibold tracking-widest uppercase px-3 mb-2" style="color:rgba(255,255,255,.3);">Overview</p>
+                <ul class="space-y-1">
                     <li>
-                        <a href="/admin/dashboard" class="flex items-center px-6 py-2 bg-cyan-50 text-cyan-700 group border-r-4 border-cyan-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="/admin/dashboard" class="nav-active flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm font-semibold border-r-4 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                             </svg>
-                            <span x-show="open" x-transition class="ml-3 text-sm font-semibold">Dashboard</span>
+                            <span x-show="open" x-transition class="ml-3 whitespace-nowrap">Dashboard</span>
                         </a>
                     </li>
-                     <li>
-                        <a href="/catalog" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <li>
+                        <a href="/catalog" class="nav-idle flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm border-r-4 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
-                            <span x-show="open" x-transition class="ml-3 text-sm">Lens Catalog</span>
+                            <span x-show="open" x-transition class="ml-3 whitespace-nowrap">Lens Catalog</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/messages" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="/admin/messages" class="nav-idle flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm border-r-4 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span x-show="open" class="ml-3 text-sm">Approvals</span>
+                            <span x-show="open" class="ml-3 whitespace-nowrap">Approvals</span>
                         </a>
                     </li>
                 </ul>
             </nav>
         </div>
-        <div class="border-t border-gray-100 py-4">
+        <div class="border-t sidebar-border py-3 px-2">
             <ul>
-                
                 <li>
-                    <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group w-full text-left">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button onclick="logout()" class="nav-logout flex items-center px-4 py-2.5 rounded-xl mx-1 w-full text-left text-sm border-r-4 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>
-                        <span x-show="open" class="ml-3 text-sm text-red-500">Logout</span>
+                        <span x-show="open" class="ml-3 whitespace-nowrap">Logout</span>
                     </button>
                 </li>
             </ul>
@@ -79,106 +129,112 @@
 
     <!-- MAIN CONTENT -->
     <div class="ml-20 transition-all duration-300">
-        <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-40">
+        <header class="bg-white border-b px-8 py-4 shadow-sm sticky top-0 z-40" style="border-color:#E8EDF6;">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
-                    <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
+                    <h1 class="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
+                    <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full" style="background:#EFF6FF;color:#3B82F6;">Admin Console</span>
                 </div>
-                <span id="admin-email" class="text-sm text-gray-600 font-medium"></span>
+                <span id="admin-email" class="text-sm font-medium" style="color:#64748B;"></span>
             </div>
         </header>
 
         <!-- Loading Spinner -->
-        <div id="loading-spinner" class="flex justify-center items-center py-20">
-            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
-            <p class="ml-4 text-gray-600">Loading dashboard data...</p>
+        <div id="loading-spinner" class="flex justify-center items-center py-32 gap-4">
+            <div class="vt-spin"></div>
+            <p class="text-sm font-medium" style="color:#94A3B8;">Loading dashboard data...</p>
         </div>
 
         <!-- Main Content -->
-        <div id="dashboard-content" class="container mx-auto px-4 py-8 hidden">
+        <div id="dashboard-content" class="container mx-auto px-6 py-8 hidden">
+
+            <div class="mb-7">
+                <h2 class="text-2xl font-bold" style="color:#0B1437;">Overview</h2>
+                <p class="text-sm mt-0.5" style="color:#94A3B8;">Real-time platform metrics</p>
+            </div>
 
             <!-- Statistics Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <!-- Total Shops -->
-                <div class="relative overflow-hidden bg-white rounded-2xl shadow-lg border border-gray-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                <div class="stat-card relative overflow-hidden p-6">
+                    <div class="absolute top-0 right-0 w-28 h-28 -mr-14 -mt-14 rounded-full" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);opacity:.9;"></div>
                     <div class="relative">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:#EFF6FF;">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" style="color:#3B82F6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                 </svg>
                             </div>
-                            <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full">Live</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full" style="background:#EFF6FF;color:#3B82F6;">Live</span>
                         </div>
-                        <h3 class="text-sm font-medium text-gray-500 mb-1">Total Shops</h3>
-                        <p class="text-4xl font-bold text-gray-900" id="totalShops">—</p>
-                        <p class="mt-4 text-xs text-gray-500">Registered locations</p>
+                        <h3 class="text-sm font-medium mb-1" style="color:#64748B;">Total Shops</h3>
+                        <p class="text-4xl font-bold" style="color:#0B1437;" id="totalShops">—</p>
+                        <p class="mt-4 text-xs" style="color:#94A3B8;">Registered locations</p>
                     </div>
                 </div>
 
                 <!-- Active Users -->
-                <div class="relative overflow-hidden bg-white rounded-2xl shadow-lg border border-gray-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                <div class="stat-card relative overflow-hidden p-6">
+                    <div class="absolute top-0 right-0 w-28 h-28 -mr-14 -mt-14 rounded-full" style="background:linear-gradient(135deg,#ECFDF5,#D1FAE5);opacity:.9;"></div>
                     <div class="relative">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:#ECFDF5;">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" style="color:#10B981;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                             </div>
-                            <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">Active</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full" style="background:#ECFDF5;color:#10B981;">Active</span>
                         </div>
-                        <h3 class="text-sm font-medium text-gray-500 mb-1">Active Shopkeepers</h3>
-                        <p class="text-4xl font-bold text-gray-900" id="activeUsers">—</p>
-                        <p class="mt-4 text-xs text-gray-500">Approved accounts</p>
+                        <h3 class="text-sm font-medium mb-1" style="color:#64748B;">Active Shopkeepers</h3>
+                        <p class="text-4xl font-bold" style="color:#0B1437;" id="activeUsers">—</p>
+                        <p class="mt-4 text-xs" style="color:#94A3B8;">Approved accounts</p>
                     </div>
                 </div>
 
                 <!-- Lens Catalog -->
-                <div class="relative overflow-hidden bg-white rounded-2xl shadow-lg border border-gray-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full -mr-16 -mt-16 opacity-50"></div>
+                <div class="stat-card relative overflow-hidden p-6">
+                    <div class="absolute top-0 right-0 w-28 h-28 -mr-14 -mt-14 rounded-full" style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);opacity:.9;"></div>
                     <div class="relative">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:#F5F3FF;">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" style="color:#8B5CF6;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
                             </div>
-                            <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-semibold rounded-full">Catalog</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full" style="background:#F5F3FF;color:#8B5CF6;">Catalog</span>
                         </div>
-                        <h3 class="text-sm font-medium text-gray-500 mb-1">Lens Catalog</h3>
-                        <p class="text-4xl font-bold text-gray-900" id="totalLenses">—</p>
-                        <p class="mt-4 text-xs text-gray-500">Products available</p>
+                        <h3 class="text-sm font-medium mb-1" style="color:#64748B;">Lens Catalog</h3>
+                        <p class="text-4xl font-bold" style="color:#0B1437;" id="totalLenses">—</p>
+                        <p class="mt-4 text-xs" style="color:#94A3B8;">Products available</p>
                     </div>
                 </div>
             </div>
 
             <!-- Shop Management + Lens Catalog -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 <!-- Shop Management -->
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 px-8 py-6 border-b border-gray-200">
+                <div class="panel">
+                    <div class="px-7 py-5 border-b" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-color:#E8EDF6;">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style="background:#3B82F6;">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-2xl font-bold text-gray-900">Shop Management</h2>
-                                <p class="text-sm text-gray-600 mt-0.5">Manage registered optical shops</p>
+                                <h2 class="text-lg font-bold" style="color:#0B1437;">Shop Management</h2>
+                                <p class="text-xs mt-0.5" style="color:#64748B;">Manage registered optical shops</p>
                             </div>
                         </div>
                     </div>
-                    <div class="p-8">
-                        <div class="relative mb-6">
+                    <div class="p-6">
+                        <div class="relative mb-5">
                             <input type="text" id="shop-search" placeholder="Search shops by name or email..."
-                                class="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                class="w-full pl-11 pr-4 py-3 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4" style="color:#94A3B8;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
@@ -189,28 +245,28 @@
                 </div>
 
                 <!-- Master Lens Catalog -->
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-8 py-6 border-b border-gray-200">
+                <div class="panel">
+                    <div class="px-7 py-5 border-b" style="background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-color:#E8EDF6;">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center shadow-md">
+                            <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style="background:#8B5CF6;">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
                             </div>
                             <div>
-                                <h2 class="text-2xl font-bold text-gray-900">Master Lens Catalog</h2>
-                                <p class="text-sm text-gray-600 mt-0.5">Add and manage lenses for all shops</p>
+                                <h2 class="text-lg font-bold" style="color:#0B1437;">Master Lens Catalog</h2>
+                                <p class="text-xs mt-0.5" style="color:#64748B;">Add and manage lenses for all shops</p>
                             </div>
                         </div>
                     </div>
-                    <div class="p-8">
-                        <button onclick="openAddLensModal()"
-                            class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-4 rounded-xl font-semibold transition-all hover:shadow-xl hover:-translate-y-0.5 shadow-md flex items-center justify-center gap-2 mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    <div class="p-6">
+                        <button id="add-lens-btn" onclick="openAddLensModal()"
+                            class="w-full text-white py-3.5 font-semibold flex items-center justify-center gap-2 mb-5 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                             </svg>
-                            Add New Lens
+                            + Add New Lens
                         </button>
                         <div id="lensesList" class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
                             <p class="text-center text-gray-400 py-12 text-sm">Loading lenses...</p>
@@ -222,194 +278,215 @@
     </div><!-- /main -->
 
     <!-- Add/Edit Lens Modal -->
-    <div id="lensModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl">
-            <h3 id="modalTitle" class="text-2xl font-bold mb-6 text-gray-900">Add New Lens</h3>
+    <div id="lensModal" class="hidden fixed inset-0 flex items-center justify-center z-50" style="background:rgba(11,20,55,.65);backdrop-filter:blur(4px);">
+        <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl">
 
-            <div id="lens-form-msg" class="hidden mb-4 p-3 rounded-lg text-sm font-medium"></div>
+            <div class="flex items-center justify-between px-8 py-5 border-b" style="background:linear-gradient(135deg,#0B1437,#192566);border-color:rgba(255,255,255,.1);">
+                <div>
+                    <h3 id="modalTitle" class="text-lg font-bold text-white">Add New Lens</h3>
+                    <p class="text-xs mt-0.5" style="color:rgba(255,255,255,.5);">Fill in the details below</p>
+                </div>
+                <button onclick="closeLensModal()" class="w-8 h-8 rounded-full flex items-center justify-center"
+                        style="color:rgba(255,255,255,.7);background:rgba(255,255,255,.1);"
+                        onmouseover="this.style.background='rgba(255,255,255,.2)'"
+                        onmouseout="this.style.background='rgba(255,255,255,.1)'">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
 
-            <form id="lensForm" enctype="multipart/form-data">
-                <input type="hidden" id="lensId" name="lens_id">
+            <div class="p-8">
+                <div id="lens-form-msg" class="hidden mb-4 p-3 rounded-lg text-sm font-medium"></div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Lens Name *</label>
-                        <input type="text" id="lensName" name="name" required
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                <form id="lensForm" enctype="multipart/form-data">
+                    <input type="hidden" id="lensId" name="lens_id">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold mb-1.5" style="color:#475569;">Lens Name *</label>
+                            <input type="text" id="lensName" name="name" required
+                                class="mi w-full px-4 py-2.5 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold mb-1.5" style="color:#475569;">Brand</label>
+                            <input type="text" id="lensBrand" name="brand"
+                                class="mi w-full px-4 py-2.5 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold mb-1.5" style="color:#475569;">Color</label>
+                            <input type="text" id="lensColor" name="color" placeholder="e.g., Blue, Brown, Gray"
+                                class="mi w-full px-4 py-2.5 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold mb-1.5" style="color:#475569;">Type *</label>
+                            <select id="lensType" name="type" required
+                                class="mi w-full px-4 py-2.5 text-sm">
+                                <option value="">Select Type</option>
+                                <option value="daily">Daily</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-xs font-semibold mb-1.5" style="color:#475569;">Description</label>
+                            <textarea id="lensDescription" name="description" rows="2"
+                                class="mi w-full px-4 py-2.5 text-sm resize-none"></textarea>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-xs font-semibold mb-1.5" style="color:#475569;">Lens Image</label>
+                            <input type="file" id="lensImage" name="image" accept="image/*"
+                                class="mi w-full px-4 py-2 text-sm">
+                            <p class="text-xs mt-1" style="color:#94A3B8;">JPEG/PNG/GIF, max 2MB (optional)</p>
+                            <div id="imagePreview" class="mt-3 hidden">
+                                <img id="previewImg" src="" alt="Preview"
+                                    class="w-20 h-20 rounded-full object-cover border-2 border-purple-300 shadow">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Brand</label>
-                        <input type="text" id="lensBrand" name="brand"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
+
+                    <div class="flex gap-4 mt-6">
+                        <button type="submit" id="submitBtn"
+                            class="flex-1 text-white py-3 rounded-xl font-semibold transition-all shadow-md"
+                            style="background:linear-gradient(135deg,#3B82F6,#2563EB);"
+                            onmouseover="this.style.boxShadow='0 6px 20px rgba(59,130,246,.45)'"
+                            onmouseout="this.style.boxShadow=''">
+                            Save Lens
+                        </button>
+                        <button type="button" onclick="closeLensModal()"
+                            class="flex-1 py-3 rounded-xl font-semibold transition-all"
+                            style="background:#F1F5F9;color:#475569;border:none;cursor:pointer;"
+                            onmouseover="this.style.background='#E2E8F0'" onmouseout="this.style.background='#F1F5F9'">
+                            Cancel
+                        </button>
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Color</label>
-                        <input type="text" id="lensColor" name="color" placeholder="e.g., Blue, Brown, Gray"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Modal — original HTML completely preserved -->
+    <div id="shopModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
+         style="background: rgba(15,23,42,0.5);"
+         onclick="handleModalBackdrop(event)">
+
+        <div id="shopModalBox" class="bg-white rounded-2xl w-full max-w-lg overflow-hidden border border-slate-200">
+
+            {{-- Hero header with gradient (matches VisionTech blue→purple) --}}
+            <div style="background: linear-gradient(135deg, #3b5fe2 0%, #7c3aed 100%); padding: 20px 22px 16px;">
+                <div class="flex items-start justify-between">
+                    <div id="modalAvatar"
+                         style="width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,0.2);
+                                border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;
+                                justify-content:center;font-size:22px;font-weight:600;color:#fff;">
+                        ?
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Type *</label>
-                        <select id="lensType" name="type" required
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none">
-                            <option value="">Select Type</option>
-                            <option value="daily">Daily</option>
-                            <option value="monthly">Monthly</option>
-                            <option value="yearly">Yearly</option>
-                        </select>
+                    <button onclick="closeShopModal()"
+                            style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);
+                                   border:none;color:#fff;cursor:pointer;font-size:14px;">✕</button>
+                </div>
+                <p id="modalName"  class="text-white font-semibold text-lg mt-2">—</p>
+                <p id="modalEmail" style="font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;">—</p>
+                <div class="flex gap-2 mt-2">
+                    <span id="modalStatusBadge"
+                          style="font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500;
+                                 background:rgba(255,255,255,0.2);color:#fff;
+                                 border:1px solid rgba(255,255,255,0.3);">—</span>
+                </div>
+            </div>
+
+            {{-- Tabs --}}
+            <div class="flex border-b border-slate-100 px-5">
+                <button onclick="switchTab('info')"  id="tab-info"  class="modal-tab active-tab">Shop info</button>
+                <button onclick="switchTab('plan')"  id="tab-plan"  class="modal-tab">Plan</button>
+                <button onclick="switchTab('dates')" id="tab-dates" class="modal-tab">Timestamps</button>
+            </div>
+
+            {{-- Loading spinner --}}
+            <div id="modalSpinner" class="flex items-center justify-center gap-2 py-10 text-slate-400 text-sm">
+                <svg class="animate-spin w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                </svg>
+                Fetching details…
+            </div>
+
+            {{-- Tab panels --}}
+            <div id="modalContent" class="hidden px-5 py-4 max-h-64 overflow-y-auto space-y-4">
+
+                {{-- Info tab --}}
+                <div id="panel-info">
+                    <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Identity</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-slate-50 rounded-lg p-3">
+                            <p class="text-[10px] text-slate-400 font-medium">Full name</p>
+                            <p id="dName" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3">
+                            <p class="text-[10px] text-slate-400 font-medium">Retailer name</p>
+                            <p id="dRetailer" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3 col-span-2">
+                            <p class="text-[10px] text-slate-400 font-medium">Email address</p>
+                            <p id="dEmail" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3">
+                            <p class="text-[10px] text-slate-400 font-medium">Phone</p>
+                            <p id="dPhone" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3">
+                            <p class="text-[10px] text-slate-400 font-medium">Status</p>
+                            <p id="dStatus" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                        </div>
                     </div>
-                    <div class="col-span-2">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                        <textarea id="lensDescription" name="description" rows="2"
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none resize-none"></textarea>
-                    </div>
-                    <div class="col-span-2">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Lens Image</label>
-                        <input type="file" id="lensImage" name="image" accept="image/*"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-xl text-sm">
-                        <p class="text-xs text-gray-500 mt-1">JPEG/PNG/GIF, max 2MB (optional)</p>
-                        <div id="imagePreview" class="mt-3 hidden">
-                            <img id="previewImg" src="" alt="Preview"
-                                class="w-20 h-20 rounded-full object-cover border-2 border-purple-300 shadow">
+                    <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mt-4 mb-2">Shop</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="bg-slate-50 rounded-lg p-3">
+                            <p class="text-[10px] text-slate-400 font-medium">Shop name</p>
+                            <p id="dShop" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3">
+                            <p class="text-[10px] text-slate-400 font-medium">Address</p>
+                            <p id="dAddress" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex gap-4 mt-6">
-                    <button type="submit" id="submitBtn"
-                        class="flex-1 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-3 rounded-xl font-semibold transition-all shadow-md">
-                        Save Lens
-                    </button>
-                    <button type="button" onclick="closeLensModal()"
-                        class="flex-1 bg-gray-100 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-all">
-                        Cancel
-                    </button>
+                {{-- Plan tab --}}
+                <div id="panel-plan" class="hidden">
+                    <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Subscription</p>
+                    <div style="background:linear-gradient(135deg,#ede9fe,#dbeafe);border-radius:10px;padding:14px 16px;"
+                         class="flex items-center justify-between">
+                        <div>
+                            <p id="dPlanName" class="text-sm font-semibold text-indigo-600">—</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Optical shop subscription</p>
+                        </div>
+                        <span id="dPlanStatus"
+                              class="bg-indigo-600 text-white text-[10px] px-3 py-1 rounded-full font-medium">—</span>
+                    </div>
                 </div>
-            </form>
-        </div>
-    </div>
-<div id="shopModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
-     style="background: rgba(15,23,42,0.5);"
-     onclick="handleModalBackdrop(event)">
 
-    <div id="shopModalBox" class="bg-white rounded-2xl w-full max-w-lg overflow-hidden border border-slate-200">
-
-        {{-- Hero header with gradient (matches VisionTech blue→purple) --}}
-        <div style="background: linear-gradient(135deg, #3b5fe2 0%, #7c3aed 100%); padding: 20px 22px 16px;">
-            <div class="flex items-start justify-between">
-                <div id="modalAvatar"
-                     style="width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,0.2);
-                            border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;
-                            justify-content:center;font-size:22px;font-weight:600;color:#fff;">
-                    ?
+                {{-- Timestamps tab --}}
+                <div id="panel-dates" class="hidden">
+                    <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Record info</p>
+                    <div class="space-y-2">
+                        <div class="bg-slate-50 rounded-lg p-3">
+                            <p class="text-[10px] text-slate-400 font-medium">Created at</p>
+                            <p id="dCreated" class="text-xs font-mono text-slate-600 mt-0.5">—</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            {{-- Footer --}}
+            <div id="modalFooter" class="hidden px-5 py-3 border-t border-slate-100 flex justify-end gap-2"
+                 style="background:#fafbff;">
                 <button onclick="closeShopModal()"
-                        style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);
-                               border:none;color:#fff;cursor:pointer;font-size:14px;">✕</button>
+                        class="text-slate-500 text-xs font-medium px-4 py-2 rounded-lg border border-slate-200 hover:bg-slate-50">
+                    Close
+                </button>
+                
             </div>
-            <p id="modalName"  class="text-white font-semibold text-lg mt-2">—</p>
-            <p id="modalEmail" style="font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;">—</p>
-            <div class="flex gap-2 mt-2">
-                <span id="modalStatusBadge"
-                      style="font-size:10px;padding:3px 10px;border-radius:20px;font-weight:500;
-                             background:rgba(255,255,255,0.2);color:#fff;
-                             border:1px solid rgba(255,255,255,0.3);">—</span>
-            </div>
-        </div>
-
-        {{-- Tabs --}}
-        <div class="flex border-b border-slate-100 px-5">
-            <button onclick="switchTab('info')"  id="tab-info"  class="modal-tab active-tab">Shop info</button>
-            <button onclick="switchTab('plan')"  id="tab-plan"  class="modal-tab">Plan</button>
-            <button onclick="switchTab('dates')" id="tab-dates" class="modal-tab">Timestamps</button>
-        </div>
-
-        {{-- Loading spinner --}}
-        <div id="modalSpinner" class="flex items-center justify-center gap-2 py-10 text-slate-400 text-sm">
-            <svg class="animate-spin w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
-            </svg>
-            Fetching details…
-        </div>
-
-        {{-- Tab panels --}}
-        <div id="modalContent" class="hidden px-5 py-4 max-h-64 overflow-y-auto space-y-4">
-
-            {{-- Info tab --}}
-            <div id="panel-info">
-                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Identity</p>
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="bg-slate-50 rounded-lg p-3">
-                        <p class="text-[10px] text-slate-400 font-medium">Full name</p>
-                        <p id="dName" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                        <p class="text-[10px] text-slate-400 font-medium">Retailer name</p>
-                        <p id="dRetailer" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3 col-span-2">
-                        <p class="text-[10px] text-slate-400 font-medium">Email address</p>
-                        <p id="dEmail" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                        <p class="text-[10px] text-slate-400 font-medium">Phone</p>
-                        <p id="dPhone" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                        <p class="text-[10px] text-slate-400 font-medium">Status</p>
-                        <p id="dStatus" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
-                    </div>
-                </div>
-                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mt-4 mb-2">Shop</p>
-                <div class="grid grid-cols-1 gap-2">
-                    <div class="bg-slate-50 rounded-lg p-3">
-                        <p class="text-[10px] text-slate-400 font-medium">Shop name</p>
-                        <p id="dShop" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
-                    </div>
-                    <div class="bg-slate-50 rounded-lg p-3">
-                        <p class="text-[10px] text-slate-400 font-medium">Address</p>
-                        <p id="dAddress" class="text-sm font-medium text-slate-800 mt-0.5">—</p>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Plan tab --}}
-            <div id="panel-plan" class="hidden">
-                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Subscription</p>
-                <div style="background:linear-gradient(135deg,#ede9fe,#dbeafe);border-radius:10px;padding:14px 16px;"
-                     class="flex items-center justify-between">
-                    <div>
-                        <p id="dPlanName" class="text-sm font-semibold text-indigo-600">—</p>
-                        <p class="text-xs text-slate-500 mt-0.5">Optical shop subscription</p>
-                    </div>
-                    <span id="dPlanStatus"
-                          class="bg-indigo-600 text-white text-[10px] px-3 py-1 rounded-full font-medium">—</span>
-                </div>
-            </div>
-
-            {{-- Timestamps tab --}}
-            <div id="panel-dates" class="hidden">
-                <p class="text-[10px] font-semibold tracking-widest text-slate-400 uppercase mb-2">Record info</p>
-                <div class="space-y-2">
-                    <div class="bg-slate-50 rounded-lg p-3">
-                        <p class="text-[10px] text-slate-400 font-medium">Created at</p>
-                        <p id="dCreated" class="text-xs font-mono text-slate-600 mt-0.5">—</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Footer --}}
-        <div id="modalFooter" class="hidden px-5 py-3 border-t border-slate-100 flex justify-end gap-2"
-             style="background:#fafbff;">
-            <button onclick="closeShopModal()"
-                    class="text-slate-500 text-xs font-medium px-4 py-2 rounded-lg border border-slate-200 hover:bg-slate-50">
-                Close
-            </button>
-            
         </div>
     </div>
-</div>
 </div>
 
     <style>

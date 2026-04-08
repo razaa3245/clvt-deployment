@@ -6,24 +6,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lens Catalogue | VirtualLens</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Responsive sidebar ── */
+  @media (max-width: 768px) {
+    body { flex-direction: column !important; }
+    aside {
+      width: 100% !important;
+      height: auto !important;
+      position: relative !important;
+    }
+    aside > div:first-child nav ul {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+    }
+    aside > div:last-child { display: none !important; }
+    aside > div:first-child > div:first-child { padding: 10px 16px; }
+  }
+
+  /* ── Responsive header ── */
+  @media (max-width: 640px) {
+    header { padding: 12px 16px !important; }
+    header h1 { font-size: 15px !important; }
+  }
+
+  /* ── Hero ── */
+  @media (max-width: 640px) {
+    .hero-inner { padding: 28px 16px !important; }
+    .hero-inner h1 { font-size: 22px !important; }
+  }
+
+  /* ── Filter bar ── */
+  @media (max-width: 640px) {
+    .filter-bar { padding: 16px 12px 4px !important; gap: 8px !important; }
+  }
+
+  /* ── Cards grid ── */
+  #lens-container {
+    grid-template-columns: repeat(4, 1fr) !important;
+    padding: 32px !important;
+    max-width: 1280px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  @media (max-width: 1200px) {
+    #lens-container { grid-template-columns: repeat(3, 1fr) !important; }
+  }
+  @media (max-width: 900px) {
+    #lens-container { grid-template-columns: repeat(2, 1fr) !important; padding: 20px 16px !important; }
+  }
+  @media (max-width: 520px) {
+    #lens-container { grid-template-columns: 1fr !important; padding: 16px 12px !important; }
+  }
+
+  /* ── Modal responsive ── */
+  @media (max-width: 480px) {
+    #tryOnModal > div { padding: 16px !important; }
+    #tryOnModal .flex.gap-4 { flex-direction: column !important; }
+  }
+</style>
 </head>
 
-<body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 font-sans min-h-screen flex">
+<body class="min-h-screen flex" style="background:#F0F4FD;font-family:'Plus Jakarta Sans',sans-serif;color:#1E293B;">
   <aside x-data="{ open: false }" :class="open ? 'w-64' : 'w-20'"
-    class="h-screen bg-white shadow-md border-r border-gray-200 transition-all duration-300 flex flex-col justify-between sticky top-0 z-50">
+    class="h-screen shadow-xl transition-all duration-300 flex flex-col justify-between sticky top-0 z-50" style="background:#0B1437;border-right:1px solid rgba(255,255,255,0.08);">
     <div>
-      <div class="flex items-center justify-between p-4">
+      <div class="flex items-center justify-between p-4 border-b" style="border-color:rgba(255,255,255,0.08);">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
-            <span id="sidebar-email-first" class="text-cyan-600 font-bold text-lg"></span>
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
+            <span id="sidebar-email-first" class="text-white font-bold text-base"></span>
           </div>
-          <div x-show="open" class="text-gray-700">
-            <span id="admin-email-sidebar" class="text-sm text-gray-600"></span>
-            <p class="text-xs text-gray-400 -mt-1">Shopkeeper</p>
+          <div x-show="open" class="overflow-hidden">
+            <span id="admin-email-sidebar" class="text-white text-xs font-semibold block truncate max-w-[140px]"></span>
+            <p class="text-xs mt-0.5" style="color:rgba(255,255,255,.4);">Shopkeeper</p>
           </div>
         </div>
-        <button @click="open = !open" class="text-gray-400 hover:text-gray-600">
+        <button @click="open = !open" class="p-1.5 rounded-lg flex-shrink-0 transition-colors" style="color:rgba(255,255,255,.5);" onmouseover="this.style.background='rgba(255,255,255,.1)'" onmouseout="this.style.background='transparent'">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
           </svg>
@@ -32,8 +95,8 @@
       <nav class="mt-6">
         <ul>
           <li>
-            <a href="/shopkeeper/dashboard" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-cyan-500"
+            <a href="/shopkeeper/dashboard" class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm border-r-4 transition-all" style="color:rgba(255,255,255,.55);border-right-color:transparent;" onmouseover="this.style.background='rgba(255,255,255,.07)';this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.55)'">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -43,8 +106,8 @@
           </li>
           <li>
             <a href="/shopkeeper/catalog1"
-              class="flex items-center px-6 py-2 bg-cyan-50 text-cyan-700 border-r-4 border-cyan-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-cyan-600" fill="none" viewBox="0 0 24 24"
+              class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm font-semibold border-r-4 transition-all" style="background:rgba(59,130,246,.15);color:#fff;border-right-color:#3B82F6;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -57,38 +120,38 @@
         </ul>
       </nav>
     </div>
-    <div class="border-t border-gray-100 py-4">
-      <button onclick="logout()" class="flex items-center px-6 py-2 hover:bg-cyan-50 text-gray-700 group w-full">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500 group-hover:text-red-500" fill="none"
+    <div class="py-3 px-2 border-t" style="border-color:rgba(255,255,255,.08);">
+      <button onclick="logout()" class="flex items-center px-4 py-2.5 rounded-xl mx-1 w-full text-sm border-r-4 transition-all" style="color:rgba(239,68,68,.75);border-right-color:transparent;" onmouseover="this.style.background='rgba(239,68,68,.08)'" onmouseout="this.style.background='transparent'">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none"
           viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
         </svg>
-        <span x-show="open" class="ml-3 text-sm text-red-500 font-medium">Logout</span>
+        <span x-show="open" class="ml-3 whitespace-nowrap">Logout</span>
       </button>
     </div>
   </aside>
 
-  <div class="flex-1 flex flex-col overflow-x-hidden">
-    <header class="bg-white border-b border-gray-200 px-10 py-5 shadow-sm sticky top-0 z-40">
+  <div class="flex-1 flex flex-col overflow-x-hidden" style="font-family:'Plus Jakarta Sans',sans-serif;">
+    <header class="bg-white border-b sticky top-0 z-40 px-8 py-4" style="border-color:#E8EDF6;">
       <div class="flex items-center justify-between">
         <h1
-          class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-          VisionTech</h1>
-        <span id="admin-email" class="text-sm text-gray-600 font-medium"></span>
+          class="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
+        <span class="ml-2 px-2.5 py-0.5 text-xs font-semibold rounded-full" style="background:#EFF6FF;color:#3B82F6;">Shopkeeper</span>
+        <span id="admin-email" class="text-sm font-medium" style="color:#64748B;"></span>
       </div>
     </header>
 
    <!-- Hero -->
-<div class="bg-gradient-to-r from-cyan-50 via-blue-50 to-purple-50 border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-8 py-12 text-center">
-    <h1 class="text-4xl font-extrabold text-gray-900 mb-3 font-syne">Lens Catalogue</h1>
-    <p class="text-gray-500 text-lg">Browse our premium collection and try them virtually</p>
+<div class="border-b" style="background:linear-gradient(135deg,#0B1437 0%,#192566 100%);border-color:rgba(255,255,255,.1);">
+  <div class="hero-inner max-w-7xl mx-auto px-8 py-12 text-center">
+    <h1 class="text-3xl font-extrabold mb-3 text-white">Lens Catalogue</h1>
+    <p class="text-base" style="color:rgba(255,255,255,.55);">Browse our premium collection and try them virtually</p>
   </div>
 </div>
 
 <!-- Filter bar -->
-<div class="max-w-7xl mx-auto px-8 pt-8 pb-2 flex flex-wrap items-center gap-3">
+<div class="filter-bar max-w-7xl mx-auto px-8 pt-8 pb-2 flex flex-wrap items-center gap-3">
   <!-- Search -->
   <div class="relative flex-1 min-w-[200px]">
     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
@@ -97,14 +160,11 @@
     </svg>
     <input id="lens-search" type="text" placeholder="Search lenses…"
       oninput="filterLenses()"
-      class="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-xl bg-white
-             text-gray-800 placeholder-gray-400 focus:outline-none focus:border-cyan-400
-             focus:ring-1 focus:ring-cyan-300 transition-all">
+      class="w-full pl-9 pr-4 py-2 text-sm rounded-xl transition-all" style="border:1.5px solid #E2E8F0;background:#fff;color:#0B1437;outline:none;font-family:'Plus Jakarta Sans',sans-serif;" onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#E2E8F0'">
   </div>
   <!-- Sort -->
   <select id="lens-sort" onchange="filterLenses()"
-    class="py-2 px-3 text-sm border border-gray-200 rounded-xl bg-white text-gray-700
-           focus:outline-none focus:border-cyan-400 cursor-pointer">
+    class="py-2 px-3 text-sm rounded-xl cursor-pointer" style="border:1.5px solid #E2E8F0;background:#fff;color:#475569;outline:none;font-family:'Plus Jakarta Sans',sans-serif;">
     <option value="default">Default order</option>
     <option value="az">Name A → Z</option>
     <option value="za">Name Z → A</option>
@@ -114,8 +174,8 @@
 </div>
 
     <div id="loading" class="flex-1 flex flex-col items-center justify-center py-20">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600"></div>
-      <p class="mt-4 text-gray-600">Loading lenses...</p>
+      <div style="width:36px;height:36px;border:3px solid #E2E8F0;border-top-color:#3B82F6;border-radius:50%;animation:spin .75s linear infinite;"></div>
+      <p class="mt-3 text-sm font-medium" style="color:#94A3B8;">Loading lenses...</p>
     </div>
 
     <div id="lens-container"
@@ -132,11 +192,11 @@
   <!-- Try-On Modal -->
   <div id="tryOnModal"
     class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden relative p-6">
+    <div class="rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden relative p-6" style="background:#fff;font-family:'Plus Jakarta Sans',sans-serif;">
       <button onclick="closeModal()"
-        class="absolute top-4 right-4 bg-gray-200 hover:bg-red-500 hover:text-white p-2 rounded-full transition-all font-bold z-20">✕</button>
+        class="absolute top-4 right-4 p-2 rounded-full transition-all font-bold z-20 text-sm" style="background:#F1F5F9;color:#64748B;" onmouseover="this.style.background='#EF4444';this.style.color='#fff'" onmouseout="this.style.background='#F1F5F9';this.style.color='#64748B'">✕</button>
 
-      <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Virtual Try-On</h3>
+      <h3 class="text-lg font-bold mb-4 text-center" style="color:#0B1437;">Virtual Try-On</h3>
 
       <!-- Video + AR Result display -->
       <div class="relative bg-slate-100 rounded-xl overflow-hidden aspect-square shadow-inner border-4 border-cyan-100">
@@ -161,334 +221,22 @@
       <div class="flex flex-col gap-3 mt-6">
         <div class="flex gap-4">
           <button id="capture-btn"
-            class="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-all">
+            class="flex-1 text-white py-3 rounded-xl font-semibold shadow-lg transition-all text-sm" style="background:linear-gradient(135deg,#3B82F6,#2563EB);" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">
             Apply Lens (Photo)
           </button>
           <button onclick="resetCamera()"
-            class="flex-1 border-2 border-gray-200 text-gray-600 py-3 rounded-xl font-bold hover:bg-gray-50 transition-all">
+            class="flex-1 py-3 rounded-xl font-semibold transition-all text-sm" style="border:1.5px solid #E2E8F0;color:#475569;" onmouseover="this.style.background='#F1F5F9'" onmouseout="this.style.background='transparent'">
             Retake
           </button>
         </div>
         <button id="live-toggle-btn" onclick="toggleLiveMode()"
-          class="w-full bg-yellow-500 text-white py-3 rounded-xl font-bold shadow-md hover:bg-yellow-600 transition-all">
+          class="w-full text-white py-3 rounded-xl font-semibold shadow-md transition-all text-sm" style="background:#F59E0B;" onmouseover="this.style.background='#D97706'" onmouseout="this.style.background='#F59E0B'">
           ▶ Start Live AR
         </button>
       </div>
     </div>
   </div>
 
-  <!-- {{-- 
-  Replace ONLY the <script>...</script> block in your catalog1.blade.php with this.
-  Everything else (HTML, sidebar, modal) stays the same.
---}}
-
-<script>
-  // ─────────────────────────────────────────
-  // CONFIG
-  // ─────────────────────────────────────────
-  const FASTAPI_HTTP = "http://127.0.0.1:8001";
-  const FASTAPI_WS   = "ws://127.0.0.1:8001";
-
-  // OPTIMIZATION: Send smaller frames from browser
-  // 480x360 matches what server processes — no wasted pixels
-  const SEND_WIDTH  = 480;
-  const SEND_HEIGHT = 360;
-
-  // ─────────────────────────────────────────
-  // STATE
-  // ─────────────────────────────────────────
-  let allLenses     = [];
-  let currentLensId = null;
-  let videoStream   = null;
-  let isLiveMode    = false;
-  let ws            = null;
-  let wsReady       = false;
-  let frameInFlight = false;
-
-  // Reuse one canvas forever — no garbage collection per frame
-  const sendCanvas  = document.createElement('canvas');
-  sendCanvas.width  = SEND_WIDTH;
-  sendCanvas.height = SEND_HEIGHT;
-  const sendCtx     = sendCanvas.getContext('2d');
-
-  // ─────────────────────────────────────────
-  // UI INIT
-  // ─────────────────────────────────────────
-  function initUI() {
-    const userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
-    const email    = localStorage.getItem('adminEmail') || userInfo.email || 'Guest';
-    document.getElementById('admin-email').textContent         = email;
-    document.getElementById('admin-email-sidebar').textContent = email;
-    document.getElementById('sidebar-email-first').textContent = email.charAt(0).toUpperCase();
-  }
-
-  // ─────────────────────────────────────────
-  // LENS CATALOGUE
-  // ─────────────────────────────────────────
-  async function fetchLenses() {
-    try {
-      const res  = await fetch('/api/lenses');
-      const data = await res.json();
-      allLenses  = Array.isArray(data) ? data : (data.data || []);
-      displayLenses(allLenses);
-    } catch (err) {
-      console.error("Fetch error:", err);
-      document.getElementById('loading').style.display   = 'none';
-      document.getElementById('no-lenses').style.display = 'flex';
-    }
-  }
-
-  function displayLenses(lenses) {
-    const container = document.getElementById('lens-container');
-    document.getElementById('loading').style.display = 'none';
-    if (!lenses.length) {
-      document.getElementById('no-lenses').style.display = 'flex';
-      container.style.display = 'none';
-      return;
-    }
-    document.getElementById('no-lenses').style.display = 'none';
-    container.style.display = 'grid';
-    container.innerHTML = lenses.map(createLensCard).join('');
-  }
-
-  function createLensCard(lens) {
-    const imageUrl = lens.image
-      ? (lens.image.startsWith('http') ? lens.image : '/storage/' + lens.image)
-      : null;
-    return `
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden p-6 hover:shadow-2xl transition-all">
-        <div class="w-24 h-24 mx-auto rounded-full border-4 border-white shadow-md mb-4 overflow-hidden"
-             style="background-color: ${lens.color || '#8B4513'}">
-          ${imageUrl ? `<img src="${imageUrl}" class="w-full h-full object-cover">` : ''}
-        </div>
-        <h3 class="text-lg font-bold text-center mb-4 text-gray-900">${lens.name || 'Premium Lens'}</h3>
-        <button onclick="openTryOnModal('${lens.id}')"
-          class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-xl font-bold transition-all shadow-md">
-          Try This Lens
-        </button>
-      </div>`;
-  }
-
-  // ─────────────────────────────────────────
-  // MODAL
-  // ─────────────────────────────────────────
-  async function openTryOnModal(lensId) {
-    currentLensId = lensId;
-    document.getElementById('tryOnModal').classList.remove('hidden');
-    resetCamera();
-    try {
-      videoStream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 640 }, height: { ideal: 480 }, frameRate: { ideal: 30 } },
-        audio: false
-      });
-      document.getElementById('webcam').srcObject = videoStream;
-    } catch (err) {
-      alert("Camera access denied!");
-      closeModal();
-    }
-  }
-
-  function closeModal() {
-    stopLiveMode();
-    if (videoStream) videoStream.getTracks().forEach(t => t.stop());
-    document.getElementById('tryOnModal').classList.add('hidden');
-  }
-
-  function resetCamera() {
-    stopLiveMode();
-    document.getElementById('ar-result').classList.add('hidden');
-    document.getElementById('webcam').classList.remove('hidden');
-    document.getElementById('status-msg').innerText = "Align your face and click apply";
-  }
-
-  // ─────────────────────────────────────────
-  // WEBSOCKET HELPERS
-  // ─────────────────────────────────────────
-  function setWsStatus(text, color) {
-    const el = document.getElementById('ws-status');
-    if (!el) return;
-    el.textContent = text;
-    el.className   = `absolute top-3 right-3 z-30 text-xs font-bold px-3 py-1 rounded-full ${color}`;
-    el.classList.remove('hidden');
-  }
-
-  function openWebSocket() {
-    return new Promise((resolve, reject) => {
-      ws = new WebSocket(`${FASTAPI_WS}/ws/live-ar`);
-
-      ws.onopen = () => {
-        wsReady = true;
-        setWsStatus('● Connected', 'bg-green-500 text-white');
-        resolve();
-      };
-
-      ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.error) {
-          console.warn("[WS] Server:", data.error);
-          frameInFlight = false;
-          return;
-        }
-        if (data.frame && isLiveMode) {
-          const resultImg = document.getElementById('ar-result');
-          // OPTIMIZATION: reuse same img src — avoids DOM thrash
-          resultImg.src = "data:image/jpeg;base64," + data.frame;
-          resultImg.classList.remove('hidden');
-          document.getElementById('webcam').classList.add('hidden');
-        }
-        frameInFlight = false;
-        // Request next frame immediately after receiving response
-        if (isLiveMode) requestAnimationFrame(sendWsFrame);
-      };
-
-      ws.onerror = (e) => {
-        setWsStatus('● Error', 'bg-red-500 text-white');
-        reject(e);
-      };
-
-      ws.onclose = () => {
-        wsReady = false;
-        if (isLiveMode) setWsStatus('● Disconnected', 'bg-gray-400 text-white');
-      };
-    });
-  }
-
-  function sendWsFrame() {
-    if (!isLiveMode || !wsReady || frameInFlight) return;
-    if (!ws || ws.readyState !== WebSocket.OPEN) return;
-
-    const video = document.getElementById('webcam');
-    if (!video || video.readyState < 2) return;
-
-    frameInFlight = true;
-
-    // Draw at reduced size — matches server processing resolution
-    sendCtx.drawImage(video, 0, 0, SEND_WIDTH, SEND_HEIGHT);
-
-    // JPEG quality 0.7 — good enough for AR, ~40% smaller than 1.0
-    const frameB64 = sendCanvas.toDataURL('image/jpeg', 0.7).split(',')[1];
-
-    ws.send(JSON.stringify({ lens_id: currentLensId, frame: frameB64 }));
-  }
-
-  // ─────────────────────────────────────────
-  // LIVE AR TOGGLE
-  // ─────────────────────────────────────────
-  async function toggleLiveMode() {
-    if (isLiveMode) { stopLiveMode(); return; }
-
-    isLiveMode = true;
-    const btn  = document.getElementById('live-toggle-btn');
-    btn.innerText = "⏹ Stop Live AR";
-    btn.classList.replace('bg-yellow-500', 'bg-red-500');
-
-    const badge = document.getElementById('live-badge');
-    if (badge) badge.classList.remove('hidden');
-
-    document.getElementById('status-msg').innerText = "Connecting...";
-
-    try {
-      await openWebSocket();
-      document.getElementById('status-msg').innerText = "Live AR running!";
-      requestAnimationFrame(sendWsFrame);
-    } catch (err) {
-      document.getElementById('status-msg').innerText = "Could not connect to AR server.";
-      stopLiveMode();
-    }
-  }
-
-  function stopLiveMode() {
-    isLiveMode    = false;
-    frameInFlight = false;
-
-    const btn = document.getElementById('live-toggle-btn');
-    if (btn) {
-      btn.innerText = "▶ Start Live AR";
-      btn.classList.replace('bg-red-500', 'bg-yellow-500');
-    }
-
-    const badge = document.getElementById('live-badge');
-    if (badge) badge.classList.add('hidden');
-
-    const wsStatus = document.getElementById('ws-status');
-    if (wsStatus) wsStatus.classList.add('hidden');
-
-    if (ws) { ws.close(); ws = null; wsReady = false; }
-  }
-
-  // ─────────────────────────────────────────
-  // PHOTO MODE
-  // ─────────────────────────────────────────
-  document.getElementById('capture-btn').onclick = async () => {
-    stopLiveMode();
-    const video   = document.getElementById('webcam');
-    const spinner = document.getElementById('loading-spinner');
-    const status  = document.getElementById('status-msg');
-
-    const photoCanvas    = document.createElement('canvas');
-    photoCanvas.width    = video.videoWidth;
-    photoCanvas.height   = video.videoHeight;
-    photoCanvas.getContext('2d').drawImage(video, 0, 0);
-
-    spinner.classList.remove('hidden');
-    status.innerText = "Applying lens via AI...";
-
-    photoCanvas.toBlob(async (blob) => {
-      const formData = new FormData();
-      formData.append("image",   blob, "capture.png");
-      formData.append("lens_id", currentLensId);
-      try {
-        const response = await fetch(`${FASTAPI_HTTP}/apply-lens`, {
-          method: "POST", body: formData
-        });
-        if (response.ok) {
-          const resultImg = document.getElementById('ar-result');
-          resultImg.src   = URL.createObjectURL(await response.blob());
-          resultImg.classList.remove('hidden');
-          document.getElementById('webcam').classList.add('hidden');
-          status.innerText = "✓ Lens applied!";
-        } else {
-          status.innerText = "⚠ Face not detected. Try again.";
-        }
-      } catch (err) {
-        status.innerText = "⚠ AI server not running.";
-      } finally {
-        spinner.classList.add('hidden');
-      }
-    }, 'image/png', 1.0);
-  };
-
-  function logout() { localStorage.clear(); window.location.href = '/signup'; }
-  window.onload = () => { initUI(); fetchLenses(); };
-</script> -->
-
-  {{--
-  Replace ONLY the
-  <script>...</script> block in catalog1.blade.php
-  The HTML/modal structure stays exactly the same.
-
-  IMPORTANT: Your modal HTML needs one small change.
-  The video and ar-result img must be stacked, not swapped.
-  Change your modal display div to this:
-
-  <div class="relative bg-slate-100 rounded-xl overflow-hidden aspect-square shadow-inner border-4 border-cyan-100">
-    <video id="webcam" autoplay playsinline muted class="w-full h-full object-cover scale-x-[-1]"></video>
-    <canvas id="ar-overlay" class="w-full h-full object-cover absolute top-0 left-0 z-10 pointer-events-none"></canvas>
-    <div id="loading-spinner" class="hidden absolute inset-0 bg-black/40 z-20 flex items-center justify-center">
-      <div class="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-cyan-500"></div>
-    </div>
-    <div id="live-badge"
-      class="hidden absolute top-3 left-3 z-30 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">
-      ● LIVE AR</div>
-    <div id="ws-status" class="hidden absolute top-3 right-3 z-30 text-xs font-bold px-3 py-1 rounded-full"></div>
-    <div id="fps-counter"
-      class="hidden absolute bottom-3 left-3 z-30 bg-black/50 text-green-400 text-xs font-mono px-2 py-1 rounded">0 FPS
-    </div>
-  </div>
-
-  NOTE: ar-result img is REMOVED. We now use a <canvas> overlay instead.
-    Remove the old <img id="ar-result"> line entirely.
-    --}}
 
     <script>
       const FASTAPI_HTTP = "http://127.0.0.1:8001";
@@ -563,95 +311,101 @@ function filterLenses() {
   document.getElementById('no-lenses').style.display = 'none';
   c.style.display = 'grid';
 
-  const palettes = [
-    'linear-gradient(135deg,#ecfeff,#cffafe,#f0fdfa)',
-    'linear-gradient(135deg,#fdf4ff,#f5d0fe,#eff6ff)',
-    'linear-gradient(135deg,#fffbeb,#fde68a,#f5f3ff)',
-    'linear-gradient(135deg,#ecfdf5,#a7f3d0,#ecfeff)',
-  ];
-
   c.innerHTML = list.map((l, i) => {
     const img = l.image
       ? (l.image.startsWith('http') ? l.image : '/storage/' + l.image)
       : null;
 
-    const swatchColor = l.color || '#06b6d4';
-    const palette = palettes[i % palettes.length];
-
     const imageHtml = img
       ? `<img src="${img}" alt="${l.name || 'Lens'}"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">`
-      : `<div class="w-full h-full flex items-center justify-center"
-              style="background:${swatchColor}">
-           <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
-                stroke="rgba(255,255,255,0.9)" stroke-width="1.6">
+              style="width:100%;height:100%;object-fit:contain;transition:transform .5s ease;"
+              onmouseover="this.style.transform='scale(1.06)'"
+              onmouseout="this.style.transform='scale(1)'">`
+      : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+           <svg width="56" height="56" viewBox="0 0 24 24" fill="none"
+                stroke="#cbd5e1" stroke-width="1.4">
              <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
              <circle cx="12" cy="12" r="3"/>
            </svg>
          </div>`;
 
     return `
-    <div class="group relative bg-white rounded-3xl border border-slate-200/60 overflow-hidden flex flex-col
-                transition-all duration-300
-                shadow-[0_4px_12px_rgba(0,0,0,0.05)]
-                hover:shadow-[0_25px_50px_rgba(6,182,212,0.18)]
-                hover:-translate-y-1">
+    <div class="group" style="
+      background:#fff;
+      border-radius:20px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      box-shadow:0 2px 16px rgba(0,0,0,0.07);
+      transition:transform .3s ease, box-shadow .3s ease;
+      border:1px solid rgba(0,0,0,0.06);
+    "
+    onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 50px rgba(0,0,0,0.13)'"
+    onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 16px rgba(0,0,0,0.07)'">
 
-      <!-- Top Visual -->
-      <div class="relative h-48 overflow-hidden" style="background:${palette}">
-        <div class="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
-
-        <!-- Decorative Blobs -->
-        <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-cyan-500/10 blur-2xl"></div>
-        <div class="absolute -bottom-8 left-6 w-20 h-20 rounded-full bg-cyan-300/20 blur-xl"></div>
-
+      <!-- Image Panel — clean white, no background color -->
+      <div style="
+        position:relative;
+        background:#fff;
+        height:210px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        border-bottom:1px solid #f1f5f9;
+        padding:16px;
+      ">
         <!-- Badge -->
-        <span class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-md
-                     text-cyan-700 text-[10px] font-semibold tracking-widest uppercase
-                     px-3 py-1 rounded-full border border-cyan-200 shadow-sm">
-          Virtual Try-On
-        </span>
+        <span style="
+          position:absolute;top:12px;left:12px;z-index:10;
+          background:#f8fafc;
+          color:#0891b2;
+          font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+          padding:4px 10px;border-radius:20px;
+          border:1px solid #e2e8f0;
+          box-shadow:0 1px 4px rgba(0,0,0,0.05);
+        ">Virtual Try-On</span>
 
-        <!-- Lens Image -->
-        <div class="absolute left-1/2 -translate-x-1/2 -bottom-10 z-20
-                    w-24 h-24 rounded-full border-[5px] border-white
-                    overflow-hidden bg-slate-100
-                    shadow-[0_8px_30px_rgba(6,182,212,0.25)]">
+        <!-- Full lens image -->
+        <div style="width:100%;height:100%;position:relative;z-index:5;display:flex;align-items:center;justify-content:center;">
           ${imageHtml}
         </div>
       </div>
 
-      <!-- Content -->
-      <div class="flex flex-col items-center pt-14 pb-6 px-6 gap-2 flex-1 text-center">
+      <!-- Thin divider -->
+      <div style="height:2px;background:linear-gradient(90deg,transparent,#06b6d4,transparent);"></div>
 
-        <p class="text-[10px] font-semibold tracking-widest uppercase text-slate-400">
+      <!-- Content -->
+      <div style="display:flex;flex-direction:column;align-items:center;padding:18px 20px 20px;gap:6px;flex:1;text-align:center;">
+
+        <p style="font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;margin:0;">
           Premium Collection
         </p>
 
-        <h3 class="text-[16px] font-bold text-slate-900 leading-snug">
+        <h3 style="font-size:16px;font-weight:800;color:#0f172a;margin:0;line-height:1.3;">
           ${l.name || 'Unnamed Lens'}
         </h3>
 
-        <!-- Divider -->
-        <div class="w-10 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 mt-1 mb-3"></div>
+        <div style="width:32px;height:2.5px;border-radius:99px;background:#06b6d4;margin:4px 0 10px;"></div>
 
-        <!-- CTA Button -->
+        <!-- CTA -->
         <button onclick="openTryOnModal('${l.id}')"
-          class="relative mt-auto w-full flex items-center justify-center gap-2
-                 bg-gradient-to-r from-cyan-500 to-cyan-700
-                 hover:from-cyan-600 hover:to-cyan-800
-                 text-white text-[13px] font-semibold tracking-wide
-                 py-3 px-5 rounded-xl
-                 shadow-md hover:shadow-lg
-                 transition-all duration-200
-                 active:scale-[0.97] group">
+          style="
+            width:100%;display:flex;align-items:center;justify-content:center;gap:8px;
+            background:linear-gradient(135deg,#0891b2,#0e7490);
+            color:#fff;font-size:13px;font-weight:700;letter-spacing:.03em;
+            padding:12px 16px;border-radius:12px;border:none;cursor:pointer;
+            box-shadow:0 4px 14px rgba(8,145,178,0.35);
+            transition:opacity .2s,transform .15s;
+            margin-top:auto;
+          "
+          onmouseover="this.style.opacity='.88';this.style.transform='scale(1.02)'"
+          onmouseout="this.style.opacity='1';this.style.transform='scale(1)'">
 
-          <svg class="w-4 h-4 opacity-90 transition-transform group-hover:scale-110"
-               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
             <circle cx="12" cy="12" r="3"/>
           </svg>
-
           Try This Lens
         </button>
       </div>

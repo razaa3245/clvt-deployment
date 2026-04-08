@@ -101,21 +101,6 @@ Route::get('/stripe2',             [Stripe2Controller::class, 'stripe2']);
 Route::post('/stripe2-payment',    [Stripe2Controller::class, 'stripe2Post'])->name('stripe2.post');
 
 
-// ═══════════════════════════════════════════════
-// API ROUTES  — token-authenticated (Laravel Sanctum)
-// ═══════════════════════════════════════════════
-Route::prefix('api')->middleware('auth:sanctum')->group(function () {
-
-    // ── Shopkeeper Dashboard ─────────────────────────────────────
-    Route::get('/shopkeeper/dashboard',    [ShopkeeperController::class, 'getDashboard']);
-    Route::post('/shopkeeper/update-shop', [ShopkeeperController::class, 'updateShop']);
-
-    // ── Logout ───────────────────────────────────────────────────
-    Route::post('/logout', function () {
-        request()->user()->currentAccessToken()->delete();
-        return response()->json(['success' => true, 'message' => 'Logged out']);
-    });
-});
 
 // ═══════════════════════════════════════════════
 // API ROUTES — PUBLIC (no auth, needed for catalog page)

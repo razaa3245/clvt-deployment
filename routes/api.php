@@ -80,3 +80,11 @@ Route::prefix('api/admin')->middleware('auth:sanctum')->group(function () {
 });
 
 
+// PUBLIC
+Route::get('/lenses', [LensController::class, 'apiIndex']);
+
+// PROTECTED
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/shopkeeper/dashboard', [\App\Http\Controllers\ShopkeeperController::class, 'getDashboard']);
+    Route::post('/shopkeeper/update-shop', [\App\Http\Controllers\ShopkeeperController::class, 'updateShop']);
+});
