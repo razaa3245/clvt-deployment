@@ -24,7 +24,7 @@
          class="text-2xl font-extrabold tracking-tight
                 bg-gradient-to-r from-blue-600 to-cyan-500
                 bg-clip-text text-transparent">
-        VisionTech
+        LensPilot
       </a>
     </div>
 
