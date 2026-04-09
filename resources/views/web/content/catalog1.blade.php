@@ -309,8 +309,8 @@
 
 
     <script>
-      const FASTAPI_HTTP = "http://127.0.0.1:8001";
-      const FASTAPI_WS = "ws://127.0.0.1:8001";
+      const FASTAPI_HTTP = "http://localhost:8001";
+      const FASTAPI_WS = "ws://localhost:8001";
       const SEND_W = 640, SEND_H = 480;
 
       let allLenses = [];
