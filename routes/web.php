@@ -36,7 +36,7 @@ Route::post('/contact/submit', [ContactController::class, 'submit'])->name('cont
 Route::get('/shopkeeper/dashboard', fn() => view('shopkeeper.shopkeeper'))->name('shopkeeper.dashboard');
 Route::get('/shopkeeper/catalog1',  fn() => view('web.content.catalog1'))->name('shopkeeper.catalog1');
 Route::get('/shopkeeper/catalog',   [ShopkeeperController::class, 'showCatalog'])->name('shopkeeper.catalog');
-
+Route::get('/shopkeeper/catalog2',  fn() => view('web.content.catalog2'))->name('shopkeeper.catalog2');
 
 // ═══════════════════════════════════════════════
 // ADMIN PAGES
@@ -71,6 +71,7 @@ Route::get('/shopkeeper-approvals/get-pending',[ShopkeeperController::class, 'ge
 Route::post('/shopkeeper-approvals/approve/{id}', [ShopkeeperController::class, 'approve'])->name('shopkeeper.approvals.approve');
 Route::post('/shopkeeper-approvals/decline/{id}', [ShopkeeperController::class, 'decline'])->name('shopkeeper.approvals.decline');
 Route::get('/shopkeeper-approvals/details/{id}',  [ShopkeeperController::class, 'getDetails'])->name('shopkeeper.approvals.details');
+Route::post('/shopkeepers/delete/{id}', [ShopkeeperController::class, 'deleteShopkeeper'])->name('shopkeepers.delete');
 
 
 // ═══════════════════════════════════════════════

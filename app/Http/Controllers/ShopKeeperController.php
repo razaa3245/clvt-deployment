@@ -287,6 +287,30 @@ class ShopkeeperController extends Controller
         }
     }
 
+    public function deleteShopkeeper($id)
+    {
+        try {
+            $user = User::where('id', $id)->where('type', 'shopkeeper')->first();
+            $profile = Shopkeeper::where('user_id', $id)->first();
+
+            if (!$user && !$profile) {
+                return response()->json(['success' => false, 'message' => 'Shopkeeper not found'], 404);
+            }
+
+            if ($profile) {
+                $profile->delete();
+            }
+
+            if ($user) {
+                $user->delete();
+            }
+
+            return response()->json(['success' => true, 'message' => 'Shopkeeper deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
     public function getDetails($id)
 {
     try {

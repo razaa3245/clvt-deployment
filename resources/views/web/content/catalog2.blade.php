@@ -148,31 +148,27 @@
     <!-- Nav -->
     <nav style="margin-top:16px;flex:1;">
       <p class="vt-section-label" style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:0 20px 8px;color:rgba(255,255,255,.28);">Overview</p>
-      <a href="/shopkeeper/dashboard" class="vt-nav-link">
+      <a href="/admin/dashboard" class="vt-nav-link">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span class="vt-nav-label">Dashboard</span>
       </a>
-      <a href="/shopkeeper/catalog1" class="vt-nav-link active">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+      <a href="/catalog" class="vt-nav-link">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
         <span class="vt-nav-label">Lens Catalog</span>
+      </a>
+      <a href="/shopkeeper/catalog2" class="vt-nav-link active">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+        <span class="vt-nav-label">Lens checker</span>
+      </a>
+      <a href="/admin/messages" class="vt-nav-link ">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <span class="vt-nav-label">Approvals</span>
       </a>
     </nav>
 
-    <!-- Plan Card -->
-    <div class="vt-plan-card" style="margin:0 10px 16px;border-radius:14px;padding:14px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.28);">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <div style="width:30px;height:30px;border-radius:8px;background:rgba(59,130,246,.55);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#fff"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-        </div>
-        <span style="color:rgba(255,255,255,.85);font-size:12px;font-weight:600;">Current Plan</span>
-      </div>
-      <p style="color:#fff;font-size:16px;font-weight:800;margin:0 0 2px;" id="sidebar-plan-name">—</p>
-      <p style="color:rgba(255,255,255,.5);font-size:11px;margin:0 0 2px;" id="sidebar-plan-price"></p>
-      <p style="color:rgba(255,255,255,.35);font-size:11px;margin:0 0 12px;" id="sidebar-plan-expiry">—</p>
-      <a href="/price" style="text-decoration:none;">
-        <button style="width:100%;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;" onmouseover="this.style.boxShadow='0 4px 14px rgba(59,130,246,.5)'" onmouseout="this.style.boxShadow=''">Update Plan</button>
-      </a>
-    </div>
+    
   </div>
 
   <!-- Logout desktop -->

@@ -57,7 +57,7 @@
         
         <div style="position: relative; z-index: 1;">
           <div class="card-icon" style="margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; justify-center; width: 80px; height: 80px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 20px; box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3); transition: transform 0.4s;"
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 20px; box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3); transition: transform 0.4s;"
                  onmouseover="this.style.transform='scale(1.1) rotate(5deg)';" onmouseout="this.style.transform='';">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" 
                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -86,7 +86,7 @@
         
         <div style="position: relative; z-index: 1;">
           <div class="card-icon" style="margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; justify-center; width: 80px; height: 80px; background: linear-gradient(135deg, #06b6d4, #0891b2); border-radius: 20px; box-shadow: 0 8px 16px rgba(6, 182, 212, 0.3); transition: transform 0.4s;"
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #06b6d4, #0891b2); border-radius: 20px; box-shadow: 0 8px 16px rgba(6, 182, 212, 0.3); transition: transform 0.4s;"
                  onmouseover="this.style.transform='scale(1.1) rotate(5deg)';" onmouseout="this.style.transform='';">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" 
                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -118,7 +118,7 @@
         
         <div style="position: relative; z-index: 1;">
           <div class="card-icon" style="margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; justify-center; width: 80px; height: 80px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 20px; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3); transition: transform 0.4s;"
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 20px; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3); transition: transform 0.4s;"
                  onmouseover="this.style.transform='scale(1.1) rotate(5deg)';" onmouseout="this.style.transform='';">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" 
                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -147,7 +147,7 @@
         
         <div style="position: relative; z-index: 1;">
           <div class="card-icon" style="margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; justify-center; width: 80px; height: 80px; background: linear-gradient(135deg, #9333ea, #7e22ce); border-radius: 20px; box-shadow: 0 8px 16px rgba(147, 51, 234, 0.3); transition: transform 0.4s;"
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #9333ea, #7e22ce); border-radius: 20px; box-shadow: 0 8px 16px rgba(147, 51, 234, 0.3); transition: transform 0.4s;"
                  onmouseover="this.style.transform='scale(1.1) rotate(5deg)';" onmouseout="this.style.transform='';">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" 
                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -178,7 +178,7 @@
         
         <div style="position: relative; z-index: 1;">
           <div class="card-icon" style="margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; justify-center; width: 80px; height: 80px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 20px; box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3); transition: transform 0.4s;"
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 20px; box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3); transition: transform 0.4s;"
                  onmouseover="this.style.transform='scale(1.1) rotate(5deg)';" onmouseout="this.style.transform='';">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" 
                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -207,7 +207,7 @@
         
         <div style="position: relative; z-index: 1;">
           <div class="card-icon" style="margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; justify-center; width: 80px; height: 80px; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 20px; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3); transition: transform 0.4s;"
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #ef4444, #dc2626); border-radius: 20px; box-shadow: 0 8px 16px rgba(239, 68, 68, 0.3); transition: transform 0.4s;"
                  onmouseover="this.style.transform='scale(1.1) rotate(5deg)';" onmouseout="this.style.transform='';">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="none" 
                    stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
