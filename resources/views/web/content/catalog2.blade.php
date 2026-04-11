@@ -188,7 +188,7 @@
 
   <!-- MOBILE tabs -->
   <div class="vt-sidebar-mobile" style="display:none;width:100%;align-items:center;justify-content:space-around;padding:6px 0 8px;">
-    <a href="/shopkeeper/dashboard" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:6px 18px;">
+    <a href="/admin/dashboard" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:6px 18px;">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,.55)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
       <span style="color:rgba(255,255,255,.55);font-size:10px;">Dashboard</span>
     </a>
