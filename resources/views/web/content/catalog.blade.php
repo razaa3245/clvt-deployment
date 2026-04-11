@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Lens Catalogue | VisionTech</title>
+  <title>LensPilot - Lens Catalog</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -59,11 +59,16 @@
           </li>
           <li>
             <a href="/shopkeeper/catalog2" class="flex items-center px-4 py-2.5 rounded-xl mx-1 text-sm border-r-4 transition-all" style="color:rgba(255,255,255,.55);border-right-color:transparent;" onmouseover="this.style.background='rgba(255,255,255,.07)';this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.55)'">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-              <span x-show="open" class="ml-3 text-sm">Lens Checker</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+     stroke="currentColor" width="24" height="24">
+
+  <rect x="3" y="7" width="18" height="13" rx="2" stroke-width="2"/>
+  <circle cx="12" cy="13" r="3" stroke-width="2"/>
+
+  <!-- Top camera bump -->
+  <path stroke-width="2" d="M8 7l2-2h4l2 2"/>
+</svg>
+              <span x-show="open" class="ml-3 text-sm">Lens TryOn</span>
             </a>
           </li>
           <li>
@@ -102,7 +107,8 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" class="w-8 h-8 rounded-lg" alt="Logo">
-          <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
+          <h1 class="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">LensPilot</h1>
+          <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full" style="background:#EFF6FF;color:#3B82F6;">Admin Console</span>
         </div>
         
         <div class="flex items-center gap-4">

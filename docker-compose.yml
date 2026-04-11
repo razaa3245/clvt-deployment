@@ -9,17 +9,25 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-      - ./vendor:/var/www/html/vendor
-      - ./node_modules:/var/www/html/node_modules
+      - vendor:/var/www/html/vendor
+      - node_modules:/var/www/html/node_modules
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
+      - APP_URL=http://localhost:8080
       - DB_HOST=db
       - DB_DATABASE=laravel
       - DB_USERNAME=laravel
       - DB_PASSWORD=secret
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=mailhog
+      - MAIL_PORT=1025
+      - MAIL_USERNAME=null
+      - MAIL_PASSWORD=null
+      - MAIL_ENCRYPTION=null
     depends_on:
       - db
+      - mailhog
 
   web:
     image: nginx:stable
@@ -60,5 +68,18 @@ services:
     depends_on:
       - db
 
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: contact-lens-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP port
+      - "8025:8025"  # Web UI port
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /tmp
+
 volumes:
   dbdata:
+  vendor:
+  node_modules:

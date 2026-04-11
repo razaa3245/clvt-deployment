@@ -1,8 +1,7 @@
+<?php
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +24,6 @@ class LoginController extends Controller
 
         $user = Auth::user();
 
-        // If user not approved
         if ($user->type === 'shopkeeper' && isset($user->is_approved) && !$user->is_approved) {
             Auth::logout();
             return response()->json([
@@ -33,7 +31,6 @@ class LoginController extends Controller
             ], 403);
         }
 
-        // Create API token
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -44,14 +41,35 @@ class LoginController extends Controller
         ], 200);
     }
 
-    // Logout via API
-    public function logout(Request $request)
+    // Web-based login
+    public function webLogin(Request $request)
     {
-        $request->user()->tokens()->delete();
-
-        return response()->json([
-            'message' => 'Logged out successfully'
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
+            return back()->withErrors(['email' => 'Invalid credentials']);
+        }
+
+        $user = Auth::user();
+
+        if ($user->type === 'shopkeeper' && isset($user->is_approved) && !$user->is_approved) {
+            Auth::logout();
+            return back()->withErrors(['email' => 'Your account is pending admin approval.']);
+        }
+
+        return redirect()->intended('/');
+    }
+
+    // Logout via web
+    public function webLogout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 }
 

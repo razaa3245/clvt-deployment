@@ -205,7 +205,7 @@
     <header class="vt-header" style="position:sticky;top:0;z-index:40;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid #E8EDF6;flex-wrap:wrap;gap:8px;">
       <div style="display:flex;align-items:center;gap:10px;">
         <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" style="width:32px;height:32px;border-radius:8px;" alt="Logo">
-        <h1 class="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">VisionTech</h1>
+        <h1 class="text-xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">LensPilot</h1>
         <span style="background:#EFF6FF;color:#3B82F6;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;">Shopkeeper</span>
       </div>
       <span id="admin-email" class="email-label" style="font-size:13px;font-weight:500;color:#64748B;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px;"></span>

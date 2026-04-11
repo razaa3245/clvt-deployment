@@ -21,6 +21,12 @@ class UserRequest extends FormRequest
             'address' => 'nullable|string|max:255',
             'retailer_name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:20',
+            'security_question1' => 'required|string|max:255',
+            'security_answer1' => 'required|string|max:255',
+            'security_question2' => 'required|string|max:255',
+            'security_answer2' => 'required|string|max:255',
+            'security_question3' => 'required|string|max:255',
+            'security_answer3' => 'required|string|max:255',
         ];
     }
 }

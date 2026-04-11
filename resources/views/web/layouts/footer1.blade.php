@@ -5,7 +5,7 @@
       <div class="flex items-center gap-3 justify-center md:justify-start">
         <img src="https://cdn-icons-gif.flaticon.com/10606/10606611.gif" alt="VisionTech Logo" class="w-8 h-8 rounded-lg">
         <h2 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-          VisionTech
+          LensPilot
         </h2>
       </div>
       <!-- Language Selector -->
@@ -37,14 +37,14 @@
       <div>
         <h3 class="font-semibold mb-3">Company</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="/aboutus1" class="hover:underline">About VisionTech</a></li>
+          <li><a href="/aboutus1" class="hover:underline">About LensPilot</a></li>
           <li><a href="#" class="hover:underline">Careers</a></li>
           <li><a href="#" class="hover:underline">Investors</a></li>
         </ul>
       </div>
-      <!-- More from VisionTech -->
+      <!-- More from LensPilot -->
       <div>
-        <h3 class="font-semibold mb-3">More from VisionTech</h3>
+        <h3 class="font-semibold mb-3">More from LensPilot</h3>
         <ul class="space-y-2 text-sm">
           <li><a href="#" class="hover:underline">Help Center</a></li>
           <li><a href="#" class="hover:underline">Businesses</a></li>
@@ -58,7 +58,7 @@
   <!-- Bottom Bar -->
   <div class="border-t border-gray-200 py-4">
     <div class="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row justify-center sm:justify-between items-center text-xs text-gray-500 space-y-4 sm:space-y-0 text-center">
-      <p>© 2025 VisionTech</p>
+      <p>© 2025 LensPilot</p>
       <div class="flex flex-wrap justify-center gap-x-4 gap-y-1">
         <a href="#" class="hover:underline">Copyright & Trademark</a>
         <a href="#" class="hover:underline">Terms of Service</a>

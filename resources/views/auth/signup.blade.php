@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VisionTech - Login & Signup</title>
+  <title>LensPilot - Login & Signup</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -401,7 +401,7 @@
                       <circle class="dot-pulse" cx="19" cy="19" r="3.2" fill="white" opacity="0.95"/>
                     </svg>
                   </div>
-                  <span class="logo-text">VisionTech</span>
+                  <span class="logo-text">LensPilot</span>
                 </a>
                 <a href="/" class="back-btn">
                   Back to website
@@ -448,7 +448,7 @@
                       <circle class="dot-pulse" cx="19" cy="19" r="3.2" fill="white" opacity="0.95"/>
                     </svg>
                   </div>
-                  <span class="logo-text">VisionTech</span>
+                  <span class="logo-text">LensPilot</span>
                 </a>
                 <a href="/" class="back-btn">
                   Back to website
@@ -493,7 +493,7 @@
                       <circle class="dot-pulse" cx="19" cy="19" r="3.2" fill="white" opacity="0.95"/>
                     </svg>
                   </div>
-                  <span class="logo-text">VisionTech</span>
+                  <span class="logo-text">LensPilot</span>
                 </a>
                 <a href="/" class="back-btn">
                   Back to website
@@ -554,7 +554,7 @@
             </label>
             <button type="submit" class="btn-primary" id="loginSubmitBtn">Login</button>
           </form>
-          
+          <p class="form-subtitle">Forgot your password? <a href="{{ route('password.request') }}">Reset it here</a></p>
         </div>
 
         <!-- SIGNUP -->
@@ -580,6 +580,24 @@
               <button type="button" class="toggle-pw" onclick="togglePw('signupPassword',this)">
                 <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M1.5 9C1.5 9 4 3.75 9 3.75C14 3.75 16.5 9 16.5 9C16.5 9 14 14.25 9 14.25C4 14.25 1.5 9 1.5 9Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="9" cy="9" r="2.25" stroke="currentColor" stroke-width="1.4"/></svg>
               </button>
+            </div>
+            <div class="field">
+              <input type="text" name="security_question1" placeholder="Security Question 1 (e.g., Mother's maiden name?)" required>
+            </div>
+            <div class="field">
+              <input type="text" name="security_answer1" placeholder="Answer to Question 1" required>
+            </div>
+            <div class="field">
+              <input type="text" name="security_question2" placeholder="Security Question 2 (e.g., First pet's name?)" required>
+            </div>
+            <div class="field">
+              <input type="text" name="security_answer2" placeholder="Answer to Question 2" required>
+            </div>
+            <div class="field">
+              <input type="text" name="security_question3" placeholder="Security Question 3 (e.g., Favorite color?)" required>
+            </div>
+            <div class="field">
+              <input type="text" name="security_answer3" placeholder="Answer to Question 3" required>
             </div>
             <label class="checkbox-label">
               <input type="checkbox" required> I agree to the <a href="#">Terms &amp; Conditions</a>

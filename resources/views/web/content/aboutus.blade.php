@@ -102,7 +102,7 @@
 
       {{-- Sub --}}
       <p class="font-dm font-light text-lg leading-relaxed text-gray-500 max-w-lg mb-12">
-        Vision Tech merges artificial intelligence, augmented reality, and modern optical
+        LensPilot merges artificial intelligence, augmented reality, and modern optical
         technology — empowering retailers and elevating every customer's experience.
       </p>
 
@@ -136,7 +136,7 @@
           Optical Intelligence<br>at Scale
         </h2>
         <p class="font-dm font-light text-base leading-[1.9] text-gray-500 mb-4">
-          At <span class="font-medium text-blue-600">Vision Tech</span>, we create cutting-edge eyewear solutions
+          At <span class="font-medium text-blue-600">LensPilot</span>, we create cutting-edge eyewear solutions
           at the intersection of precision engineering and elegant user experience.
         </p>
         <p class="font-dm font-light text-base leading-[1.9] text-gray-500">
@@ -146,7 +146,7 @@
       </div>
 
       <div class="relative">
-        <img src="{{ asset('images/aboutus1.jpg') }}" alt="Vision Tech team"
+        <img src="{{ asset('images/aboutus1.jpg') }}" alt="LensPilot team"
              class="w-full aspect-[4/3] object-cover rounded-2xl">
         <div class="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-6 bg-slate-100 border border-blue-100 rounded-xl px-4 sm:px-6 py-3 sm:py-5 shadow-lg backdrop-blur-xl">
           <p class="font-dm font-extrabold text-3xl text-blue-600">98%</p>
@@ -296,7 +296,7 @@
 
     <div class="grid sm:grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100 border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
       @foreach([
-        ['hunain.png','Hunain','Co-Founder & CEO','Visionary behind Vision Tech. Obsessed with bridging emerging tech and real-world retail problems.','in','tw','reveal-d1'],
+        ['hunain.png','Hunain','Co-Founder & CEO','Visionary behind LensPilot. Obsessed with bridging emerging tech and real-world retail problems.','in','tw','reveal-d1'],
         ['shoaib.png','Shoaib','Lead Engineer','Architects the AI and AR pipelines. Believes in shipping working software, not polished demos.','gh','in','reveal-d2'],
         ['pic3.png','Designer','Product Designer','Crafts every interaction from the lens selector to the retailer dashboard with precision and empathy.','be','in','reveal-d3'],
       ] as [$img,$name,$role,$bio,$s1,$s2,$delay])
@@ -325,7 +325,7 @@
         Ready to transform your store?
       </h2>
       <div class="w-14 h-px mx-auto my-5 bg-white/30"></div>
-      <p class="font-dm font-light text-white/75 mb-10 text-base">Join the retailers already using Vision Tech to sell smarter.</p>
+      <p class="font-dm font-light text-white/75 mb-10 text-base">Join the retailers already using LensPilot to sell smarter.</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a href="#" class="inline-flex items-center gap-2.5 bg-white hover:bg-blue-50 transition-colors text-blue-700 font-medium text-sm px-8 py-3.5 rounded-lg shadow-lg">
           Contact Sales

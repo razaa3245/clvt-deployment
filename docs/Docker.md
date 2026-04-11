@@ -10,6 +10,12 @@ docker compose up --build -d
 
 Open: http://localhost:8080
 
+Email Testing
+- The compose stack includes MailHog for testing email functionality.
+- MailHog captures all outgoing emails and provides a web UI to view them.
+- Access the MailHog web UI at: http://localhost:8025
+- Emails are sent via SMTP to localhost:1025 (configured in the app container).
+
 Database
 - The compose stack runs MySQL in the `db` service.
 - To avoid collisions with a host MySQL (for example XAMPP which commonly binds to 3306), the service is published on host port 3307 by default. In `docker-compose.yml` you'll see `3307:3306`.
@@ -24,6 +30,8 @@ docker compose exec app composer install
 
 # run migrations
 docker compose exec app php artisan migrate --force
+
+# test forgot password: visit http://localhost:8080/login, click "Forgot Password?", enter an email, check http://localhost:8025 for the email
 
 # enter a shell in the app container
 docker compose exec app bash
