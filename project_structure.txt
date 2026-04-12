@@ -1,0 +1,240 @@
+.
+├── README.md
+├── app
+│   ├── Http
+│   │   ├── Controllers
+│   │   │   ├── AdminController.php
+│   │   │   ├── Api
+│   │   │   │   ├── AdminController.php
+│   │   │   │   ├── AnalyticsController.php
+│   │   │   │   ├── AuthController.php
+│   │   │   │   ├── CustomerController.php
+│   │   │   │   ├── LensController.php
+│   │   │   │   ├── QrCodeController.php
+│   │   │   │   ├── ShopkeeperController.php
+│   │   │   │   ├── SubscriptionController.php
+│   │   │   │   └── TryOnController.php
+│   │   │   ├── Auth
+│   │   │   │   ├── LoginController.php
+│   │   │   │   └── RegisterController.php
+│   │   │   ├── ContactController.php
+│   │   │   ├── Controller.php
+│   │   │   ├── LensController.php
+│   │   │   ├── MController.php
+│   │   │   ├── ShopKeeperController.php
+│   │   │   ├── SubscriptionController.php
+│   │   │   └── UserController.php
+│   │   ├── Middleware
+│   │   │   └── CheckAuthenticated.php
+│   │   ├── Requests
+│   │   │   ├── AdminRequest.php
+│   │   │   ├── AnalyticsRequest.php
+│   │   │   ├── CustomerRequest.php
+│   │   │   ├── LensRequest.php
+│   │   │   ├── QrCodeRequest.php
+│   │   │   ├── ShopkeeperRequest.php
+│   │   │   ├── SubscriptionRequest.php
+│   │   │   ├── TryOnRequest.php
+│   │   │   └── UserRequest.php
+│   │   └── Resources
+│   │       ├── AdminResource.php
+│   │       ├── AnalyticsResource.php
+│   │       ├── CustomerResource.php
+│   │       ├── LensResource.php
+│   │       ├── QrCodeResource.php
+│   │       ├── ShopkeeperResource.php
+│   │       ├── SubscriptionResource.php
+│   │       └── TryOnResource.php
+│   ├── Models
+│   │   ├── Admin.php
+│   │   ├── Analytics.php
+│   │   ├── Contact.php
+│   │   ├── Customer.php
+│   │   ├── Lens.php
+│   │   ├── QrCode.php
+│   │   ├── Shopkeeper.php
+│   │   ├── Subscription.php
+│   │   ├── TryOn.php
+│   │   └── User.php
+│   ├── Providers
+│   │   └── AppServiceProvider.php
+│   └── Services
+│       ├── AdminService.php
+│       ├── AnalyticsService.php
+│       ├── CustomerService.php
+│       ├── LensService.php
+│       ├── QrCodeService.php
+│       ├── ShopkeeperService.php
+│       ├── SubscriptionService.php
+│       ├── TryOnService.php
+│       └── UserService.php
+├── artisan
+├── bootstrap
+│   ├── app.php
+│   ├── cache
+│   │   ├── packages.php
+│   │   └── services.php
+│   └── providers.php
+├── composer.json
+├── composer.lock
+├── config
+│   ├── app.php
+│   ├── auth.php
+│   ├── cache.php
+│   ├── database.php
+│   ├── filesystems.php
+│   ├── logging.php
+│   ├── mail.php
+│   ├── queue.php
+│   ├── sanctum.php
+│   ├── services.php
+│   └── session.php
+├── database
+│   ├── database.sqlite
+│   ├── factories
+│   │   └── UserFactory.php
+│   ├── migrations
+│   │   ├── 0001_01_01_000000_create_users_table.php
+│   │   ├── 0001_01_01_000001_create_cache_table.php
+│   │   ├── 0001_01_01_000002_create_jobs_table.php
+│   │   ├── 2025_10_25_075003_create_personal_access_tokens_table.php
+│   │   ├── 2025_11_02_122503_create_admins_table.php
+│   │   ├── 2025_11_02_122504_create_shopkeepers_table.php
+│   │   ├── 2025_11_02_122506_create_subscriptions_table.php
+│   │   ├── 2025_11_02_122509_create_lenses_table.php
+│   │   ├── 2025_11_02_122511_create_customers_table.php
+│   │   ├── 2025_11_02_122512_create_try_ons_table.php
+│   │   ├── 2025_11_02_122514_create_qr_codes_table.php
+│   │   ├── 2025_11_02_122516_create_analytics_table.php
+│   │   ├── 2025_11_06_105043_add_type_to_users.php
+│   │   ├── 2025_11_07_082537_add_is_approved_to_users.php
+│   │   └── 2025_11_08_050510_create_contacts_table.php
+│   └── seeders
+│       └── DatabaseSeeder.php
+├── package-lock.json
+├── package.json
+├── phpunit.xml
+├── postcss.config.js
+├── project_structure.txt
+├── public
+│   ├── favicon.ico
+│   ├── hot
+│   ├── images
+│   │   ├── Background_video.mp4
+│   │   ├── aboutus1.jpg
+│   │   ├── aboutus2.jpg
+│   │   ├── aboutus3.jpg
+│   │   ├── ahmed.png
+│   │   ├── company2.png
+│   │   ├── company3.jpg
+│   │   ├── company4.jpg
+│   │   ├── company4.png
+│   │   ├── cuttingar.jpeg
+│   │   ├── front1.jpg
+│   │   ├── hunain.png
+│   │   ├── image.jpg
+│   │   ├── img1.jpeg
+│   │   ├── shoaib.png
+│   │   └── working.jpeg
+│   ├── index.php
+│   └── robots.txt
+├── python
+│   ├── lens_model.py
+│   ├── lenses.png
+│   ├── lenses1.png
+│   └── lenses2.png
+├── resources
+│   ├── css
+│   │   └── app.css
+│   ├── js
+│   │   ├── app.js
+│   │   └── bootstrap.js
+│   └── views
+│       ├── admin
+│       │   └── admindashboard.blade.php
+│       ├── auth
+│       │   ├── after-login-choice.blade.php
+│       │   └── signup.blade.php
+│       ├── layouts
+│       │   ├── app.blade.php
+│       │   ├── auth.blade.php
+│       │   ├── navbar.blade.php
+│       │   └── sidebar.blade.php
+│       ├── lense
+│       │   └── index.blade.php
+│       ├── partials
+│       │   └── header.blade.php
+│       ├── qrcodes
+│       │   └── index.blade.php
+│       ├── shopkeeper
+│       │   ├── shopkeeper.blade.php
+│       │   └── shopkeeperdashboard.blade.php
+│       ├── tryons
+│       │   └── index.blade.php
+│       ├── web
+│       │   ├── content
+│       │   │   ├── aboutus.blade.php
+│       │   │   ├── analytics.blade.php
+│       │   │   ├── catalog.blade.php
+│       │   │   ├── catalog1.blade.php
+│       │   │   ├── contact.blade.php
+│       │   │   ├── feature.blade.php
+│       │   │   ├── head.blade.php
+│       │   │   ├── messages.blade.php
+│       │   │   ├── price.blade.php
+│       │   │   ├── tech.blade.php
+│       │   │   └── work.blade.php
+│       │   ├── index.blade.php
+│       │   └── layouts
+│       │       ├── footer.blade.php
+│       │       ├── footer1.blade.php
+│       │       ├── header.blade.php
+│       │       ├── navbar.blade.php
+│       │       ├── navbar1.blade.php
+│       │       └── sidebar.blade.php
+│       └── welcome.blade.php
+├── routes
+│   ├── api.php
+│   ├── console.php
+│   └── web.php
+├── storage
+│   ├── app
+│   │   └── public
+│   │       └── qr_codes
+│   │           └── qr_69916f4e9dc91.png
+│   ├── framework
+│   │   ├── cache
+│   │   │   └── data
+│   │   ├── sessions
+│   │   ├── testing
+│   │   └── views
+│   │       ├── 0011877debe01bb15d73eb5f00eb54ca.php
+│   │       ├── 05f7269be4c349dcf19161ef3f76de41.php
+│   │       ├── 20f052a205d6264d8c726f8d6ae80ccb.php
+│   │       ├── 360b58070394742df1cade04da1fbdd7.php
+│   │       ├── 5321b2585e661c8c8eca1f98ecad28dd.php
+│   │       ├── 61057ba6f16501830cb362fa5f744517.php
+│   │       ├── 63732287656ffce35e29a063674ad551.php
+│   │       ├── 918760323da769834c6ce0797df0ce0e.php
+│   │       ├── ab3362b15b48688e9913bc468a66f911.php
+│   │       ├── bad4286a877bec4ce06bef4565ad47c1.php
+│   │       ├── bbf8cc60d171cb71e2544332707d5a57.php
+│   │       ├── cd740e866125d4330a9166b80bce35f1.php
+│   │       ├── d3a0351df366db80b4d8de13b3bbd240.php
+│   │       ├── de81e76aa561d38a39d0e896997f6452.php
+│   │       ├── e1da0de434f434ff7b128dcf66c174ba.php
+│   │       ├── e585965fdb27c84c1ed1e4fa4db68563.php
+│   │       ├── ec4b44299c148a35357444114901c2cb.php
+│   │       └── f55068e0aa40cd4793c4fa380f33eb13.php
+│   └── logs
+│       └── laravel.log
+├── tailwind.config.js
+├── tests
+│   ├── Feature
+│   │   └── ExampleTest.php
+│   ├── TestCase.php
+│   └── Unit
+│       └── ExampleTest.php
+└── vite.config.js
+
+52 directories, 186 files

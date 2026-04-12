@@ -1,0 +1,14 @@
+.git
+.github
+.env
+.env.*
+vendor
+node_modules
+storage
+public/storage
+.idea
+.vscode
+docker-compose.override.yml
+npm-debug.log
+yarn-error.log
+/.dockerignore
