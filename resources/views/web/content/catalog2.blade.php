@@ -67,25 +67,61 @@
   /* Collapsed sidebar: tighter padding so avatar + hamburger never merge */
   .vt-sidebar:not(.open) .vt-header-row { padding: 10px 6px !important; gap: 4px !important; }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .app-shell { flex-direction: column; }
-    .vt-sidebar {
-      position: fixed !important;
-      top: auto !important; bottom: 0; left: 0; right: 0;
-      width: 100% !important; min-height: unset !important; height: auto !important;
-      flex-direction: row !important; justify-content: space-around !important;
-      align-items: center !important; padding: 0 !important;
-      border-right: none !important;
-      border-top: 1px solid rgba(255,255,255,.1) !important;
-      box-shadow: 0 -4px 20px rgba(0,0,0,.25) !important;
-    }
-    .vt-sidebar-desktop { display: none !important; }
-    .vt-sidebar-mobile { display: flex !important; }
-    .vt-main { padding-bottom: 72px !important; }
+  /* ── Mobile Bottom Navigation ── */
+  #mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    background: #0B1437;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+    box-shadow: 0 -4px 24px rgba(11,20,55,0.18);
   }
-  @media (min-width: 769px) {
-    .vt-sidebar-mobile { display: none !important; }
+  #mobile-bottom-nav .nav-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #mobile-bottom-nav .mob-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.2s;
+    color: rgba(255,255,255,0.5);
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    background: none;
+    border: none;
+    min-width: 52px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  #mobile-bottom-nav .mob-nav-item svg {
+    width: 22px; height: 22px;
+    flex-shrink: 0;
+  }
+  #mobile-bottom-nav .mob-nav-item.active { color: #3B82F6; background: rgba(59,130,246,0.12); }
+  #mobile-bottom-nav .mob-nav-item:not(.active):hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85); }
+  #mobile-bottom-nav .mob-nav-item.logout-item { color: rgba(239,68,68,0.75); }
+  #mobile-bottom-nav .mob-nav-item.logout-item:hover { background: rgba(239,68,68,0.08); }
+
+  /* Responsive */
+  @media (max-width: 767px) {
+    .vt-sidebar { display: none !important; }
+    #mobile-bottom-nav { display: block; }
+    .vt-main { padding-bottom: 80px !important; margin-left: 0 !important; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    #mobile-bottom-nav { display: none !important; }
+    .vt-main { margin-left: 80px; }
+  }
+  @media (min-width: 1024px) {
+    #mobile-bottom-nav { display: none !important; }
   }
 
   /* ── Responsive header ── */
@@ -186,23 +222,46 @@
     </button>
   </div>
 
-  <!-- MOBILE tabs -->
-  <div class="vt-sidebar-mobile" style="display:none;width:100%;align-items:center;justify-content:space-around;padding:6px 0 8px;">
-    <a href="/admin/dashboard" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:6px 18px;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,.55)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-      <span style="color:rgba(255,255,255,.55);font-size:10px;">Dashboard</span>
+</aside>
+
+<!-- MOBILE BOTTOM NAVIGATION -->
+<nav id="mobile-bottom-nav" role="navigation" aria-label="Mobile navigation">
+  <div class="nav-items">
+    <a href="/admin/dashboard" class="mob-nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+      Dashboard
     </a>
-    <a href="/shopkeeper/catalog1" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:6px 18px;border-radius:12px;background:rgba(59,130,246,.25);">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#fff"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-      <span style="color:#fff;font-size:10px;font-weight:700;">Catalog</span>
+    <a href="/catalog" class="mob-nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      Catalog
     </a>
-    <button onclick="logout()" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;cursor:pointer;padding:6px 18px;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="rgba(239,68,68,.85)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-      <span style="color:rgba(239,68,68,.85);font-size:10px;">Logout</span>
+    <a href="/shopkeeper/catalog2" class="mob-nav-item active">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <rect x="3" y="7" width="18" height="13" rx="2" stroke-width="2"/>
+        <circle cx="12" cy="13" r="3" stroke-width="2"/>
+        <path stroke-width="2" d="M8 7l2-2h4l2 2"/>
+      </svg>
+      Try-On
+    </a>
+    <a href="/admin/messages" class="mob-nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      Approvals
+    </a>
+    <button onclick="logout()" class="mob-nav-item logout-item">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      </svg>
+      Logout
     </button>
   </div>
-
-</aside>
+</nav>
 
   <div class="vt-main" style="flex:1;display:flex;flex-direction:column;overflow-x:hidden;font-family:'Plus Jakarta Sans',sans-serif;">
     <header class="vt-header" style="position:sticky;top:0;z-index:40;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid #E8EDF6;flex-wrap:wrap;gap:8px;">
