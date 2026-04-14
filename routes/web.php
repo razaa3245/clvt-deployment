@@ -44,12 +44,7 @@ Route::get('/contact-us',fn() => view('web.content.contact'))->name('contactus')
 // Contact form submission
 Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
-///TEMP PASS SETUP
-Route::get('/setup-admin-secret-xyz123', function () {
-    \App\Models\User::where('email', 'test@example.com')
-        ->update(['password' => \Illuminate\Support\Facades\Hash::make('admin1234')]);
-    return 'Admin password updated!';
-});
+
 
 
 // ═══════════════════════════════════════════════
@@ -85,6 +80,13 @@ Route::prefix('subscription')->name('subscription.')->group(function () {
 // ═══════════════════════════════════════════════
 Route::get('/lenses', [LensController::class, 'index'])->name('lenses.index');
 
+
+///TEMP PASS SETUP
+Route::get('/setup-admin-secret-xyz123', function () {
+    \App\Models\User::where('email', 'test@example.com')
+        ->update(['password' => \Illuminate\Support\Facades\Hash::make('admin1234')]);
+    return 'Admin password updated!';
+});
 
 // ═══════════════════════════════════════════════
 // SHOPKEEPER APPROVAL (admin actions)
