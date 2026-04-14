@@ -1,21 +1,11 @@
-# Multi-stage Dockerfile for Laravel app
-# Stage 1: node build (optional - builds front-end assets)
-FROM node:18-bullseye AS node-builder
-WORKDIR /var/www/html
-COPY package.json package-lock.json* ./
-RUN npm ci --silent || npm install --silent
-COPY resources/ resources/
-COPY vite.config.js .
-RUN npm run build --silent || true
-
-# Stage 2: build PHP image with Composer
+# ── Single stage: PHP + Nginx (assets committed to repo) ─────────────────────
 FROM php:8.2-fpm-bullseye
 
-ARG user=www-data
 WORKDIR /var/www/html
 
-# Install system dependencies
+# ── System dependencies ───────────────────────────────────────────────────────
 RUN apt-get update && apt-get install -y \
+    nginx \
     git \
     curl \
     zip \
@@ -28,29 +18,52 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
+# ── PHP extensions ────────────────────────────────────────────────────────────
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) pdo pdo_mysql mbstring exif pcntl bcmath gd zip xml
+    && docker-php-ext-install -j$(nproc) \
+        pdo \
+        pdo_mysql \
+        mbstring \
+        exif \
+        pcntl \
+        bcmath \
+        gd \
+        zip \
+        xml
 
-# Install Composer
+# ── Composer ──────────────────────────────────────────────────────────────────
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy only composer files to install dependencies
+# ── PHP dependencies ──────────────────────────────────────────────────────────
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --prefer-dist --no-interaction --no-progress || true
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --prefer-dist \
+    --no-interaction \
+    --no-progress \
+    --optimize-autoloader
 
-# Copy application
+# ── Copy application source (includes committed public/build) ─────────────────
 COPY . /var/www/html
 
-# If node built assets exist, copy them in
-# Note: front-end assets built in a separate stage are optional. If you
-# want to integrate the built files, copy them from the node-builder stage
-# here (ensure the path exists in your project), e.g.:
-# COPY --from=node-builder /var/www/html/dist /var/www/html/public/dist
+# ── Nginx config ──────────────────────────────────────────────────────────────
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/sites-enabled/default
 
-# Ensure storage and bootstrap cache dirs exist
-RUN chown -R ${user}:${user} /var/www/html/storage /var/www/html/bootstrap/cache || true
+# ── Entrypoint ────────────────────────────────────────────────────────────────
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-EXPOSE 9000
+# ── Storage & cache dirs ──────────────────────────────────────────────────────
+RUN mkdir -p /var/www/html/storage/logs \
+             /var/www/html/storage/framework/cache \
+             /var/www/html/storage/framework/sessions \
+             /var/www/html/storage/framework/views \
+             /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-CMD ["php-fpm"]
+EXPOSE 8080
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
